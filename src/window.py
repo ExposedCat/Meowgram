@@ -39,10 +39,10 @@ class MeowgramWindow(Handy.ApplicationWindow):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        self.main_leaflet.connect("notify::folded", self.on_leaflet_notify)
         self.back_button.connect("clicked", self.on_back_button_clicked)
 
-        self.back_button.set_visible(self.main_leaflet.get_folded())
+        self.main_leaflet.bind_property("folded", self.back_button, "visible")
+        self.main_leaflet.bind_property("folded", self.headerbar_group, "decorate-all")
         self.popover_init()
 
         for index in range(10):
@@ -51,11 +51,6 @@ class MeowgramWindow(Handy.ApplicationWindow):
                 self.message_box.add(MessageRow(1))
             else:
                 self.message_box.add(MessageRow(0))
-
-    def on_leaflet_notify(self, widget, event):
-        is_folded = widget.get_folded()
-        self.back_button.set_visible(is_folded)
-        self.headerbar_group.set_decorate_all(is_folded)
 
     def on_back_button_clicked(self, widget):
         self.main_leaflet.set_visible_child_name("contacts_pane")
