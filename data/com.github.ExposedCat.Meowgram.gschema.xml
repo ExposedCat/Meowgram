@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="meowgram">
+	<schema id="com.github.ExposedCat.Meowgram" path="/com/github/ExposedCat/Meowgram/">
+	</schema>
+</schemalist>

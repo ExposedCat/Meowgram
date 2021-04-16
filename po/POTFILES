@@ -1,0 +1,7 @@
+data/com.github.ExposedCat.Meowgram.desktop.in
+data/com.github.ExposedCat.Meowgram.appdata.xml.in
+data/com.github.ExposedCat.Meowgram.gschema.xml
+src/window.ui
+src/main.py
+src/window.py
+
