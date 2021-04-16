@@ -1,14 +1,3 @@
-pkgdatadir = join_paths(get_option('prefix'), get_option('datadir'), meson.project_name())
-moduledir = join_paths(pkgdatadir, 'meowgram')
-gnome = import('gnome')
-
-gnome.compile_resources('meowgram',
-  'meowgram.gresource.xml',
-  gresource_bundle: true,
-  install: true,
-  install_dir: pkgdatadir,
-)
-
 python = import('python')
 
 conf = configuration_data()
@@ -26,7 +15,6 @@ configure_file(
 )
 
 meowgram_sources = [
-  '__init__.py',
   'main.py',
   'window.py',
 ]
