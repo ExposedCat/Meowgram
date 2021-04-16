@@ -34,6 +34,14 @@ class Application(Gtk.Application):
     
     def do_startup(self):
         Gtk.Application.do_startup(self)
+
+        css_provider = Gtk.CssProvider()
+        css_provider.load_from_resource('/com/github/ExposedCat/Meowgram/style.css')
+        screen = Gdk.Screen.get_default()
+        Gtk.StyleContext.add_provider_for_screen(
+            screen, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
+        )
+
         Gtk.init(sys.argv)
         Gst.init(sys.argv)
         Handy.init()
