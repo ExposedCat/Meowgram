@@ -39,11 +39,8 @@ class MeowgramWindow(Handy.ApplicationWindow):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        self.main_leaflet.connect("notify::folded", self.on_leaflet_notify)
-        self.back_button.connect("clicked", self.on_back_button_clicked)
-
-        self.back_button.set_visible(self.main_leaflet.get_folded())
-        self.popover_init()
+        self.main_leaflet.bind_property("folded", self.back_button, "visible")
+        self.main_leaflet.bind_property("folded", self.headerbar_group, "decorate-all")
 
         for index in range(10):
             self.contacts_listbox.insert(ContactRow(), -1)
@@ -52,24 +49,9 @@ class MeowgramWindow(Handy.ApplicationWindow):
             else:
                 self.message_box.add(MessageRow(0))
 
-    def on_leaflet_notify(self, widget, event):
-        is_folded = widget.get_folded()
-        self.back_button.set_visible(is_folded)
-        self.headerbar_group.set_decorate_all(is_folded)
-
+    @Gtk.Template.Callback()
     def on_back_button_clicked(self, widget):
         self.main_leaflet.set_visible_child_name("contacts_pane")
-
-    def popover_init(self):
-        builder = Gtk.Builder()
-        builder.add_from_resource('/com/github/ExposedCat/Meowgram/ui/menus.ui')
-        menu_model = builder.get_object('primary_menu')
-        popover = Gtk.Popover.new_from_model(self.menu_button, menu_model)
-        self.menu_button.set_popover(popover)
-
-        submenu_model = builder.get_object('submenu')
-        popover = Gtk.Popover.new_from_model(self.submenu_button, submenu_model)
-        self.submenu_button.set_popover(popover)
 
 
 @Gtk.Template(resource_path='/com/github/ExposedCat/Meowgram/ui/contact.ui')
