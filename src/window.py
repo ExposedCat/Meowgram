@@ -22,7 +22,7 @@ gi.require_version('Handy', '1')
 from gi.repository import Gdk, Gio, GLib, Gtk, Handy
 
 
-@Gtk.Template(resource_path='/com/github/ExposedCat/Meowgram/window.ui')
+@Gtk.Template(resource_path='/com/github/ExposedCat/Meowgram/ui/window.ui')
 class MeowgramWindow(Handy.ApplicationWindow):
     __gtype_name__ = 'MeowgramWindow'
 
@@ -62,7 +62,7 @@ class MeowgramWindow(Handy.ApplicationWindow):
 
     def popover_init(self):
         builder = Gtk.Builder()
-        builder.add_from_resource('/com/github/ExposedCat/Meowgram/menus.ui')
+        builder.add_from_resource('/com/github/ExposedCat/Meowgram/ui/menus.ui')
         menu_model = builder.get_object('primary_menu')
         popover = Gtk.Popover.new_from_model(self.menu_button, menu_model)
         self.menu_button.set_popover(popover)
@@ -72,7 +72,7 @@ class MeowgramWindow(Handy.ApplicationWindow):
         self.submenu_button.set_popover(popover)
 
 
-@Gtk.Template(resource_path='/com/github/ExposedCat/Meowgram/contact.ui')
+@Gtk.Template(resource_path='/com/github/ExposedCat/Meowgram/ui/contact.ui')
 class ContactRow(Handy.ActionRow):
     __gtype_name__ = 'ContactRow'
 
@@ -88,7 +88,7 @@ class ContactRow(Handy.ActionRow):
         self.time_label.set_label("22∶05")
 
 
-@Gtk.Template(resource_path='/com/github/ExposedCat/Meowgram/message.ui')
+@Gtk.Template(resource_path='/com/github/ExposedCat/Meowgram/ui/message.ui')
 class MessageRow(Gtk.Box):
     __gtype_name__ = 'MessageRow'
 
