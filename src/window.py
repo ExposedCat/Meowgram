@@ -26,7 +26,23 @@ from gi.repository import Gdk, Gio, GLib, Gtk, Handy
 class MeowgramWindow(Handy.ApplicationWindow):
     __gtype_name__ = 'MeowgramWindow'
 
-    
+    menu_button = Gtk.Template.Child()
+    submenu_button = Gtk.Template.Child()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+
+        self.popover_init()
+
+    def popover_init(self):
+
+        builder = Gtk.Builder()
+        builder.add_from_resource('/com/github/ExposedCat/Meowgram/menus.ui')
+        menu_model = builder.get_object('primary_menu')
+        popover = Gtk.Popover.new_from_model(self.menu_button, menu_model)
+        self.menu_button.set_popover(popover)
+
+        submenu_model = builder.get_object('submenu')
+        popover = Gtk.Popover.new_from_model(self.submenu_button, submenu_model)
+        self.submenu_button.set_popover(popover)
+        

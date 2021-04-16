@@ -2,5 +2,6 @@
 <gresources>
   <gresource prefix="/com/github/ExposedCat/Meowgram">
     <file>window.ui</file>
+    <file>menus.ui</file>
   </gresource>
 </gresources>
