@@ -24,7 +24,7 @@ from gi.repository import Gdk, Gio, GLib, Gtk, Handy
 
 @Gtk.Template(resource_path='/com/github/ExposedCat/Meowgram/window.ui')
 class MeowgramWindow(Handy.ApplicationWindow):
-    __gtype_name__ = 'meowgram_window'
+    __gtype_name__ = 'MeowgramWindow'
 
     
 
