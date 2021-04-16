@@ -19,8 +19,10 @@ import sys
 import gi
 
 gi.require_version('Gtk', '3.0')
-
-from gi.repository import Gtk, Gio
+gi.require_version('Handy', '1')
+gi.require_version('Gst', '1.0')
+gi.require_version('Gdk', '3.0')
+from gi.repository import Gio, Gtk, Handy, Gst, Gdk
 
 from .window import MeowgramWindow
 
@@ -29,6 +31,12 @@ class Application(Gtk.Application):
     def __init__(self):
         super().__init__(application_id='com.github.ExposedCat.Meowgram',
                          flags=Gio.ApplicationFlags.FLAGS_NONE)
+    
+    def do_startup(self):
+        Gtk.Application.do_startup(self)
+        Gtk.init(sys.argv)
+        Gst.init(sys.argv)
+        Handy.init()
 
     def do_activate(self):
         win = self.props.active_window

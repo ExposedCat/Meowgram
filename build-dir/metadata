@@ -7,3 +7,16 @@ command=meowgram
 [Context]
 shared=network;ipc;
 sockets=x11;wayland;fallback-x11;
+
+[Extension com.github.ExposedCat.Meowgram.Locale]
+directory=share/runtime/locale
+autodelete=true
+locale-subset=true
+
+[Extension com.github.ExposedCat.Meowgram.Debug]
+directory=lib/debug
+autodelete=true
+no-autodownload=true
+
+[Build]
+built-extensions=com.github.ExposedCat.Meowgram.Locale;com.github.ExposedCat.Meowgram.Debug;

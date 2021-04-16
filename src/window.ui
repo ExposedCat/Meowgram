@@ -2,7 +2,7 @@
 <!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.24"/>
-  <requires lib="libhandy" version="0.0"/>
+  <requires lib="libhandy" version="1.0"/>
   <object class="GtkPopover" id="accounts_menu">
     <property name="name">accounts_menu</property>
     <property name="can-focus">False</property>
@@ -298,7 +298,7 @@
       </object>
     </child>
   </object>
-  <object class="HdyApplicationWindow" id="meowgram_window">
+  <template class="meowgram_window" parent="HdyApplicationWindow">
     <property name="name">meowgram_window</property>
     <property name="can-focus">False</property>
     <property name="title" translatable="yes">Meowgram</property>
@@ -601,7 +601,7 @@
         </child>
       </object>
     </child>
-  </object>
+  </template>
   <object class="GtkPopover" id="pm_menu">
     <property name="name">pm_menu</property>
     <property name="can-focus">False</property>
