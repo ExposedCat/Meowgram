@@ -281,6 +281,7 @@
                     <property name="visible">False</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
+                    <signal name="clicked" handler="on_back_button_clicked"/>
                     <child>
                       <object class="GtkImage">
                         <property name="visible">True</property>

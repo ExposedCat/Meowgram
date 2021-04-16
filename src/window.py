@@ -39,8 +39,6 @@ class MeowgramWindow(Handy.ApplicationWindow):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        self.back_button.connect("clicked", self.on_back_button_clicked)
-
         self.main_leaflet.bind_property("folded", self.back_button, "visible")
         self.main_leaflet.bind_property("folded", self.headerbar_group, "decorate-all")
         self.popover_init()
@@ -52,6 +50,7 @@ class MeowgramWindow(Handy.ApplicationWindow):
             else:
                 self.message_box.add(MessageRow(0))
 
+    @Gtk.Template.Callback()
     def on_back_button_clicked(self, widget):
         self.main_leaflet.set_visible_child_name("contacts_pane")
 
