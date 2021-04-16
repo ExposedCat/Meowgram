@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.38.2 -->
+<interface>
+  <requires lib="gtk+" version="3.24"/>
+  <requires lib="libhandy" version="1.0"/>
+  <template class="ContactRow" parent="HdyActionRow">
+    <property name="visible">True</property>
+    <property name="can-focus">True</property>
+    <child>
+      <object class="GtkLabel" id="time_label">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="valign">start</property>
+        <property name="margin-top">9</property>
+        <property name="label" translatable="yes">asdsdda</property>
+        <style>
+          <class name="dim-label"/>
+        </style>
+      </object>
+    </child>
+  </template>
+  <object class="GtkButton">
+    <property name="label" translatable="yes">button</property>
+    <property name="visible">True</property>
+    <property name="can-focus">True</property>
+    <property name="receives-default">True</property>
+  </object>
+  <object class="HdyAvatar" id="avatar">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="size">36</property>
+  </object>
+</interface>
