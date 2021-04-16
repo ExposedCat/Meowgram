@@ -29,7 +29,7 @@
             "sources" : [
                 {
                     "type" : "dir",
-                    "url" : "."
+                    "path" : "."
                 }
             ]
         }
