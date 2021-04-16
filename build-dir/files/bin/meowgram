@@ -1,4 +1,6 @@
-# window.py
+#!/usr/bin/python3
+
+# meowgram.in
 #
 # Copyright 2021 mew
 #
@@ -14,19 +16,26 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-import gi
-gi.require_version('Gtk', '3.0')
-gi.require_version('Gst', '1.0')
-gi.require_version('Gdk', '3.0')
-gi.require_version('Handy', '1')
-from gi.repository import Gdk, Gio, GLib, Gtk, Handy
 
+import os
+import sys
+import signal
+import gettext
 
-@Gtk.Template(resource_path='/com/github/ExposedCat/Meowgram/window.ui')
-class MeowgramWindow(Handy.ApplicationWindow):
-    __gtype_name__ = 'meowgram_window'
+VERSION = '0.1.0'
+pkgdatadir = '/app/share/meowgram'
+localedir = '/app/share/locale'
 
-    
+sys.path.insert(1, pkgdatadir)
+signal.signal(signal.SIGINT, signal.SIG_DFL)
+gettext.install('meowgram', localedir)
 
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+if __name__ == '__main__':
+    import gi
+
+    from gi.repository import Gio
+    resource = Gio.Resource.load(os.path.join(pkgdatadir, 'meowgram.gresource'))
+    resource._register()
+
+    from meowgram import main
+    sys.exit(main.main(VERSION))

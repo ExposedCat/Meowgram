@@ -23,13 +23,29 @@
     ],
     "modules" : [
         {
+            "name" : "libhandy",
+            "buildsystem" : "meson",
+            "config-opts": [
+                "-Dexamples=false",
+                "-Dglade_catalog=disabled",
+                "-Dtests=false",
+                "-Dvapi=false"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://gitlab.gnome.org/GNOME/libhandy.git"
+                }
+            ]
+        },
+        {
             "name" : "meowgram",
             "builddir" : true,
             "buildsystem" : "meson",
             "sources" : [
                 {
-                    "type" : "git",
-                    "url" : "file:///home/mew/gtk/Meowgram"
+                    "type" : "dir",
+                    "path" : "."
                 }
             ]
         }
