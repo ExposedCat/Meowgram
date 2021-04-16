@@ -28,8 +28,8 @@
             "buildsystem" : "meson",
             "sources" : [
                 {
-                    "type" : "git",
-                    "url" : "file:///home/mew/gtk/Meowgram"
+                    "type" : "dir",
+                    "url" : "."
                 }
             ]
         }
