@@ -14,12 +14,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-import gi
-gi.require_version('Gtk', '3.0')
-gi.require_version('Gst', '1.0')
-gi.require_version('Gdk', '3.0')
-gi.require_version('Handy', '1')
-from gi.repository import Gdk, Gio, GLib, Gtk, Handy
+
+from gi.repository import Gtk, Handy
 
 
 @Gtk.Template(resource_path='/com/github/ExposedCat/Meowgram/ui/window.ui')
@@ -115,4 +111,3 @@ class MessageRow(Gtk.Box):
         self.message_label.set_justify(Gtk.Justification.LEFT)
         self.message_style_context.add_class("message-in")
         self.message_style_context.remove_class("message-out")
-        
