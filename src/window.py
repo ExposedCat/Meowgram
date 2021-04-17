@@ -109,3 +109,7 @@ class MessageRow(Gtk.Box):
         self.message_label.set_halign(Gtk.Align.START)
         self.message_label.set_justify(Gtk.Justification.LEFT)
         self.message_style_context.add_class("message-in")
+<<<<<<< HEAD
+=======
+        self.message_style_context.remove_class("message-out")
+>>>>>>> b18bb30 (remove unnecessary imports)
