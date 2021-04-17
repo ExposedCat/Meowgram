@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist gettext-domain="meowgram">
 	<schema id="com.github.ExposedCat.Meowgram" path="/com/github/ExposedCat/Meowgram/">
+	  <key name="logged-in" type="b">
+      <default>false</default>
+      <summary>Logged in</summary>
+      <description>Is user logged into at least one account</description>
+    </key>
 	</schema>
 </schemalist>

@@ -17,6 +17,7 @@ configure_file(
 meowgram_sources = [
   'main.py',
   'window.py',
+  'login.py',
 ]
 
 install_data(meowgram_sources, install_dir: moduledir)
