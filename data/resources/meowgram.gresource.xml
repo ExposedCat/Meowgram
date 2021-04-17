@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
   <gresource prefix="/com/github/ExposedCat/Meowgram">
-    <file>ui/window.ui</file>
-    <file>ui/menus.ui</file>
-    <file>ui/contact.ui</file>
-    <file>ui/message.ui</file>
+    <file preprocess="xml-stripblanks">ui/window.ui</file>
+    <file preprocess="xml-stripblanks">ui/menus.ui</file>
+    <file preprocess="xml-stripblanks">ui/contact.ui</file>
+    <file preprocess="xml-stripblanks">ui/message.ui</file>
+    <file preprocess="xml-stripblanks">ui/login.ui</file>
+
+    <file preprocess="xml-stripblanks">icons/telegram.svg</file>
+    <file preprocess="xml-stripblanks">icons/phone-oldschool-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/fingerprint-symbolic.svg</file>
+
     <file>css/style.css</file>
   </gresource>
 </gresources>

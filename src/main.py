@@ -24,6 +24,7 @@ gi.require_version('Gst', '1.0')
 from gi.repository import Gio, Gtk, Handy, Gdk
 
 from .window import MeowgramWindow
+from .login import MeowgramLoginWindow
 
 
 class Application(Gtk.Application):
@@ -44,9 +45,24 @@ class Application(Gtk.Application):
         Handy.init()
 
     def do_activate(self):
+        if Gio.Settings("com.github.ExposedCat.Meowgram").get_boolean("logged-in"):
+            self.show_main_window()
+        else:
+            self.show_login_window()
+
+    def show_main_window(self):
         win = self.props.active_window
+        if isinstance(win, MeowgramLoginWindow):
+            win.close()
+            win = None
         if not win:
             win = MeowgramWindow(application=self)
+        win.present()
+
+    def show_login_window(self):
+        win = self.props.active_window
+        if not win:
+            win = MeowgramLoginWindow(application=self)
         win.present()
 
 
