@@ -4,6 +4,7 @@
     <property name="visible">True</property>
     <property name="default-width">500</property>
     <property name="default-height">500</property>
+    <property name="decorated">True</property>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
@@ -41,6 +42,7 @@
           <object class="GtkStack" id="page_stack">
             <property name="visible">True</property>
             <property name="transition-type">slide-left-right</property>
+            <signal name="notify::visible-child" handler="clear_entries"/>
             <child>
               <object class="GtkBox">
                 <property name="visible">True</property>
@@ -81,7 +83,7 @@
                         <property name="placeholder-text">Phone number</property>
                         <property name="input-purpose">phone</property>
                         <property name="margin-right">24</property>
-                        <signal name="changed" handler="on_number_changed" swapped="no"/>
+                        <signal name="changed" handler="on_text_changed" swapped="no"/>
                         <signal name="activate" handler="on_next_clicked" swapped="no"/>
                       </object>
                     </child>
@@ -140,7 +142,7 @@
                         <property name="input-purpose">digits</property>
                         <property name="margin-right">24</property>
                         <property name="max-length">5</property>
-                        <signal name="changed" handler="on_number_changed" swapped="no"/>
+                        <signal name="changed" handler="on_text_changed" swapped="no"/>
                         <signal name="activate" handler="on_next_clicked" swapped="no"/>
                       </object>
                     </child>
@@ -199,7 +201,7 @@
                         <property name="input-purpose">digits</property>
                         <property name="margin-right">24</property>
                         <property name="max-length">5</property>
-                        <signal name="changed" handler="on_number_changed" swapped="no"/>
+                        <signal name="changed" handler="on_text_changed" swapped="no"/>
                         <signal name="activate" handler="on_next_clicked" swapped="no"/>
                       </object>
                     </child>
@@ -250,6 +252,7 @@
                         <property name="input-purpose">password</property>
                         <property name="margin-right">24</property>
                         <property name="visibility">False</property>
+                        <signal name="changed" handler="on_text_changed" swapped="no"/>
                         <signal name="activate" handler="on_next_clicked" swapped="no"/>
                       </object>
                     </child>
