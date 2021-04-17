@@ -4,7 +4,6 @@
     <property name="visible">True</property>
     <property name="default-width">500</property>
     <property name="default-height">500</property>
-    <property name="decorated">True</property>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
@@ -13,6 +12,7 @@
           <object class="HdyHeaderBar">
             <property name="visible">True</property>
             <property name="title">Meowgram</property>
+            <property name="show-close-button">True</property>
             <child>
               <object class="GtkButton" id="prev_button">
                 <property name="visible">True</property>
