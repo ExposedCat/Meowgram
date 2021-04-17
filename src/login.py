@@ -38,26 +38,30 @@ class MeowgramLoginWindow(Handy.Window):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
+    @Gtk.Template.Callback()
+    def clear_entries(self, *_):
         for entry in [
+            self.phone_number,
             self.confirm_code,
             self.confirm_code_sms,
             self.password
-            ]:
-            entry.bind_property("text-length", self.next_button, "sensitive")
+        ]:
+            entry.set_text("")
 
     @Gtk.Template.Callback()
-    def on_number_changed(self, entry):
+    def on_text_changed(self, entry):
         text = entry.get_text()
+        is_empty = text == ''
         if entry.props.input_purpose == Gtk.InputPurpose.PHONE:
             text = re.sub(r'[^+\d \-()]', '', text)
-            if not re.match(r'\d', text):
-                text = ''
-            self.next_button.set_sensitive(bool(re.match(r'\d', text)))
+            is_empty = bool(re.fullmatch(r'\D*', text))
         elif entry.props.input_purpose == Gtk.InputPurpose.DIGITS:
             text = re.sub(r'\D', '', text)
+            is_empty = bool(re.fullmatch(r'\D*', text))
         if text != entry.get_text():
             entry.error_bell()
             entry.set_text(text)
+        self.next_button.set_sensitive(not is_empty)
 
     @Gtk.Template.Callback()
     def on_prev_clicked(self, w):
@@ -66,6 +70,7 @@ class MeowgramLoginWindow(Handy.Window):
             self.close()
         else:
             self.page_stack.set_visible_child_name('number')
+            self.prev_button.set_label("_Quit")
 
     @Gtk.Template.Callback()
     def on_next_clicked(self, w):
