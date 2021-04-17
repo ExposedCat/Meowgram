@@ -16,8 +16,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import sys
-import gi
 
+import gi
 gi.require_version('Gtk', '3.0')
 gi.require_version('Handy', '1')
 gi.require_version('Gst', '1.0')

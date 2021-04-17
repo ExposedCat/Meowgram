@@ -91,23 +91,21 @@ class MessageRow(Gtk.Box):
         self.message_style_context = self.message_label.get_style_context()
 
         if is_from_self:
-            self.set_from_self_mode()
+            self.set_message_in()
         else:
-            self.set_from_contact_mode()
+            self.set_message_out()
 
-    def set_from_self_mode(self):
+    def set_message_in(self):
         self.avatar.set_visible(False)
         self.message_label.set_margin_start(72)
         self.message_label.set_halign(Gtk.Align.END)
         self.message_label.set_justify(Gtk.Justification.RIGHT)
         self.message_style_context.add_class("message-out")
-        self.message_style_context.remove_class("message-in")
 
 
-    def set_from_contact_mode(self):
+    def set_message_out(self):
         self.avatar.set_visible(True)
         self.message_label.set_margin_end(72)
         self.message_label.set_halign(Gtk.Align.START)
         self.message_label.set_justify(Gtk.Justification.LEFT)
         self.message_style_context.add_class("message-in")
-        self.message_style_context.remove_class("message-out")
