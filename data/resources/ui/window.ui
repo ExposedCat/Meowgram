@@ -152,7 +152,6 @@
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
-                    <property name="menu-model">primary_menu</property>
                     <child>
                       <object class="GtkImage">
                         <property name="visible">True</property>
@@ -265,7 +264,6 @@
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
-                    <property name="menu-model">submenu</property>
                     <child>
                       <object class="GtkImage">
                         <property name="visible">True</property>
@@ -487,70 +485,4 @@
       <headerbar name="headerbar2"/>
     </headerbars>
   </object>
-  <menu id="primary_menu">
-    <section>
-      <item>
-        <attribute name="action">app.show-shortcuts</attribute>
-        <attribute name="label" translatable="yes">Create Group</attribute>
-      </item>
-      <item>
-        <attribute name="action">app.show-about</attribute>
-        <attribute name="label" translatable="yes">Create Channel</attribute>
-      </item>
-    </section>
-    <section>
-      <item>
-        <attribute name="action">app.show-shortcuts</attribute>
-        <attribute name="label" translatable="yes">Contacts</attribute>
-      </item>
-      <item>
-        <attribute name="action">app.show-about</attribute>
-        <attribute name="label" translatable="yes">Calls</attribute>
-      </item>
-    </section>
-    <section>
-      <item>
-        <attribute name="action">app.show-shortcuts</attribute>
-        <attribute name="label" translatable="yes">Preferences</attribute>
-      </item>
-    </section>
-    <section>
-      <item>
-        <attribute name="action">app.show-shortcuts</attribute>
-        <attribute name="label" translatable="yes">About Meowgram</attribute>
-      </item>
-    </section>
-  </menu>
-  <menu id="submenu">
-    <section>
-      <item>
-        <attribute name="action">app.show-shortcuts</attribute>
-        <attribute name="label" translatable="yes">Group Details</attribute>
-      </item>
-      <item>
-        <attribute name="action">app.show-about</attribute>
-        <attribute name="label" translatable="yes">Invite New Member</attribute>
-      </item>
-    </section>
-    <section>
-      <item>
-        <attribute name="action">app.show-shortcuts</attribute>
-        <attribute name="label" translatable="yes">Leave Group</attribute>
-      </item>
-    </section>
-  </menu>
-  <menu id="pm_menu">
-    <section>
-      <item>
-        <attribute name="action">app.show-shortcuts</attribute>
-        <attribute name="label" translatable="yes">View Profile</attribute>
-      </item>
-    </section>
-    <section>
-      <item>
-        <attribute name="action">app.show-shortcuts</attribute>
-        <attribute name="label" translatable="yes">Delete Chat</attribute>
-      </item>
-    </section>
-  </menu>
 </interface>

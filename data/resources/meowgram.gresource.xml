@@ -2,6 +2,7 @@
 <gresources>
   <gresource prefix="/com/github/ExposedCat/Meowgram">
     <file>ui/window.ui</file>
+    <file>ui/menus.ui</file>
     <file>ui/contact.ui</file>
     <file>ui/message.ui</file>
     <file>css/style.css</file>
