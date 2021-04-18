@@ -10,7 +10,7 @@ desktop_file = i18n.merge_file(
 pkgdatadir = join_paths(get_option('prefix'), get_option('datadir'), meson.project_name())
 gnome = import('gnome')
 
-gnome.compile_resources('kooha',
+gnome.compile_resources('meowgram',
   'meowgram.gresource.xml',
   gresource_bundle: true,
   install: true,
