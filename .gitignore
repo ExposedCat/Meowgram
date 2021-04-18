@@ -1,5 +1,6 @@
 *~
 _build
+build
 __pycache__
 .flatpak-builder/
 build-dir/
