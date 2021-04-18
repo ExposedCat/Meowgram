@@ -41,10 +41,7 @@ class MeowgramWindow(Handy.ApplicationWindow):
 
         for index in range(10):
             self.contacts_listbox.insert(ContactRow(), -1)
-            if index % 2:
-                self.message_box.add(MessageRow(1))
-            else:
-                self.message_box.add(MessageRow(0))
+            self.message_box.add(MessageRow(index % 2))
 
     @Gtk.Template.Callback()
     def on_back_button_clicked(self, widget):
