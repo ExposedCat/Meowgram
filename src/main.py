@@ -28,9 +28,12 @@ from .login import MeowgramLoginWindow
 
 
 class Application(Gtk.Application):
-    def __init__(self):
+    def __init__(self, version):
         super().__init__(application_id='com.github.ExposedCat.Meowgram',
                          flags=Gio.ApplicationFlags.FLAGS_NONE)
+
+        self.version = version
+        print(version)
 
     def do_startup(self):
         Gtk.Application.do_startup(self)
@@ -60,5 +63,5 @@ class Application(Gtk.Application):
 
 
 def main(version):
-    app = Application()
+    app = Application(version)
     return app.run(sys.argv)
