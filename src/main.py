@@ -45,24 +45,17 @@ class Application(Gtk.Application):
         Handy.init()
 
     def do_activate(self):
-        if Gio.Settings("com.github.ExposedCat.Meowgram").get_boolean("logged-in"):
-            self.show_main_window()
-        else:
-            self.show_login_window()
-
-    def show_main_window(self):
         win = self.props.active_window
-        if isinstance(win, MeowgramLoginWindow):
-            win.close()
-            win = None
         if not win:
-            win = MeowgramWindow(application=self)
+            if Gio.Settings("com.github.ExposedCat.Meowgram").get_boolean("logged-in"):
+                win = MeowgramWindow(application=self)
+            else:
+                win = MeowgramLoginWindow(application=self)
         win.present()
 
-    def show_login_window(self):
-        win = self.props.active_window
-        if not win:
-            win = MeowgramLoginWindow(application=self)
+    def show_main_window(self):
+        self.props.active_window.close()
+        win = MeowgramWindow(application=self)
         win.present()
 
 
