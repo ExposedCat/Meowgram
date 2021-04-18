@@ -72,14 +72,14 @@ class MeowgramLoginWindow(Handy.Window):
             self.close()
         else:
             self.page_stack.set_visible_child_name('number')
-            self.prev_button.set_label("_Quit")
+            self.prev_button.set_visible(False)
 
     @Gtk.Template.Callback()
     def on_next_clicked(self, w):
         current_page = self.page_stack.get_visible_child_name()
         if current_page == 'number':
             self.page_stack.set_visible_child_name('code')
-            self.prev_button.set_label("_Previous")
+            self.prev_button.set_visible(True)
             self.confirm_code.grab_focus()
         elif current_page in ['code', 'code-sms']:
             self.page_stack.set_visible_child_name('2fa-password')
