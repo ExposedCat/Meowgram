@@ -23,8 +23,8 @@ gi.require_version('Handy', '1')
 gi.require_version('Gst', '1.0')
 from gi.repository import Gio, Gtk, Handy, Gdk
 
-from .window import MeowgramWindow
-from .login import MeowgramLoginWindow
+from meowgram.window import MeowgramWindow
+from meowgram.login import MeowgramLoginWindow
 
 
 class Application(Gtk.Application):
