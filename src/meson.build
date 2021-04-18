@@ -14,12 +14,18 @@ configure_file(
   install_dir: get_option('bindir')
 )
 
+config_src = configure_file(
+    input: 'backend/login_utils.py',
+    output: '@BASENAME@',
+    configuration: config_data
+)
+
 meowgram_sources = [
   'main.py',
   'window.py',
   'login.py',
 
-  'backend/init_telethon.py'
+  'backend/login_utils.py'
 ]
 
 install_data(meowgram_sources, install_dir: moduledir)
