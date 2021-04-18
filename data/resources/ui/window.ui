@@ -126,6 +126,12 @@
       </object>
     </child>
   </object>
+  <object class="GtkPopover" id="popover1">
+    <property name="can-focus">False</property>
+    <child>
+      <placeholder/>
+    </child>
+  </object>
   <template class="MeowgramWindow" parent="HdyApplicationWindow">
     <property name="can-focus">False</property>
     <property name="default-width">700</property>
@@ -147,12 +153,58 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="show-close-button">True</property>
+                <property name="centering-policy">strict</property>
+                <child type="title">
+                  <object class="GtkMenuButton">
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="focus-on-click">False</property>
+                    <property name="receives-default">True</property>
+                    <property name="popover">popover1</property>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="label" translatable="yes">All Chats</property>
+                            <style>
+                              <class name="title"/>
+                            </style>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkImage">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="icon-name">pan-down-symbolic</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                    </child>
+                    <style>
+                      <class name="flat"/>
+                      <class name="header-dropdown"/>
+                    </style>
+                  </object>
+                </child>
                 <child>
                   <object class="GtkMenuButton" id="menu_button">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
-                    <property name="menu-model">primary_menu</property>
                     <child>
                       <object class="GtkImage">
                         <property name="visible">True</property>
@@ -265,7 +317,6 @@
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
-                    <property name="menu-model">submenu</property>
                     <child>
                       <object class="GtkImage">
                         <property name="visible">True</property>
@@ -280,10 +331,9 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="back_button">
-                    <property name="visible">False</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
-                    <signal name="clicked" handler="on_back_button_clicked"/>
+                    <signal name="clicked" handler="on_back_button_clicked" swapped="no"/>
                     <child>
                       <object class="GtkImage">
                         <property name="visible">True</property>
@@ -487,70 +537,4 @@
       <headerbar name="headerbar2"/>
     </headerbars>
   </object>
-  <menu id="primary_menu">
-    <section>
-      <item>
-        <attribute name="action">app.show-shortcuts</attribute>
-        <attribute name="label" translatable="yes">Create Group</attribute>
-      </item>
-      <item>
-        <attribute name="action">app.show-about</attribute>
-        <attribute name="label" translatable="yes">Create Channel</attribute>
-      </item>
-    </section>
-    <section>
-      <item>
-        <attribute name="action">app.show-shortcuts</attribute>
-        <attribute name="label" translatable="yes">Contacts</attribute>
-      </item>
-      <item>
-        <attribute name="action">app.show-about</attribute>
-        <attribute name="label" translatable="yes">Calls</attribute>
-      </item>
-    </section>
-    <section>
-      <item>
-        <attribute name="action">app.show-shortcuts</attribute>
-        <attribute name="label" translatable="yes">Preferences</attribute>
-      </item>
-    </section>
-    <section>
-      <item>
-        <attribute name="action">app.show-shortcuts</attribute>
-        <attribute name="label" translatable="yes">About Meowgram</attribute>
-      </item>
-    </section>
-  </menu>
-  <menu id="submenu">
-    <section>
-      <item>
-        <attribute name="action">app.show-shortcuts</attribute>
-        <attribute name="label" translatable="yes">Group Details</attribute>
-      </item>
-      <item>
-        <attribute name="action">app.show-about</attribute>
-        <attribute name="label" translatable="yes">Invite New Member</attribute>
-      </item>
-    </section>
-    <section>
-      <item>
-        <attribute name="action">app.show-shortcuts</attribute>
-        <attribute name="label" translatable="yes">Leave Group</attribute>
-      </item>
-    </section>
-  </menu>
-  <menu id="pm_menu">
-    <section>
-      <item>
-        <attribute name="action">app.show-shortcuts</attribute>
-        <attribute name="label" translatable="yes">View Profile</attribute>
-      </item>
-    </section>
-    <section>
-      <item>
-        <attribute name="action">app.show-shortcuts</attribute>
-        <attribute name="label" translatable="yes">Delete Chat</attribute>
-      </item>
-    </section>
-  </menu>
 </interface>

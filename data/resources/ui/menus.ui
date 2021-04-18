@@ -1,0 +1,66 @@
+<interface>
+  <menu id="primary_menu">
+    <section>
+      <item>
+        <attribute name="action">app.show-shortcuts</attribute>
+        <attribute name="label" translatable="yes">Create Group</attribute>
+      </item>
+      <item>
+        <attribute name="action">app.show-about</attribute>
+        <attribute name="label" translatable="yes">Create Channel</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="action">app.show-shortcuts</attribute>
+        <attribute name="label" translatable="yes">Contacts</attribute>
+      </item>
+      <item>
+        <attribute name="action">app.show-about</attribute>
+        <attribute name="label" translatable="yes">Calls</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="action">app.show-shortcuts</attribute>
+        <attribute name="label" translatable="yes">Preferences</attribute>
+      </item>
+      <item>
+        <attribute name="action">app.show-shortcuts</attribute>
+        <attribute name="label" translatable="yes">About Meowgram</attribute>
+      </item>
+    </section>
+  </menu>
+  <menu id="submenu">
+    <section>
+      <item>
+        <attribute name="action">app.show-shortcuts</attribute>
+        <attribute name="label" translatable="yes">Group Details</attribute>
+      </item>
+      <item>
+        <attribute name="action">app.show-about</attribute>
+        <attribute name="label" translatable="yes">Invite New Member</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="action">app.show-shortcuts</attribute>
+        <attribute name="label" translatable="yes">Leave Group</attribute>
+      </item>
+    </section>
+  </menu>
+  <menu id="pm_menu">
+    <section>
+      <item>
+        <attribute name="action">app.show-shortcuts</attribute>
+        <attribute name="label" translatable="yes">View Profile</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="action">app.show-shortcuts</attribute>
+        <attribute name="label" translatable="yes">Delete Chat</attribute>
+      </item>
+    </section>
+  </menu>
+</interface>

@@ -14,12 +14,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-import gi
-gi.require_version('Gtk', '3.0')
-gi.require_version('Gst', '1.0')
-gi.require_version('Gdk', '3.0')
-gi.require_version('Handy', '1')
-from gi.repository import Gdk, Gio, GLib, Gtk, Handy
+
+from gi.repository import Gtk, Handy
 
 
 @Gtk.Template(resource_path='/com/github/ExposedCat/Meowgram/ui/window.ui')
@@ -41,17 +37,26 @@ class MeowgramWindow(Handy.ApplicationWindow):
 
         self.main_leaflet.bind_property("folded", self.back_button, "visible")
         self.main_leaflet.bind_property("folded", self.headerbar_group, "decorate-all")
+        self.popover_init()
 
         for index in range(10):
             self.contacts_listbox.insert(ContactRow(), -1)
-            if index % 2:
-                self.message_box.add(MessageRow(1))
-            else:
-                self.message_box.add(MessageRow(0))
+            self.message_box.add(MessageRow(index % 2))
 
     @Gtk.Template.Callback()
     def on_back_button_clicked(self, widget):
         self.main_leaflet.set_visible_child_name("contacts_pane")
+
+    def popover_init(self):
+        builder = Gtk.Builder()
+        builder.add_from_resource('/com/github/ExposedCat/Meowgram/ui/menus.ui')
+        menu_model = builder.get_object('primary_menu')
+        popover = Gtk.Popover.new_from_model(self.menu_button, menu_model)
+        self.menu_button.set_popover(popover)
+
+        submenu_model = builder.get_object('submenu')
+        popover = Gtk.Popover.new_from_model(self.submenu_button, submenu_model)
+        self.submenu_button.set_popover(popover)
 
 
 @Gtk.Template(resource_path='/com/github/ExposedCat/Meowgram/ui/contact.ui')
@@ -83,24 +88,25 @@ class MessageRow(Gtk.Box):
         self.message_style_context = self.message_label.get_style_context()
 
         if is_from_self:
-            self.set_from_self_mode()
+            self.set_message_in()
         else:
-            self.set_from_contact_mode()
+            self.set_message_out()
 
-    def set_from_self_mode(self):
+    def set_message_in(self):
         self.avatar.set_visible(False)
         self.message_label.set_margin_start(72)
         self.message_label.set_halign(Gtk.Align.END)
         self.message_label.set_justify(Gtk.Justification.RIGHT)
         self.message_style_context.add_class("message-out")
-        self.message_style_context.remove_class("message-in")
 
 
-    def set_from_contact_mode(self):
+    def set_message_out(self):
         self.avatar.set_visible(True)
         self.message_label.set_margin_end(72)
         self.message_label.set_halign(Gtk.Align.START)
         self.message_label.set_justify(Gtk.Justification.LEFT)
         self.message_style_context.add_class("message-in")
+<<<<<<< HEAD
+=======
         self.message_style_context.remove_class("message-out")
-        
+>>>>>>> b18bb30 (remove unnecessary imports)
