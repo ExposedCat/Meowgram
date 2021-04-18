@@ -18,6 +18,8 @@ meowgram_sources = [
   'main.py',
   'window.py',
   'login.py',
+
+  'backend/init_telethon.py'
 ]
 
 install_data(meowgram_sources, install_dir: moduledir)
