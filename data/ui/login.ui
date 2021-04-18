@@ -17,12 +17,20 @@
               <object class="GtkButton" id="prev_button">
                 <property name="use-underline">True</property>
                 <signal name="clicked" handler="on_prev_clicked" swapped="no"/>
+                <accelerator signal="clicked" modifiers="GDK_MOD1_MASK" key="Left"/>
                 <child>
                   <object class="GtkImage">
                     <property name="visible">True</property>
                     <property name="icon-name">go-previous-symbolic</property>
                   </object>
                 </child>
+              </object>
+            </child>
+            <child type="title">
+              <object class="HdyCarouselIndicatorDots">
+                <property name="visible">True</property>
+                <property name="carousel">page_carousel</property>
+                <property name="hexpand">True</property>
               </object>
             </child>
             <child>
@@ -43,13 +51,14 @@
           </object>
         </child>
         <child>
-          <object class="GtkStack" id="page_stack">
+          <object class="HdyCarousel" id="page_carousel">
             <property name="visible">True</property>
-            <property name="transition-type">slide-left-right</property>
-            <signal name="notify::visible-child" handler="clear_entries"/>
+            <property name="interactive">False</property>
+            <signal name="page_changed" handler="clear_entries"/>
             <child>
-              <object class="GtkBox">
+              <object class="GtkBox" id="phone_page">
                 <property name="visible">True</property>
+                <property name="hexpand">True</property>
                 <property name="orientation">vertical</property>
                 <property name="halign">center</property>
                 <property name="valign">center</property>
@@ -94,178 +103,132 @@
                   </object>
                 </child>
               </object>
-              <packing>
-                <property name="name">number</property>
-              </packing>
             </child>
             <child>
-              <object class="GtkBox">
+              <object class="GtkStack" id="confirm_code_page">
                 <property name="visible">True</property>
-                <property name="orientation">vertical</property>
-                <property name="halign">center</property>
-                <property name="valign">center</property>
-                <property name="spacing">24</property>
+                <property name="transition-type">slide-left</property>
                 <child>
-                  <object class="GtkImage">
+                  <object class="GtkBox" id="code_tg_page">
                     <property name="visible">True</property>
-                    <property name="icon-name">fingerprint-symbolic</property>
-                    <property name="pixel-size">128</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="label">&lt;span weight=&quot;ultrabold&quot; size=&quot;xx-large&quot;&gt;Check your Telegram for code&lt;/span&gt;</property>
-                    <property name="use-markup">True</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="label">&lt;a href=&quot;&quot;&gt;Send code via SMS&lt;/a&gt;</property>
-                    <property name="use-markup">True</property>
-                    <signal name="activate-link" handler="switch_code_getting_method" swapped="no"/>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkBox">
-                    <property name="visible">True</property>
+                    <property name="hexpand">True</property>
+                    <property name="orientation">vertical</property>
                     <property name="halign">center</property>
-                    <property name="spacing">8</property>
-                    <property name="margin-top">12</property>
+                    <property name="valign">center</property>
+                    <property name="spacing">24</property>
                     <child>
                       <object class="GtkImage">
                         <property name="visible">True</property>
-                        <property name="icon-name">object-select-symbolic</property>
+                        <property name="icon-name">fingerprint-symbolic</property>
+                        <property name="pixel-size">128</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkEntry" id="confirm_code">
+                      <object class="GtkLabel">
                         <property name="visible">True</property>
-                        <property name="placeholder-text">Confirm code</property>
-                        <property name="input-purpose">digits</property>
-                        <property name="margin-right">24</property>
-                        <property name="max-length">5</property>
-                        <signal name="changed" handler="on_text_changed" swapped="no"/>
-                        <signal name="activate" handler="on_next_clicked" swapped="no"/>
+                        <property name="label">&lt;span weight=&quot;ultrabold&quot; size=&quot;xx-large&quot;&gt;Check your Telegram for code&lt;/span&gt;</property>
+                        <property name="use-markup">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="label">&lt;a href=&quot;&quot;&gt;Send code via SMS&lt;/a&gt;</property>
+                        <property name="use-markup">True</property>
+                        <signal name="activate-link" handler="switch_code_getting_method" swapped="no"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="halign">center</property>
+                        <property name="spacing">8</property>
+                        <property name="margin-top">12</property>
+                        <child>
+                          <object class="GtkImage">
+                            <property name="visible">True</property>
+                            <property name="icon-name">object-select-symbolic</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkEntry" id="confirm_code">
+                            <property name="visible">True</property>
+                            <property name="placeholder-text">Confirm code</property>
+                            <property name="input-purpose">digits</property>
+                            <property name="margin-right">24</property>
+                            <property name="max-length">5</property>
+                            <signal name="changed" handler="on_text_changed" swapped="no"/>
+                            <signal name="activate" handler="on_next_clicked" swapped="no"/>
+                          </object>
+                        </child>
                       </object>
                     </child>
                   </object>
-                </child>
-              </object>
-              <packing>
-                <property name="name">code</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkBox">
-                <property name="visible">True</property>
-                <property name="orientation">vertical</property>
-                <property name="halign">center</property>
-                <property name="valign">center</property>
-                <property name="spacing">24</property>
-                <child>
-                  <object class="GtkImage">
-                    <property name="visible">True</property>
-                    <property name="icon-name">phone-symbolic</property>
-                    <property name="pixel-size">128</property>
-                  </object>
+                  <packing>
+                    <property name="name">via-tg</property>
+                  </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel">
+                  <object class="GtkBox" id="code_sms_page">
                     <property name="visible">True</property>
-                    <property name="label">&lt;span weight=&quot;ultrabold&quot; size=&quot;xx-large&quot;&gt;Check your phone for SMS with code&lt;/span&gt;</property>
-                    <property name="use-markup">True</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="label">&lt;a href=&quot;&quot;&gt;Send code via Telegram&lt;/a&gt;</property>
-                    <property name="use-markup">True</property>
-                    <signal name="activate-link" handler="switch_code_getting_method" swapped="no"/>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkBox">
-                    <property name="visible">True</property>
+                    <property name="hexpand">True</property>
+                    <property name="orientation">vertical</property>
                     <property name="halign">center</property>
-                    <property name="spacing">8</property>
-                    <property name="margin-top">12</property>
+                    <property name="valign">center</property>
+                    <property name="spacing">24</property>
                     <child>
                       <object class="GtkImage">
                         <property name="visible">True</property>
-                        <property name="icon-name">object-select-symbolic</property>
+                        <property name="icon-name">phone-symbolic</property>
+                        <property name="pixel-size">128</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkEntry" id="confirm_code_sms">
+                      <object class="GtkLabel">
                         <property name="visible">True</property>
-                        <property name="placeholder-text">Confirm code</property>
-                        <property name="input-purpose">digits</property>
-                        <property name="margin-right">24</property>
-                        <property name="max-length">5</property>
-                        <signal name="changed" handler="on_text_changed" swapped="no"/>
-                        <signal name="activate" handler="on_next_clicked" swapped="no"/>
+                        <property name="label">&lt;span weight=&quot;ultrabold&quot; size=&quot;xx-large&quot;&gt;Check your phone for SMS with code&lt;/span&gt;</property>
+                        <property name="use-markup">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="label">&lt;a href=&quot;&quot;&gt;Send code via Telegram&lt;/a&gt;</property>
+                        <property name="use-markup">True</property>
+                        <signal name="activate-link" handler="switch_code_getting_method" swapped="no"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="halign">center</property>
+                        <property name="spacing">8</property>
+                        <property name="margin-top">12</property>
+                        <child>
+                          <object class="GtkImage">
+                            <property name="visible">True</property>
+                            <property name="icon-name">object-select-symbolic</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkEntry" id="confirm_code_sms">
+                            <property name="visible">True</property>
+                            <property name="placeholder-text">Confirm code</property>
+                            <property name="input-purpose">digits</property>
+                            <property name="margin-right">24</property>
+                            <property name="max-length">5</property>
+                            <signal name="changed" handler="on_text_changed" swapped="no"/>
+                            <signal name="activate" handler="on_next_clicked" swapped="no"/>
+                          </object>
+                        </child>
                       </object>
                     </child>
                   </object>
+                  <packing>
+                    <property name="name">via-sms</property>
+                  </packing>
                 </child>
               </object>
-              <packing>
-                <property name="name">code-sms</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkBox">
-                <property name="visible">True</property>
-                <property name="orientation">vertical</property>
-                <property name="halign">center</property>
-                <property name="valign">center</property>
-                <property name="spacing">24</property>
-                <child>
-                  <object class="GtkImage">
-                    <property name="visible">True</property>
-                    <property name="icon-name">security-high-symbolic</property>
-                    <property name="pixel-size">128</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="label">&lt;span weight=&quot;ultrabold&quot; size=&quot;xx-large&quot;&gt;Enter the password&lt;/span&gt;</property>
-                    <property name="use-markup">True</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkBox">
-                    <property name="visible">True</property>
-                    <property name="halign">center</property>
-                    <property name="spacing">8</property>
-                    <property name="margin-top">12</property>
-                    <child>
-                      <object class="GtkImage">
-                        <property name="visible">True</property>
-                        <property name="icon-name">dialog-password-symbolic</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkEntry" id="password">
-                        <property name="visible">True</property>
-                        <property name="placeholder-text">Password</property>
-                        <property name="input-purpose">password</property>
-                        <property name="margin-right">24</property>
-                        <property name="visibility">False</property>
-                        <signal name="changed" handler="on_text_changed" swapped="no"/>
-                        <signal name="activate" handler="on_next_clicked" swapped="no"/>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="name">2fa-password</property>
-              </packing>
             </child>
           </object>
           <packing>
@@ -275,4 +238,51 @@
       </object>
     </child>
   </template>
+  <object class="GtkBox" id="password_page">
+    <property name="visible">True</property>
+    <property name="hexpand">True</property>
+    <property name="orientation">vertical</property>
+    <property name="halign">center</property>
+    <property name="valign">center</property>
+    <property name="spacing">24</property>
+    <child>
+      <object class="GtkImage">
+        <property name="visible">True</property>
+        <property name="icon-name">security-high-symbolic</property>
+        <property name="pixel-size">128</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkLabel">
+        <property name="visible">True</property>
+        <property name="label">&lt;span weight=&quot;ultrabold&quot; size=&quot;xx-large&quot;&gt;Enter the password&lt;/span&gt;</property>
+        <property name="use-markup">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="halign">center</property>
+        <property name="spacing">8</property>
+        <property name="margin-top">12</property>
+        <child>
+          <object class="GtkImage">
+            <property name="visible">True</property>
+            <property name="icon-name">dialog-password-symbolic</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkEntry" id="password">
+            <property name="visible">True</property>
+            <property name="placeholder-text">Password</property>
+            <property name="input-purpose">password</property>
+            <property name="margin-right">24</property>
+            <property name="visibility">False</property>
+            <signal name="changed" handler="on_text_changed" swapped="no"/>
+            <signal name="activate" handler="on_next_clicked" swapped="no"/>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
 </interface>
