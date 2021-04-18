@@ -11,6 +11,6 @@
     <file preprocess="xml-stripblanks">icons/phone-oldschool-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/fingerprint-symbolic.svg</file>
 
-    <file>css/style.css</file>
+    <file>ui/style.css</file>
   </gresource>
 </gresources>
