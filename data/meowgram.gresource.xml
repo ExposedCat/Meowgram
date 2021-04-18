@@ -7,9 +7,8 @@
     <file preprocess="xml-stripblanks">ui/message.ui</file>
     <file preprocess="xml-stripblanks">ui/login.ui</file>
 
-    <file preprocess="xml-stripblanks">icons/telegram.svg</file>
     <file preprocess="xml-stripblanks">icons/phone-oldschool-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/fingerprint-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/dialpad-symbolic.svg</file>
 
     <file>ui/style.css</file>
   </gresource>
