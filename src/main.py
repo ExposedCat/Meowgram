@@ -60,6 +60,7 @@ class Application(Gtk.Application):
     def setup_actions(self):
         simple_actions = [
             ("show-about", self.show_about_dialog, None),
+            ("quit", self.on_quit, ("<Ctrl>q",))
         ]
 
         for action, callback, accel in simple_actions:
@@ -86,6 +87,9 @@ class Application(Gtk.Application):
         about.set_website_label(_("GitHub"))
         about.set_website("https://github.com/ExposedCat/Meowgram")
         about.show()
+
+    def on_quit(self, action, param):
+        self.quit()
 
 
 def main(version):
