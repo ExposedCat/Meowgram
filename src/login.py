@@ -17,9 +17,10 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from gi.repository import Gtk, Gio, GLib, Handy
+from gi.repository import Gtk, Gio, Handy
 
 import re
+
 
 @Gtk.Template(resource_path='/com/github/ExposedCat/Meowgram/ui/login.ui')
 class MeowgramLoginWindow(Handy.Window):

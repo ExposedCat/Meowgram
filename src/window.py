@@ -99,7 +99,6 @@ class MessageRow(Gtk.Box):
         self.message_label.set_justify(Gtk.Justification.RIGHT)
         self.message_style_context.add_class("message-out")
 
-
     def set_message_out(self):
         self.avatar.set_visible(True)
         self.message_label.set_margin_end(72)
