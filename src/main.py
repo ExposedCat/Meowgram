@@ -33,7 +33,6 @@ class Application(Gtk.Application):
                          flags=Gio.ApplicationFlags.FLAGS_NONE)
 
         self.version = version
-        print(version)
 
     def do_startup(self):
         Gtk.Application.do_startup(self)
@@ -44,6 +43,8 @@ class Application(Gtk.Application):
         Gtk.StyleContext.add_provider_for_screen(
             screen, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
         )
+
+        self.setup_actions()
 
         Handy.init()
 
@@ -56,10 +57,35 @@ class Application(Gtk.Application):
                 win = MeowgramLoginWindow(application=self)
         win.present()
 
+    def setup_actions(self):
+        simple_actions = [
+            ("show-about", self.show_about_dialog, None),
+        ]
+
+        for action, callback, accel in simple_actions:
+            simple_action = Gio.SimpleAction.new(action, None)
+            simple_action.connect("activate", callback)
+            self.add_action(simple_action)
+            if accel:
+                self.set_accels_for_action(f"app.{action}", accel)
+
     def show_main_window(self):
         self.props.active_window.close()
         win = MeowgramWindow(application=self)
         win.present()
+
+    def show_about_dialog(self, action, param):
+        about = Gtk.AboutDialog()
+        about.set_transient_for(self.props.active_window)
+        about.set_modal(True)
+        about.set_version(self.version)
+        about.set_program_name("Meowgram")
+        about.set_logo_icon_name("com.github.ExposedCat.Meowgram")
+        about.set_wrap_license(True)
+        about.set_license_type(Gtk.License.GPL_3_0)
+        about.set_website_label(_("GitHub"))
+        about.set_website("https://github.com/ExposedCat/Meowgram")
+        about.show()
 
 
 def main(version):
