@@ -22,6 +22,11 @@ import re
 from gi.repository import Gtk, Gio, Handy
 
 
+PHONE_NUMBER = 0
+CONFIRM_CODE = 1
+PASSWORD = 2
+
+
 @Gtk.Template(resource_path='/com/github/ExposedCat/Meowgram/ui/login.ui')
 class MeowgramLoginWindow(Handy.Window):
     __gtype_name__ = "MeowgramLoginWindow"
@@ -29,7 +34,11 @@ class MeowgramLoginWindow(Handy.Window):
     next_button = Gtk.Template.Child()
     prev_button = Gtk.Template.Child()
 
-    page_stack = Gtk.Template.Child()
+    page_carousel = Gtk.Template.Child()
+
+    phone_page = Gtk.Template.Child()
+    confirm_code_page = Gtk.Template.Child()
+    password_page = Gtk.Template.Child()
 
     phone_number = Gtk.Template.Child()
     confirm_code = Gtk.Template.Child()
@@ -66,24 +75,26 @@ class MeowgramLoginWindow(Handy.Window):
 
     @Gtk.Template.Callback()
     def on_prev_clicked(self, w):
-        current_page = self.page_stack.get_visible_child_name()
-        if current_page == 'number':
-            self.close()
-        else:
-            self.page_stack.set_visible_child_name('number')
-            self.prev_button.set_visible(False)
+        current_page = self.page_carousel.get_position()
+        if current_page == PASSWORD:
+            self.page_carousel.remove(self.password_page)
+        self.page_carousel.scroll_to(self.phone_page)
+        self.prev_button.set_visible(False)
+        self.phone_number.grab_focus()
 
     @Gtk.Template.Callback()
     def on_next_clicked(self, w):
-        current_page = self.page_stack.get_visible_child_name()
-        if current_page == 'number':
-            self.page_stack.set_visible_child_name('code')
+        current_page = self.page_carousel.get_position()
+        if current_page == PHONE_NUMBER:
+            self.confirm_code_page.set_visible_child_name('via-tg')
+            self.page_carousel.scroll_to(self.confirm_code_page)
             self.prev_button.set_visible(True)
             self.confirm_code.grab_focus()
-        elif current_page in ['code', 'code-sms']:
-            self.page_stack.set_visible_child_name('2fa-password')
+        elif current_page == CONFIRM_CODE:
+            self.page_carousel.add(self.password_page)
+            self.page_carousel.scroll_to(self.password_page)
             self.password.grab_focus()
-        elif current_page == '2fa-password':
+        elif current_page == PASSWORD:
             Gio.Settings("com.github.ExposedCat.Meowgram").set_boolean("logged-in", True)
             self.props.application.show_main_window()
             return
@@ -92,11 +103,10 @@ class MeowgramLoginWindow(Handy.Window):
 
     @Gtk.Template.Callback()
     def switch_code_getting_method(self, w, uri):
-        current_page = self.page_stack.get_visible_child_name()
-        if current_page == 'code':
-            current_page = 'code-sms'
+        current_page = self.confirm_code_page.get_visible_child_name()
+        if current_page == 'via-tg':
+            self.confirm_code_page.set_visible_child_name('via-sms')
             self.confirm_code_sms.grab_focus()
-        elif current_page == 'code-sms':
-            current_page = 'code'
+        elif current_page == 'via-sms':
+            self.confirm_code_page.set_visible_child_name('via-tg')
             self.confirm_code.grab_focus()
-        self.page_stack.set_visible_child_name(current_page)
