@@ -30,15 +30,18 @@ class MeowgramWindow(Handy.ApplicationWindow):
     message_box = Gtk.Template.Child()
 
     back_button = Gtk.Template.Child()
-
     menu_button = Gtk.Template.Child()
     submenu_button = Gtk.Template.Child()
+
+    search_button = Gtk.Template.Child()
+    search_revealer = Gtk.Template.Child()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
         self.main_leaflet.bind_property("folded", self.back_button, "visible")
         self.main_leaflet.bind_property("folded", self.headerbar_group, "decorate-all")
+        self.search_button.bind_property("active", self.search_revealer, "reveal-child")
         self.popover_init()
 
         for index in range(10):
