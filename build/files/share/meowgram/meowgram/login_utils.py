@@ -1,1 +1,0 @@
-print(config_data)

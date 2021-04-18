@@ -9,8 +9,8 @@ pkgdatadir = join_paths(get_option('prefix'), get_option('datadir'), meson.proje
 moduledir = join_paths(pkgdatadir, 'meowgram')
 
 config_data = configuration_data()
-config_data.set_quoted('TDAPI_HASH', get_option('api_hash'))
-config_data.set('TDAPI_ID', get_option('api_id'))
+config_data.set_quoted('API_HASH', get_option('api_hash'))
+config_data.set('API_ID', get_option('api_id'))
 
 i18n = import('i18n')
 

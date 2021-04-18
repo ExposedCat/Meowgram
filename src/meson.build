@@ -14,18 +14,18 @@ configure_file(
   install_dir: get_option('bindir')
 )
 
-config_src = configure_file(
-    input: 'backend/login_utils.py',
-    output: '@BASENAME@',
+config_file = configure_file(
+    input: 'config.py.in',
+    output: 'config.py',
     configuration: config_data
 )
 
 meowgram_sources = [
+  config_file,
   'main.py',
   'window.py',
   'login.py',
-
-  'backend/login_utils.py'
 ]
 
 install_data(meowgram_sources, install_dir: moduledir)
+install_subdir('backend', install_dir: moduledir)
