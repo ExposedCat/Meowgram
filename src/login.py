@@ -41,7 +41,7 @@ class MeowgramLoginWindow(Handy.Window):
     password_page = Gtk.Template.Child()
 
     phone_number = Gtk.Template.Child()
-    confirm_code = Gtk.Template.Child()
+    confirm_code_tg = Gtk.Template.Child()
     confirm_code_sms = Gtk.Template.Child()
     password = Gtk.Template.Child()
 
@@ -52,7 +52,7 @@ class MeowgramLoginWindow(Handy.Window):
     def clear_entries(self, *_):
         for entry in [
             self.phone_number,
-            self.confirm_code,
+            self.confirm_code_tg,
             self.confirm_code_sms,
             self.password
         ]:
@@ -61,17 +61,17 @@ class MeowgramLoginWindow(Handy.Window):
     @Gtk.Template.Callback()
     def on_text_changed(self, entry):
         text = entry.get_text()
-        is_empty = text == ''
+        can_click_next = text != ''
         if entry.props.input_purpose == Gtk.InputPurpose.PHONE:
             text = re.sub(r'[^+\d \-()]', '', text)
-            is_empty = bool(re.fullmatch(r'\D*', text))
+            can_click_next = not bool(re.fullmatch(r'\D*', text))
         elif entry.props.input_purpose == Gtk.InputPurpose.DIGITS:
             text = re.sub(r'\D', '', text)
-            is_empty = bool(re.fullmatch(r'\D*', text))
+            can_click_next = bool(re.fullmatch('\d{%s}' % entry.get_max_length(), text))
         if text != entry.get_text():
             entry.error_bell()
             entry.set_text(text)
-        self.next_button.set_sensitive(not is_empty)
+        self.next_button.set_sensitive(can_click_next)
 
     @Gtk.Template.Callback()
     def on_prev_clicked(self, w):
@@ -89,7 +89,7 @@ class MeowgramLoginWindow(Handy.Window):
             self.confirm_code_page.set_visible_child_name('via-tg')
             self.page_carousel.scroll_to(self.confirm_code_page)
             self.prev_button.set_visible(True)
-            self.confirm_code.grab_focus()
+            self.confirm_code_tg.grab_focus()
         elif current_page == CONFIRM_CODE:
             self.page_carousel.add(self.password_page)
             self.page_carousel.scroll_to(self.password_page)
@@ -109,4 +109,4 @@ class MeowgramLoginWindow(Handy.Window):
             self.confirm_code_sms.grab_focus()
         elif current_page == 'via-sms':
             self.confirm_code_page.set_visible_child_name('via-tg')
-            self.confirm_code.grab_focus()
+            self.confirm_code_tg.grab_focus()
