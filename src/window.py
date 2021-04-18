@@ -17,8 +17,6 @@
 
 from gi.repository import Gtk, Handy
 
-import meowgram.init_telethon
-
 
 @Gtk.Template(resource_path='/com/github/ExposedCat/Meowgram/ui/window.ui')
 class MeowgramWindow(Handy.ApplicationWindow):

@@ -1,0 +1,13 @@
+option(
+	'api_id',
+	type : 'string',
+	value : '876529',
+	description : 'Telegram app API ID'
+)
+
+option(
+	'api_hash',
+	type : 'string',
+	value : '1c2df173d7a5c4a17d163ecee4e759b3',
+	description : 'Telegram app API HASH'
+)
