@@ -21,8 +21,6 @@ import re
 
 from gi.repository import Gtk, Gio, Handy
 
-from .backend.login_utils import *
-
 
 @Gtk.Template(resource_path='/com/github/ExposedCat/Meowgram/ui/login.ui')
 class MeowgramLoginWindow(Handy.Window):
