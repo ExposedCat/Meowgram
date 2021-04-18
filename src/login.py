@@ -99,4 +99,3 @@ class MeowgramLoginWindow(Handy.Window):
             current_page = 'code'
             self.confirm_code.grab_focus()
         self.page_stack.set_visible_child_name(current_page)
-
