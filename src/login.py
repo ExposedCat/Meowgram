@@ -67,7 +67,7 @@ class MeowgramLoginWindow(Handy.Window):
             can_click_next = not bool(re.fullmatch(r'\D*', text))
         elif entry.props.input_purpose == Gtk.InputPurpose.DIGITS:
             text = re.sub(r'\D', '', text)
-            can_click_next = bool(re.fullmatch('\d{%s}' % entry.get_max_length(), text))
+            can_click_next = bool(re.fullmatch('\\d{%s}' % entry.get_max_length(), text))
         if text != entry.get_text():
             entry.error_bell()
             entry.set_text(text)
