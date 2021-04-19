@@ -20,6 +20,7 @@
 import re
 
 from gi.repository import Gtk, Gio, Handy
+from meowgram.backend.init_client import client
 
 
 PHONE_NUMBER = 0
@@ -83,13 +84,14 @@ class MeowgramLoginWindow(Handy.Window):
         self.phone_number.grab_focus()
 
     @Gtk.Template.Callback()
-    def on_next_clicked(self, w):
+    async def on_next_clicked(self, w):
         current_page = self.page_carousel.get_position()
         if current_page == PHONE_NUMBER:
             self.confirm_code_page.set_visible_child_name('via-tg')
             self.page_carousel.scroll_to(self.confirm_code_page)
             self.prev_button.set_visible(True)
             self.confirm_code_tg.grab_focus()
+            await client.login(self.phone_number)
         elif current_page == CONFIRM_CODE:
             self.page_carousel.add(self.password_page)
             self.page_carousel.scroll_to(self.password_page)
