@@ -69,7 +69,6 @@
                     <property name="placeholder-text">Phone number</property>
                     <property name="primary-icon-name">phone-oldschool-symbolic</property>
                     <property name="input-purpose">phone</property>
-                    <property name="margin-right">24</property>
                     <signal name="changed" handler="on_text_changed" swapped="no"/>
                     <signal name="activate" handler="on_next_clicked" swapped="no"/>
                   </object>
@@ -179,7 +178,6 @@
         <property name="placeholder-text">Password</property>
         <property name="primary-icon-name">dialog-password-symbolic</property>
         <property name="input-purpose">password</property>
-        <property name="margin-right">24</property>
         <property name="visibility">False</property>
         <signal name="changed" handler="on_text_changed" swapped="no"/>
         <signal name="activate" handler="on_next_clicked" swapped="no"/>
