@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from gi.repository import Gtk, Handy
+from gi.repository import Gtk, Handy, GObject
 
 
 @Gtk.Template(resource_path='/com/github/ExposedCat/Meowgram/ui/window.ui')
@@ -47,7 +47,7 @@ class MeowgramWindow(Handy.ApplicationWindow):
         self.main_leaflet.bind_property("folded", self.back_button, "visible")
         self.main_leaflet.bind_property("folded", self.headerbar_group, "decorate-all")
         self.search_button.bind_property("active", self.search_revealer, "reveal-child")
-        self.sidebar_button.bind_property("active", self.channel_flap, "reveal-flap")
+        self.sidebar_button.bind_property("active", self.channel_flap, "reveal-flap", GObject.BindingFlags.BIDIRECTIONAL)
         self.popover_init()
 
         for index in range(10):
