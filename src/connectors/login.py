@@ -21,7 +21,7 @@ class LoginManager:
         elif result == 2:
             self.finish(window)
         else:
-            print('Wrong code')
+            print("Wrong code")
 
     def auth_2fa(self, window, password):
         request = async_run(client.auth_2fa, (password,))
@@ -29,8 +29,7 @@ class LoginManager:
         if result == 1:
             self.finish(window)
         else:
-            print('Wrong password')
-
+            print("Wrong password")
 
     def finish(self, window):
         Gio.Settings("com.github.ExposedCat.Meowgram").set_boolean("logged-in", True)

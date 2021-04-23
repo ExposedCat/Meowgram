@@ -23,7 +23,7 @@ class MeowgramClient:
         except errors.SessionPasswordNeededError:
             return 1
 
-    async def auth_2fa(self, password): # 0 - wrong password; 1 - all is ok
+    async def auth_2fa(self, password):  # 0 - wrong password; 1 - all is ok
         try:
             await self.client.sign_in(password=password)
             return 1

@@ -18,9 +18,9 @@
 from gi.repository import Gtk, Handy, GObject
 
 
-@Gtk.Template(resource_path='/com/github/ExposedCat/Meowgram/ui/window.ui')
+@Gtk.Template(resource_path="/com/github/ExposedCat/Meowgram/ui/window.ui")
 class MeowgramWindow(Handy.ApplicationWindow):
-    __gtype_name__ = 'MeowgramWindow'
+    __gtype_name__ = "MeowgramWindow"
 
     headerbar_group = Gtk.Template.Child()
     main_leaflet = Gtk.Template.Child()
@@ -47,8 +47,12 @@ class MeowgramWindow(Handy.ApplicationWindow):
         self.main_leaflet.bind_property("folded", self.back_button, "visible")
         self.main_leaflet.bind_property("folded", self.headerbar_group, "decorate-all")
         self.search_button.bind_property("active", self.search_revealer, "reveal-child")
-        self.sidebar_button.bind_property("active", self.channel_flap, "reveal-flap",
-                                          GObject.BindingFlags.BIDIRECTIONAL)
+        self.sidebar_button.bind_property(
+            "active",
+            self.channel_flap,
+            "reveal-flap",
+            GObject.BindingFlags.BIDIRECTIONAL,
+        )
         self.popover_init()
 
         for index in range(10):
@@ -67,19 +71,19 @@ class MeowgramWindow(Handy.ApplicationWindow):
 
     def popover_init(self):
         builder = Gtk.Builder()
-        builder.add_from_resource('/com/github/ExposedCat/Meowgram/ui/menus.ui')
-        menu_model = builder.get_object('primary_menu')
+        builder.add_from_resource("/com/github/ExposedCat/Meowgram/ui/menus.ui")
+        menu_model = builder.get_object("primary_menu")
         popover = Gtk.Popover.new_from_model(self.menu_button, menu_model)
         self.menu_button.set_popover(popover)
 
-        submenu_model = builder.get_object('submenu')
+        submenu_model = builder.get_object("submenu")
         popover = Gtk.Popover.new_from_model(self.submenu_button, submenu_model)
         self.submenu_button.set_popover(popover)
 
 
-@Gtk.Template(resource_path='/com/github/ExposedCat/Meowgram/ui/contact.ui')
+@Gtk.Template(resource_path="/com/github/ExposedCat/Meowgram/ui/contact.ui")
 class ContactRow(Handy.ActionRow):
-    __gtype_name__ = 'ContactRow'
+    __gtype_name__ = "ContactRow"
 
     time_label = Gtk.Template.Child()
     avatar = Gtk.Template.Child()
@@ -93,9 +97,9 @@ class ContactRow(Handy.ActionRow):
         self.time_label.set_label("22∶05")
 
 
-@Gtk.Template(resource_path='/com/github/ExposedCat/Meowgram/ui/message.ui')
+@Gtk.Template(resource_path="/com/github/ExposedCat/Meowgram/ui/message.ui")
 class MessageRow(Gtk.Box):
-    __gtype_name__ = 'MessageRow'
+    __gtype_name__ = "MessageRow"
 
     avatar = Gtk.Template.Child()
     message_label = Gtk.Template.Child()
