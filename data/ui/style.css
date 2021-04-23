@@ -46,3 +46,11 @@
     border-bottom-style: none;
     font-weight: 700;
 }
+
+.bold-label {
+  font-weight: bold;
+}
+
+.background {
+  background-color: @theme_bg_color;
+}
