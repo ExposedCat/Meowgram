@@ -7,16 +7,34 @@
     <property name="visible">True</property>
     <property name="can-focus">True</property>
     <child>
-      <object class="GtkLabel" id="time_label">
+      <object class="GtkBox" id="read_status">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="valign">start</property>
-        <property name="margin-top">9</property>
-        <property name="label" translatable="yes">asdsdda</property>
-        <style>
-          <class name="dim-label"/>
-          <class name="time-label"/>
-        </style>
+        <property name="margin-top">12</property>
+        <property name="spacing">6</property>
+        <child>
+          <object class="GtkImage">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="pixel-size">12</property>
+            <property name="icon-name">object-select-symbolic</property>
+            <style>
+              <class name="dim-label"/>
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel" id="time_label">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">22:05</property>
+            <style>
+              <class name="dim-label"/>
+              <class name="time-label"/>
+            </style>
+          </object>
+        </child>
       </object>
     </child>
   </template>
