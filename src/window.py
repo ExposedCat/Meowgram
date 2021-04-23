@@ -84,6 +84,7 @@ class MessageRow(Gtk.Box):
 
     avatar = Gtk.Template.Child()
     message_label = Gtk.Template.Child()
+    read_status = Gtk.Template.Child()
 
     def __init__(self, is_from_self, **kwargs):
         super().__init__(**kwargs)
@@ -101,6 +102,7 @@ class MessageRow(Gtk.Box):
         self.message_label.set_halign(Gtk.Align.END)
         self.message_label.set_justify(Gtk.Justification.RIGHT)
         self.message_style_context.add_class("message-out")
+        self.read_status.set_halign(Gtk.Align.END)
 
     def set_message_out(self):
         self.avatar.set_visible(True)
@@ -108,3 +110,4 @@ class MessageRow(Gtk.Box):
         self.message_label.set_halign(Gtk.Align.START)
         self.message_label.set_justify(Gtk.Justification.LEFT)
         self.message_style_context.add_class("message-in")
+        self.read_status.set_halign(Gtk.Align.START)
