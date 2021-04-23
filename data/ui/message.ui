@@ -35,7 +35,7 @@
             <property name="wrap">True</property>
             <property name="selectable">True</property>
             <style>
-              <class name="message-in"/>
+              <class name="message_bubble"/>
             </style>
           </object>
           <packing>
