@@ -34,6 +34,7 @@ class MeowgramWindow(Handy.ApplicationWindow):
     search_button = Gtk.Template.Child()
     search_revealer = Gtk.Template.Child()
 
+    send_message_revealer = Gtk.Template.Child()
     message_tool_revealer = Gtk.Template.Child()
     message_entry = Gtk.Template.Child()
 
@@ -55,7 +56,9 @@ class MeowgramWindow(Handy.ApplicationWindow):
 
     @Gtk.Template.Callback()
     def on_message_entry_changed(self, widget):
-        self.message_tool_revealer.set_reveal_child(not widget.get_text())
+        is_entry_revealed = widget.get_text()
+        self.message_tool_revealer.set_reveal_child(not is_entry_revealed)
+        self.send_message_revealer.set_reveal_child(is_entry_revealed)
 
     def popover_init(self):
         builder = Gtk.Builder()
