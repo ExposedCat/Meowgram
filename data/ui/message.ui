@@ -34,7 +34,9 @@
             <property name="halign">end</property>
             <property name="label" translatable="yes">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</property>
             <property name="wrap">True</property>
+            <property name="wrap-mode">word-char</property>
             <property name="selectable">True</property>
+            <property name="xalign">0</property>
             <style>
               <class name="message_bubble"/>
             </style>

@@ -275,7 +275,7 @@
                           <object class="GtkImage">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
-                            <property name="icon-name">camera-photo-symbolic</property>
+                            <property name="icon-name">mail-attachment-symbolic</property>
                           </object>
                         </child>
                       </object>
@@ -294,7 +294,7 @@
                           <object class="GtkImage">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
-                            <property name="icon-name">mail-attachment-symbolic</property>
+                            <property name="icon-name">audio-input-microphone-symbolic</property>
                           </object>
                         </child>
                       </object>
@@ -318,6 +318,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="hexpand">True</property>
+                <property name="placeholder-text" translatable="yes">Write a message…</property>
                 <signal name="changed" handler="on_message_entry_changed" swapped="no"/>
               </object>
               <packing>
