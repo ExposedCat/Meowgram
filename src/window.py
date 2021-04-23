@@ -34,6 +34,9 @@ class MeowgramWindow(Handy.ApplicationWindow):
     search_button = Gtk.Template.Child()
     search_revealer = Gtk.Template.Child()
 
+    message_tool_revealer = Gtk.Template.Child()
+    message_entry = Gtk.Template.Child()
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
@@ -49,6 +52,10 @@ class MeowgramWindow(Handy.ApplicationWindow):
     @Gtk.Template.Callback()
     def on_back_button_clicked(self, widget):
         self.main_leaflet.set_visible_child_name("contacts_pane")
+
+    @Gtk.Template.Callback()
+    def on_message_entry_changed(self, widget):
+        self.message_tool_revealer.set_reveal_child(not widget.get_text())
 
     def popover_init(self):
         builder = Gtk.Builder()
