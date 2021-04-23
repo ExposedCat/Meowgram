@@ -643,7 +643,7 @@
                       <object class="GtkImage">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="icon-name">dock-right-symbolic</property>
+                        <property name="icon-name">toggle-sidebar-symbolic</property>
                       </object>
                     </child>
                   </object>
