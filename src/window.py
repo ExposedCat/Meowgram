@@ -47,7 +47,8 @@ class MeowgramWindow(Handy.ApplicationWindow):
         self.main_leaflet.bind_property("folded", self.back_button, "visible")
         self.main_leaflet.bind_property("folded", self.headerbar_group, "decorate-all")
         self.search_button.bind_property("active", self.search_revealer, "reveal-child")
-        self.sidebar_button.bind_property("active", self.channel_flap, "reveal-flap", GObject.BindingFlags.BIDIRECTIONAL)
+        self.sidebar_button.bind_property("active", self.channel_flap, "reveal-flap",
+                                          GObject.BindingFlags.BIDIRECTIONAL)
         self.popover_init()
 
         for index in range(10):
