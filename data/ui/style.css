@@ -51,6 +51,6 @@
   font-weight: bold;
 }
 
-.background {
-  background-color: @theme_bg_color;
+.dark-bg {
+  background-color: @theme_base_color;
 }

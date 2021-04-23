@@ -178,7 +178,7 @@
       </packing>
     </child>
     <style>
-      <class name="background"/>
+      <class name="dark-bg"/>
     </style>
   </object>
   <object class="GtkPopover" id="popover1">
@@ -456,7 +456,6 @@
             <child>
               <object class="HdyFlap" id="channel_flap">
                 <property name="visible">True</property>
-                <property name="reveal-flap">False</property>
                 <property name="flap-position">end</property>
                 <property name="flap">channel_sidebar</property>
                 <property name="separator">separator</property>
@@ -529,6 +528,9 @@
                           <object class="HdyClamp">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
+                            <style>
+                              <class name="dark-bg"/>
+                            </style>
                             <child>
                               <object class="GtkBox">
                                 <property name="visible">True</property>
