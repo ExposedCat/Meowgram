@@ -3,19 +3,23 @@
  */
 
 .message-in {
-  background: alpha(@theme_selected_bg_color, 0.2);
-  border: 1px solid alpha(@theme_selected_bg_color, 0.2);
-
+  background-color: @theme_bg_color;
+  border: 1px solid alpha(@theme_fg_color, 0.1);
 }
 
 .message-in selection {
-  color: @theme_selected_bg_color;
-  background-color: @theme_selected_fg_color;
+  background-color: @theme_selected_bg_color;
+  color: @theme_selected_fg_color;
 }
 
 .message-out {
-  background-color: @theme_bg_color;
-  border: 1px solid alpha(@theme_fg_color, 0.1);
+  background-color: alpha(@theme_selected_bg_color, 0.2);
+  border: 1px solid alpha(@theme_selected_bg_color, 0.2);
+}
+
+.message-out selection {
+  background-color: @theme_selected_fg_color;
+  color: @theme_selected_bg_color;
 }
 
 .message_bubble {
@@ -23,11 +27,6 @@
   color: @theme_fg_color;
   border-radius: 9px;
   padding: 6px 9px 6px 9px;
-}
-
-.message-out selection {
-  background-color: @theme_selected_bg_color;
-  color: @theme_selected_fg_color;
 }
 
 .message-in *:link,
