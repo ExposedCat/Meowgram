@@ -20,6 +20,7 @@
 import re
 
 from gi.repository import Gtk, Gio, Handy
+from meowgram.connectors.login import login_manager
 
 
 PHONE_NUMBER = 0
@@ -86,19 +87,12 @@ class MeowgramLoginWindow(Handy.Window):
     def on_next_clicked(self, w):
         current_page = self.page_carousel.get_position()
         if current_page == PHONE_NUMBER:
-            self.confirm_code_page.set_visible_child_name('via-tg')
-            self.page_carousel.scroll_to(self.confirm_code_page)
-            self.prev_button.set_visible(True)
-            self.confirm_code_tg.grab_focus()
+            login_manager.login(self, self.phone_number.get_text())
         elif current_page == CONFIRM_CODE:
-            self.page_carousel.add(self.password_page)
-            self.page_carousel.scroll_to(self.password_page)
-            self.password.grab_focus()
+            login_manager.send_code(self, self.confirm_code_tg.get_text() or self.confirm_code_sms.get_text())
         elif current_page == PASSWORD:
-            Gio.Settings("com.github.ExposedCat.Meowgram").set_boolean("logged-in", True)
-            self.props.application.show_main_window()
+            login_manager.auth_2fa(self, self.password.get_text())
             return
-
         self.next_button.set_sensitive(False)
 
     @Gtk.Template.Callback()

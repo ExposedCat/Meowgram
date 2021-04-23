@@ -18,9 +18,10 @@
 import sys
 
 import gi
-gi.require_version('Gtk', '3.0')
-gi.require_version('Handy', '1')
-gi.require_version('Gst', '1.0')
+
+gi.require_version("Gtk", "3.0")
+gi.require_version("Handy", "1")
+gi.require_version("Gst", "1.0")
 from gi.repository import Gio, Gtk, Handy, Gdk
 
 from meowgram.window import MeowgramWindow
@@ -29,8 +30,10 @@ from meowgram.login import MeowgramLoginWindow
 
 class Application(Gtk.Application):
     def __init__(self, version):
-        super().__init__(application_id='com.github.ExposedCat.Meowgram',
-                         flags=Gio.ApplicationFlags.FLAGS_NONE)
+        super().__init__(
+            application_id="com.github.ExposedCat.Meowgram",
+            flags=Gio.ApplicationFlags.FLAGS_NONE,
+        )
 
         self.version = version
 
@@ -38,10 +41,12 @@ class Application(Gtk.Application):
         Gtk.Application.do_startup(self)
 
         css_provider = Gtk.CssProvider()
-        css_provider.load_from_resource('/com/github/ExposedCat/Meowgram/ui/style.css')
+        css_provider.load_from_resource("/com/github/ExposedCat/Meowgram/ui/style.css")
         screen = Gdk.Screen.get_default()
         Gtk.StyleContext.add_provider_for_screen(
-            screen, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
+            screen,
+            css_provider,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
         )
 
         self.setup_actions()
@@ -60,7 +65,7 @@ class Application(Gtk.Application):
     def setup_actions(self):
         simple_actions = [
             ("show-about", self.show_about_dialog, None),
-            ("quit", self.on_quit, ("<Ctrl>q",))
+            ("quit", self.on_quit, ("<Ctrl>q",)),
         ]
 
         for action, callback, accel in simple_actions:
