@@ -87,8 +87,8 @@ class ContactRow(Handy.ActionRow):
         super().__init__(**kwargs)
 
         self.add_prefix(self.avatar)
-        self.set_title("USERNAME")
-        self.set_subtitle("Hello There")
+        self.set_title("Lorem Ipsum")
+        self.set_subtitle("Hello there. How are you?")
         self.time_label.set_label("22∶05")
 
 
