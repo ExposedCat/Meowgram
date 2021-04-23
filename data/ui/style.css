@@ -51,6 +51,12 @@
   font-weight: bold;
 }
 
+.time-label {
+  font-size: 12px;
+}
+
 .dark-bg {
   background-color: @theme_base_color;
 }
+
+

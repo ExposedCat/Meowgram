@@ -15,6 +15,7 @@
         <property name="label" translatable="yes">asdsdda</property>
         <style>
           <class name="dim-label"/>
+          <class name="time-label"/>
         </style>
       </object>
     </child>
