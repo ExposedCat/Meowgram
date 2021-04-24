@@ -28,7 +28,7 @@ CONFIRM_CODE = 1
 PASSWORD = 2
 
 
-@Gtk.Template(resource_path="/com/github/ExposedCat/Meowgram/ui/login.ui")
+@Gtk.Template(resource_path="/com/github/ExposedCat/Meowgram/ui/loginwindow.ui")
 class MeowgramLoginWindow(Handy.Window):
     __gtype_name__ = "MeowgramLoginWindow"
 

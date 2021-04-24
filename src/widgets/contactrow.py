@@ -18,7 +18,7 @@
 from gi.repository import Gtk, Handy
 
 
-@Gtk.Template(resource_path="/com/github/ExposedCat/Meowgram/ui/contact.ui")
+@Gtk.Template(resource_path="/com/github/ExposedCat/Meowgram/ui/contactrow.ui")
 class ContactRow(Handy.ActionRow):
     __gtype_name__ = "ContactRow"
 

@@ -3,9 +3,9 @@
   <gresource prefix="/com/github/ExposedCat/Meowgram">
     <file preprocess="xml-stripblanks">ui/window.ui</file>
     <file preprocess="xml-stripblanks">ui/menus.ui</file>
-    <file preprocess="xml-stripblanks">ui/contact.ui</file>
-    <file preprocess="xml-stripblanks">ui/message.ui</file>
-    <file preprocess="xml-stripblanks">ui/login.ui</file>
+    <file preprocess="xml-stripblanks">ui/contactrow.ui</file>
+    <file preprocess="xml-stripblanks">ui/messagerow.ui</file>
+    <file preprocess="xml-stripblanks">ui/loginwindow.ui</file>
 
     <file preprocess="xml-stripblanks">icons/phone-oldschool-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/toggle-sidebar-symbolic.svg</file>

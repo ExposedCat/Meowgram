@@ -18,7 +18,7 @@
 from gi.repository import Gtk
 
 
-@Gtk.Template(resource_path="/com/github/ExposedCat/Meowgram/ui/message.ui")
+@Gtk.Template(resource_path="/com/github/ExposedCat/Meowgram/ui/messagerow.ui")
 class MessageRow(Gtk.Box):
     __gtype_name__ = "MessageRow"
 
