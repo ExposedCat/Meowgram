@@ -36,7 +36,7 @@ class Application(Gtk.Application):
         self.version = version
 
         GLib.set_application_name("Meowgram")
-        GLib.set_prgname('com.github.ExposedCat.Meowgram')
+        GLib.set_prgname("com.github.ExposedCat.Meowgram")
 
     def do_startup(self):
         Gtk.Application.do_startup(self)
@@ -63,10 +63,10 @@ class Application(Gtk.Application):
 
     def setup_actions(self):
         simple_actions = [
-            ("show-preferences", self.show_preferences_window, ("<Ctrl>comma",)),
-            ("show-shortcuts", self.show_shortcuts_window, ("<Ctrl>question",)),
-            ("show-about", self.show_about_dialog, None),
-            ("quit", self.on_quit, ("<Ctrl>q",)),
+            ('show-preferences', self.show_preferences_window, ('<Ctrl>comma',)),
+            ('show-shortcuts', self.show_shortcuts_window, ('<Ctrl>question',)),
+            ('show-about', self.show_about_dialog, None),
+            ('quit', self.on_quit, ('<Ctrl>q',)),
         ]
 
         for action, callback, accel in simple_actions:
