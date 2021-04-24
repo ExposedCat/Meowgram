@@ -10,8 +10,8 @@
     <file preprocess="xml-stripblanks">ui/shortcutswindow.ui</file>
     <file preprocess="xml-stripblanks">ui/preferenceswindow.ui</file>
 
-    <file preprocess="xml-stripblanks">icons/phone-oldschool-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/toggle-sidebar-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/status/phone-oldschool-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/status/toggle-sidebar-symbolic.svg</file>
 
     <file>ui/style.css</file>
   </gresource>
