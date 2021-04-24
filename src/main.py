@@ -81,7 +81,7 @@ class Application(Gtk.Application):
 
     def show_shortcuts_window(self, action, param):
         builder = Gtk.Builder()
-        builder.add_from_resource('/com/github/ExposedCat/Meowgram/ui/shortcuts.ui')
+        builder.add_from_resource('/com/github/ExposedCat/Meowgram/ui/shortcutswindow.ui')
         window = builder.get_object('shortcuts')
         window.set_transient_for(self.props.active_window)
         window.present()
