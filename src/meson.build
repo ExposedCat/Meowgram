@@ -22,11 +22,10 @@ config_file = configure_file(
 
 meowgram_sources = [
   config_file,
-  'main.py',
-  'window.py',
-  'login.py',
+  'main.py'
 ]
 
 install_data(meowgram_sources, install_dir: moduledir)
 install_subdir('backend', install_dir: moduledir)
 install_subdir('connectors', install_dir: moduledir)
+install_subdir('widgets', install_dir: moduledir)
