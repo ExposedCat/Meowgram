@@ -1,3 +1,5 @@
+subdir('logo')
+
 desktop_file = i18n.merge_file(
   input: 'com.github.ExposedCat.Meowgram.desktop.in',
   output: 'com.github.ExposedCat.Meowgram.desktop',
