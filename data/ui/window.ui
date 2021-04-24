@@ -534,7 +534,9 @@
                       <object class="GtkEntry">
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
+                        <property name="max-width-chars">30</property>
                         <property name="primary-icon-name">system-search-symbolic</property>
+                        <property name="placeholder-text" translatable="yes">Search</property>
                       </object>
                     </child>
                   </object>
