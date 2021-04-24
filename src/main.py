@@ -107,6 +107,7 @@ class Application(Gtk.Application):
         about.show()
 
     def on_quit(self, action, param):
+        # TODO for some reason, this crashes :( IDK why
         self.quit()
 
 
