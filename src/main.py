@@ -30,10 +30,8 @@ from meowgram.login import MeowgramLoginWindow
 
 class Application(Gtk.Application):
     def __init__(self, version):
-        super().__init__(
-            application_id="com.github.ExposedCat.Meowgram",
-            flags=Gio.ApplicationFlags.FLAGS_NONE,
-        )
+        super().__init__(application_id="com.github.ExposedCat.Meowgram",
+                         flags=Gio.ApplicationFlags.FLAGS_NONE,)
 
         self.version = version
 
@@ -44,9 +42,7 @@ class Application(Gtk.Application):
         css_provider.load_from_resource("/com/github/ExposedCat/Meowgram/ui/style.css")
         screen = Gdk.Screen.get_default()
         Gtk.StyleContext.add_provider_for_screen(
-            screen,
-            css_provider,
-            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
+            screen, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
         )
 
         self.setup_actions()
