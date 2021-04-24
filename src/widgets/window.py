@@ -68,9 +68,9 @@ class MeowgramWindow(Handy.ApplicationWindow):
 
     @Gtk.Template.Callback()
     def on_message_entry_changed(self, entry):
-        is_entry_revealed = entry.get_text()
-        self.message_tool_revealer.set_reveal_child(not is_entry_revealed)
-        self.send_message_revealer.set_reveal_child(is_entry_revealed)
+        is_there_text = entry.get_text()
+        self.message_tool_revealer.set_reveal_child(not is_there_text)
+        self.send_message_revealer.set_reveal_child(is_there_text)
 
     def popover_init(self):
         builder = Gtk.Builder()
