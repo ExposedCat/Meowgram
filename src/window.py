@@ -117,7 +117,7 @@ class MessageRow(Gtk.Box):
 
     def set_message_in(self):
         self.avatar.set_visible(False)
-        self.message_label.set_margin_start(72)
+        self.message_label.set_margin_start(108)
         self.message_label.set_halign(Gtk.Align.END)
         self.message_label.set_justify(Gtk.Justification.RIGHT)
         self.message_style_context.add_class("message-out")
@@ -125,7 +125,7 @@ class MessageRow(Gtk.Box):
 
     def set_message_out(self):
         self.avatar.set_visible(True)
-        self.message_label.set_margin_end(72)
+        self.message_label.set_margin_end(108)
         self.message_label.set_halign(Gtk.Align.START)
         self.message_label.set_justify(Gtk.Justification.LEFT)
         self.message_style_context.add_class("message-in")
