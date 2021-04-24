@@ -1,7 +1,9 @@
 [Desktop Entry]
-Name=meowgram
+Name=Meowgram
 Exec=meowgram
+Icon=com.github.ExposedCat.Meowgram
 Terminal=false
 Type=Application
-Categories=GTK;
+Categories=GTK;GNOME;Utility;
 StartupNotify=true
+Keywords=Telegram;Chat;Client;Message;
