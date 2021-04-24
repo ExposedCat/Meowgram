@@ -47,26 +47,11 @@ class MeowgramWindow(Handy.ApplicationWindow):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        self.main_leaflet.bind_property(
-            'folded',
-            self.back_button,
-            'visible'
-        )
-        self.main_leaflet.bind_property(
-            'folded',
-            self.headerbar_group,
-            'decorate-all')
-        self.search_button.bind_property(
-            'active',
-            self.search_revealer,
-            'reveal-child'
-        )
-        self.sidebar_button.bind_property(
-            'active',
-            self.channel_flap,
-            'reveal-flap',
-            GObject.BindingFlags.BIDIRECTIONAL
-        )
+        self.main_leaflet.bind_property('folded', self.back_button, 'visible')
+        self.main_leaflet.bind_property('folded', self.headerbar_group, 'decorate-all')
+        self.search_button.bind_property('active', self.search_revealer, 'reveal-child' )
+        self.sidebar_button.bind_property('active', self.channel_flap, 'reveal-flap',
+                                          GObject.BindingFlags.BIDIRECTIONAL )
         self.popover_init()
 
         for index in range(10):
@@ -74,27 +59,26 @@ class MeowgramWindow(Handy.ApplicationWindow):
             self.message_box.add(MessageRow(index % 2))
 
     @Gtk.Template.Callback()
-    def on_back_button_clicked(self, widget):
+    def on_contacts_activated(self, listbox, row):
+        self.main_leaflet.set_visible_child_name('messages_pane')
+
+    @Gtk.Template.Callback()
+    def on_back_button_clicked(self, button):
         self.main_leaflet.set_visible_child_name('contacts_pane')
 
     @Gtk.Template.Callback()
-    def on_message_entry_changed(self, widget):
-        is_entry_revealed = widget.get_text()
+    def on_message_entry_changed(self, entry):
+        is_entry_revealed = entry.get_text()
         self.message_tool_revealer.set_reveal_child(not is_entry_revealed)
         self.send_message_revealer.set_reveal_child(is_entry_revealed)
 
     def popover_init(self):
         builder = Gtk.Builder()
-        builder.add_from_resource(
-            '/com/github/ExposedCat/Meowgram/ui/menus.ui'
-        )
+        builder.add_from_resource('/com/github/ExposedCat/Meowgram/ui/menus.ui')
         menu_model = builder.get_object('primary_menu')
         popover = Gtk.Popover.new_from_model(self.menu_button, menu_model)
         self.menu_button.set_popover(popover)
 
         submenu_model = builder.get_object('submenu')
-        popover = Gtk.Popover.new_from_model(
-            self.submenu_button,
-            submenu_model
-        )
+        popover = Gtk.Popover.new_from_model(self.submenu_button, submenu_model)
         self.submenu_button.set_popover(popover)

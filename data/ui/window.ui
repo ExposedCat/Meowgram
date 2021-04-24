@@ -561,6 +561,7 @@
                       <object class="GtkListBox" id="contacts_listbox">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
+                        <signal name="row-activated" handler="on_contacts_activated" swapped="no"/>
                         <style>
                           <class name="title"/>
                         </style>
