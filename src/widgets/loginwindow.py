@@ -21,6 +21,7 @@ import re
 
 from gi.repository import Gtk, Handy
 from meowgram.connectors.login import login_manager
+from meowgram.meowgram_constants import meowgram_constants as constants
 
 
 PHONE_NUMBER = 0
@@ -28,7 +29,7 @@ CONFIRM_CODE = 1
 PASSWORD = 2
 
 
-@Gtk.Template(resource_path='/com/github/ExposedCat/Meowgram/ui/loginwindow.ui')
+@Gtk.Template(resource_path=constants['RESOURCEID'] + '/ui/loginwindow.ui')
 class MeowgramLoginWindow(Handy.Window):
     __gtype_name__ = 'MeowgramLoginWindow'
 
