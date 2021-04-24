@@ -1,5 +1,6 @@
 from gi.repository import Handy, Gtk
 
+
 @Gtk.Template(resource_path="/com/github/ExposedCat/Meowgram/ui/preferenceswindow.ui")
 class MeowgramPreferencesWindow(Handy.PreferencesWindow):
     __gtype_name__ = "MeowgramPreferencesWindow"
