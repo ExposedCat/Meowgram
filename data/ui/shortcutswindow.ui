@@ -20,6 +20,13 @@
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="visible">True</property>
+                <property name="accelerator">&lt;ctrl&gt;comma</property>
+                <property name="title" translatable="yes">Show preferences</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">True</property>
                 <property name="accelerator">&lt;ctrl&gt;question</property>
                 <property name="title" translatable="yes">Show keyboard shortcuts</property>
               </object>

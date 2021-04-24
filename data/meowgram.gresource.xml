@@ -5,8 +5,10 @@
     <file preprocess="xml-stripblanks">ui/menus.ui</file>
     <file preprocess="xml-stripblanks">ui/contactrow.ui</file>
     <file preprocess="xml-stripblanks">ui/messagerow.ui</file>
+
     <file preprocess="xml-stripblanks">ui/loginwindow.ui</file>
     <file preprocess="xml-stripblanks">ui/shortcutswindow.ui</file>
+    <file preprocess="xml-stripblanks">ui/preferenceswindow.ui</file>
 
     <file preprocess="xml-stripblanks">icons/phone-oldschool-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/toggle-sidebar-symbolic.svg</file>

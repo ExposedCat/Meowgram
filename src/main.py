@@ -23,8 +23,9 @@ gi.require_version("Handy", "1")
 gi.require_version("Gst", "1.0")
 from gi.repository import Gio, Gtk, Handy, Gdk, GLib
 
-from meowgram.widgets.loginwindow import MeowgramLoginWindow
 from meowgram.widgets.window import MeowgramWindow
+from meowgram.widgets.preferenceswindow import MeowgramPreferencesWindow
+from meowgram.widgets.loginwindow import MeowgramLoginWindow
 
 
 class Application(Gtk.Application):
@@ -62,6 +63,7 @@ class Application(Gtk.Application):
 
     def setup_actions(self):
         simple_actions = [
+            ("show-preferences", self.show_preferences_window, ("<Ctrl>comma",)),
             ("show-shortcuts", self.show_shortcuts_window, ("<Ctrl>question",)),
             ("show-about", self.show_about_dialog, None),
             ("quit", self.on_quit, ("<Ctrl>q",)),
@@ -78,6 +80,11 @@ class Application(Gtk.Application):
         self.props.active_window.close()
         win = MeowgramWindow(application=self)
         win.present()
+
+    def show_preferences_window(self, action, param):
+        preferences = MeowgramPreferencesWindow()
+        preferences.set_transient_for(self.props.active_window)
+        preferences.show()
 
     def show_shortcuts_window(self, action, param):
         builder = Gtk.Builder()
