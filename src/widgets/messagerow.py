@@ -16,9 +16,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from gi.repository import Gtk
+from meowgram.meowgram_constants import meowgram_constants as constants
 
 
-@Gtk.Template(resource_path='/com/github/ExposedCat/Meowgram/ui/messagerow.ui')
+@Gtk.Template(resource_path=constants['RESOURCEID'] + '/ui/messagerow.ui')
 class MessageRow(Gtk.Box):
     __gtype_name__ = 'MessageRow'
 

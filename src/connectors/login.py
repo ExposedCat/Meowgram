@@ -1,6 +1,7 @@
 from gi.repository import Gio
 from meowgram.backend.init_client import client
 from meowgram.backend.asyncio_separator import async_run
+from meowgram.meowgram_constants import meowgram_constants as constants
 
 
 class LoginManager:
@@ -32,7 +33,7 @@ class LoginManager:
             print("Wrong password")
 
     def finish(self, window):
-        Gio.Settings('com.github.ExposedCat.Meowgram').set_boolean(
+        Gio.Settings(constants['APPID']).set_boolean(
             'logged-in',
             True
         )
