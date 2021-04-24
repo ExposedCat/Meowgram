@@ -402,7 +402,6 @@
       <object class="HdyLeaflet" id="main_leaflet">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="visible-child">messages_pane</property>
         <property name="transition-type">slide</property>
         <child>
           <object class="GtkBox">
