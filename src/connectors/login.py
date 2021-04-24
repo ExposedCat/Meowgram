@@ -6,7 +6,7 @@ from meowgram.backend.asyncio_separator import async_run
 class LoginManager:
     def login(self, window, phone_number):
         async_run(client.login, (phone_number,))
-        window.confirm_code_page.set_visible_child_name("via-tg")
+        window.confirm_code_page.set_visible_child_name('via-tg')
         window.page_carousel.scroll_to(window.confirm_code_page)
         window.prev_button.set_visible(True)
         window.confirm_code_tg.grab_focus()
@@ -32,7 +32,10 @@ class LoginManager:
             print("Wrong password")
 
     def finish(self, window):
-        Gio.Settings("com.github.ExposedCat.Meowgram").set_boolean("logged-in", True)
+        Gio.Settings('com.github.ExposedCat.Meowgram').set_boolean(
+            'logged-in',
+            True
+        )
         window.props.application.show_main_window()
 
 

@@ -15,23 +15,24 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from meowgram.widgets.loginwindow import MeowgramLoginWindow
+from meowgram.widgets.window import MeowgramWindow
+from gi.repository import Gio, Gtk, Handy, Gdk
 import sys
 
 import gi
 
-gi.require_version("Gtk", "3.0")
-gi.require_version("Handy", "1")
-gi.require_version("Gst", "1.0")
-from gi.repository import Gio, Gtk, Handy, Gdk
-
-from meowgram.widgets.window import MeowgramWindow
-from meowgram.widgets.loginwindow import MeowgramLoginWindow
+gi.require_version('Gtk', '3.0')
+gi.require_version('Handy', '1')
+gi.require_version('Gst', '1.0')
 
 
 class Application(Gtk.Application):
     def __init__(self, version):
-        super().__init__(application_id="com.github.ExposedCat.Meowgram",
-                         flags=Gio.ApplicationFlags.FLAGS_NONE,)
+        super().__init__(
+            application_id='com.github.ExposedCat.Meowgram',
+            flags=Gio.ApplicationFlags.FLAGS_NONE,
+        )
 
         self.version = version
 
@@ -39,7 +40,9 @@ class Application(Gtk.Application):
         Gtk.Application.do_startup(self)
 
         css_provider = Gtk.CssProvider()
-        css_provider.load_from_resource("/com/github/ExposedCat/Meowgram/ui/style.css")
+        css_provider.load_from_resource(
+            '/com/github/ExposedCat/Meowgram/ui/style.css'
+        )
         screen = Gdk.Screen.get_default()
         Gtk.StyleContext.add_provider_for_screen(
             screen, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
@@ -52,7 +55,7 @@ class Application(Gtk.Application):
     def do_activate(self):
         win = self.props.active_window
         if not win:
-            if Gio.Settings("com.github.ExposedCat.Meowgram").get_boolean("logged-in"):
+            if Gio.Settings('com.github.ExposedCat.Meowgram').get_boolean('logged-in'):
                 win = MeowgramWindow(application=self)
             else:
                 win = MeowgramLoginWindow(application=self)
@@ -60,16 +63,16 @@ class Application(Gtk.Application):
 
     def setup_actions(self):
         simple_actions = [
-            ("show-about", self.show_about_dialog, None),
-            ("quit", self.on_quit, ("<Ctrl>q",)),
+            ('show-about', self.show_about_dialog, None),
+            ('quit', self.on_quit, ('<Ctrl>q',)),
         ]
 
         for action, callback, accel in simple_actions:
             simple_action = Gio.SimpleAction.new(action, None)
-            simple_action.connect("activate", callback)
+            simple_action.connect('activate', callback)
             self.add_action(simple_action)
             if accel:
-                self.set_accels_for_action(f"app.{action}", accel)
+                self.set_accels_for_action(f'app.{action}', accel)
 
     def show_main_window(self):
         self.props.active_window.close()
@@ -82,7 +85,7 @@ class Application(Gtk.Application):
         about.set_modal(True)
         about.set_version(self.version)
         about.set_program_name("Meowgram")
-        about.set_logo_icon_name("com.github.ExposedCat.Meowgram")
+        about.set_logo_icon_name('com.github.ExposedCat.Meowgram')
         about.set_wrap_license(True)
         about.set_license_type(Gtk.License.GPL_3_0)
         about.set_website_label(_("GitHub"))

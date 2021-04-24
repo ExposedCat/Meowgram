@@ -7,7 +7,6 @@ class MeowgramClient:
     phone_number = None
 
     async def login(self, phone_number):
-        print(phone_number)
         self.client = TelegramClient(str(phone_number), API_ID, API_HASH)
         self.phone_number = phone_number
         await self.client.connect()

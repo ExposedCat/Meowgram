@@ -18,9 +18,9 @@
 from gi.repository import Gtk
 
 
-@Gtk.Template(resource_path="/com/github/ExposedCat/Meowgram/ui/messagerow.ui")
+@Gtk.Template(resource_path='/com/github/ExposedCat/Meowgram/ui/messagerow.ui')
 class MessageRow(Gtk.Box):
-    __gtype_name__ = "MessageRow"
+    __gtype_name__ = 'MessageRow'
 
     avatar = Gtk.Template.Child()
     message_label = Gtk.Template.Child()
@@ -41,7 +41,7 @@ class MessageRow(Gtk.Box):
         self.message_label.set_margin_start(108)
         self.message_label.set_halign(Gtk.Align.END)
         self.message_label.set_justify(Gtk.Justification.RIGHT)
-        self.message_style_context.add_class("message-out")
+        self.message_style_context.add_class('message-out')
         self.read_status.set_halign(Gtk.Align.END)
 
     def set_message_out(self):
@@ -49,5 +49,5 @@ class MessageRow(Gtk.Box):
         self.message_label.set_margin_end(108)
         self.message_label.set_halign(Gtk.Align.START)
         self.message_label.set_justify(Gtk.Justification.LEFT)
-        self.message_style_context.add_class("message-in")
+        self.message_style_context.add_class('message-in')
         self.read_status.set_halign(Gtk.Align.START)

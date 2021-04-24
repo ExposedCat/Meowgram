@@ -28,9 +28,9 @@ CONFIRM_CODE = 1
 PASSWORD = 2
 
 
-@Gtk.Template(resource_path="/com/github/ExposedCat/Meowgram/ui/loginwindow.ui")
+@Gtk.Template(resource_path='/com/github/ExposedCat/Meowgram/ui/loginwindow.ui')
 class MeowgramLoginWindow(Handy.Window):
-    __gtype_name__ = "MeowgramLoginWindow"
+    __gtype_name__ = 'MeowgramLoginWindow'
 
     next_button = Gtk.Template.Child()
     prev_button = Gtk.Template.Child()
@@ -57,19 +57,19 @@ class MeowgramLoginWindow(Handy.Window):
             self.confirm_code_sms,
             self.password,
         ]:
-            entry.set_text("")
+            entry.set_text('')
 
     @Gtk.Template.Callback()
     def on_text_changed(self, entry):
         text = entry.get_text()
-        can_click_next = text != ""
+        can_click_next = text != ''
         if entry.props.input_purpose == Gtk.InputPurpose.PHONE:
-            text = re.sub(r"[^+\d \-()]", "", text)
-            can_click_next = not bool(re.fullmatch(r"\D*", text))
+            text = re.sub(r'[^+\d \-()]', '', text)
+            can_click_next = not bool(re.fullmatch(r'\D*', text))
         elif entry.props.input_purpose == Gtk.InputPurpose.DIGITS:
-            text = re.sub(r"\D", "", text)
+            text = re.sub(r'\D', '', text)
             can_click_next = bool(
-                re.fullmatch("\\d{%s}" % entry.get_max_length(), text)
+                re.fullmatch('\\d{%s}' % entry.get_max_length(), text)
             )
         if text != entry.get_text():
             entry.error_bell()
@@ -103,9 +103,9 @@ class MeowgramLoginWindow(Handy.Window):
     @Gtk.Template.Callback()
     def switch_code_getting_method(self, w, uri):
         current_page = self.confirm_code_page.get_visible_child_name()
-        if current_page == "via-tg":
-            self.confirm_code_page.set_visible_child_name("via-sms")
+        if current_page == 'via-tg':
+            self.confirm_code_page.set_visible_child_name('via-sms')
             self.confirm_code_sms.grab_focus()
-        elif current_page == "via-sms":
-            self.confirm_code_page.set_visible_child_name("via-tg")
+        elif current_page == 'via-sms':
+            self.confirm_code_page.set_visible_child_name('via-tg')
             self.confirm_code_tg.grab_focus()
