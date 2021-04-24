@@ -15,6 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from meowgram.meowgram_constants import meowgram_constants as constants
+
 import sys
 
 import gi
@@ -30,13 +32,13 @@ from meowgram.widgets.loginwindow import MeowgramLoginWindow
 
 class Application(Gtk.Application):
     def __init__(self, version):
-        super().__init__(application_id='com.github.ExposedCat.Meowgram',
+        super().__init__(application_id=constants['APPID'],
                          flags=Gio.ApplicationFlags.FLAGS_NONE)
 
         self.version = version
 
         GLib.set_application_name("Meowgram")
-        GLib.set_prgname("com.github.ExposedCat.Meowgram")
+        GLib.set_prgname(constants['APPID'])
 
     def do_startup(self):
         Gtk.Application.do_startup(self)
@@ -55,7 +57,7 @@ class Application(Gtk.Application):
     def do_activate(self):
         win = self.props.active_window
         if not win:
-            if Gio.Settings('com.github.ExposedCat.Meowgram').get_boolean('logged-in'):
+            if Gio.Settings(constants['APPID']).get_boolean('logged-in'):
                 win = MeowgramWindow(application=self)
             else:
                 win = MeowgramLoginWindow(application=self)
@@ -99,7 +101,7 @@ class Application(Gtk.Application):
         about.set_modal(True)
         about.set_version(self.version)
         about.set_program_name("Meowgram")
-        about.set_logo_icon_name('com.github.ExposedCat.Meowgram')
+        about.set_logo_icon_name(constants['APPID'])
         about.set_wrap_license(True)
         about.set_license_type(Gtk.License.GPL_3_0)
         about.set_website_label(_("GitHub"))
