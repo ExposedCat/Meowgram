@@ -16,7 +16,7 @@
   <img src="screenshots/Meowgram-preview.png" alt="Preview"/>
 </p>
 
-Why Meogram?
+## 🐱 Why Meogram?
 Meowgram = Meow + Gram :D  
 **Meow** - Talking cats sound. It's a symbol of unique and user friendly UI of client, just like a cute kitten.  
 **Gram** - Part of platform name: Telegram. It says about which messanger is client made for.  
