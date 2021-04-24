@@ -62,8 +62,9 @@ class Application(Gtk.Application):
 
     def setup_actions(self):
         simple_actions = [
-            ('show-about', self.show_about_dialog, None),
-            ('quit', self.on_quit, ('<Ctrl>q',)),
+            ("show-shortcuts", self.show_shortcuts_window, ("<Ctrl>question",)),
+            ("show-about", self.show_about_dialog, None),
+            ("quit", self.on_quit, ("<Ctrl>q",)),
         ]
 
         for action, callback, accel in simple_actions:
@@ -77,6 +78,13 @@ class Application(Gtk.Application):
         self.props.active_window.close()
         win = MeowgramWindow(application=self)
         win.present()
+
+    def show_shortcuts_window(self, action, param):
+        builder = Gtk.Builder()
+        builder.add_from_resource('/com/github/ExposedCat/Meowgram/ui/shortcuts.ui')
+        window = builder.get_object('shortcuts')
+        window.set_transient_for(self.props.active_window)
+        window.present()
 
     def show_about_dialog(self, action, param):
         about = Gtk.AboutDialog()
