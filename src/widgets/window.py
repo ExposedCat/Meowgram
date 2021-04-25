@@ -19,10 +19,10 @@ from gi.repository import Gtk, Handy, GObject
 
 from meowgram.widgets.contactrow import ContactRow
 from meowgram.widgets.messagerow import MessageRow
-from meowgram.meowgram_constants import meowgram_constants as constants
+from meowgram.constants import Constants
 
 
-@Gtk.Template(resource_path=f"{constants['RESOURCEID']}/ui/window.ui")
+@Gtk.Template(resource_path=f"{Constants.RESOURCEID}/ui/window.ui")
 class MeowgramWindow(Handy.ApplicationWindow):
     __gtype_name__ = 'MeowgramWindow'
 
@@ -75,7 +75,7 @@ class MeowgramWindow(Handy.ApplicationWindow):
 
     def popover_init(self):
         builder = Gtk.Builder()
-        builder.add_from_resource(f"{constants['RESOURCEID']}/ui/menus.ui")
+        builder.add_from_resource(f"{Constants.RESOURCEID}/ui/menus.ui")
         menu_model = builder.get_object('primary_menu')
         popover = Gtk.Popover.new_from_model(self.menu_button, menu_model)
         self.menu_button.set_popover(popover)

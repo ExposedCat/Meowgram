@@ -23,7 +23,7 @@ config_file = configure_file(
 meowgram_sources = [
   config_file,
   'main.py',
-  'meowgram_constants.py'
+  'constants.py'
 ]
 
 install_data(meowgram_sources, install_dir: moduledir)

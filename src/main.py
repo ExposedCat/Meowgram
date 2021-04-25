@@ -15,8 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from meowgram.meowgram_constants import meowgram_constants as constants
-
 import sys
 
 import gi
@@ -28,23 +26,24 @@ from gi.repository import Gio, Gtk, Handy, Gdk, GLib
 from meowgram.widgets.window import MeowgramWindow
 from meowgram.widgets.preferenceswindow import MeowgramPreferencesWindow
 from meowgram.widgets.loginwindow import MeowgramLoginWindow
+from meowgram.constants import Constants
 
 
 class Application(Gtk.Application):
     def __init__(self, version):
-        super().__init__(application_id=constants['APPID'],
+        super().__init__(application_id=Constants.APPID,
                          flags=Gio.ApplicationFlags.FLAGS_NONE)
 
         self.version = version
 
         GLib.set_application_name("Meowgram")
-        GLib.set_prgname(constants['APPID'])
+        GLib.set_prgname(Constants.APPID)
 
     def do_startup(self):
         Gtk.Application.do_startup(self)
 
         css_provider = Gtk.CssProvider()
-        css_provider.load_from_resource(f"{constants['RESOURCEID']}/ui/style.css")
+        css_provider.load_from_resource(f"{Constants.RESOURCEID}/ui/style.css")
         screen = Gdk.Screen.get_default()
         Gtk.StyleContext.add_provider_for_screen(
             screen, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
@@ -57,7 +56,7 @@ class Application(Gtk.Application):
     def do_activate(self):
         win = self.props.active_window
         if not win:
-            if Gio.Settings(constants['APPID']).get_boolean('logged-in'):
+            if Gio.Settings(Constants.APPID).get_boolean('logged-in'):
                 win = MeowgramWindow(application=self)
             else:
                 win = MeowgramLoginWindow(application=self)
@@ -90,7 +89,7 @@ class Application(Gtk.Application):
 
     def show_shortcuts_window(self, action, param):
         builder = Gtk.Builder()
-        builder.add_from_resource(f"{constants['RESOURCEID']}/ui/shortcutswindow.ui")
+        builder.add_from_resource(f"{Constants.RESOURCEID}/ui/shortcutswindow.ui")
         window = builder.get_object('shortcuts')
         window.set_transient_for(self.props.active_window)
         window.present()
@@ -101,7 +100,7 @@ class Application(Gtk.Application):
         about.set_modal(True)
         about.set_version(self.version)
         about.set_program_name("Meowgram")
-        about.set_logo_icon_name(constants['APPID'])
+        about.set_logo_icon_name(Constants.APPID)
         about.set_authors(
             [
                 "Artem Prokop",

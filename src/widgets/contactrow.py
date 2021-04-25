@@ -16,10 +16,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from gi.repository import Gtk, Handy
-from meowgram.meowgram_constants import meowgram_constants as constants
+
+from meowgram.constants import Constants
 
 
-@Gtk.Template(resource_path=f"{constants['RESOURCEID']}/ui/contactrow.ui")
+@Gtk.Template(resource_path=f"{Constants.RESOURCEID}/ui/contactrow.ui")
 class ContactRow(Handy.ActionRow):
     __gtype_name__ = 'ContactRow'
 
