@@ -28,15 +28,15 @@ class MessageRow(Gtk.Box):
     message_label = Gtk.Template.Child()
     read_status = Gtk.Template.Child()
 
-    def __init__(self, is_from_self, **kwargs):
+    def __init__(self, dialog, **kwargs):
         super().__init__(**kwargs)
 
         self.message_style_context = self.message_label.get_style_context()
 
-        if is_from_self:
-            self.set_message_in()
-        else:
+        if dialog.message.out:
             self.set_message_out()
+        else:
+            self.set_message_in()
 
     def set_message_in(self):
         self.avatar.set_visible(False)

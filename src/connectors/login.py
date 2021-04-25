@@ -1,16 +1,19 @@
 from gi.repository import Gio
-from meowgram.backend.init_client import client
+
+from meowgram.backend.telegram_client import client
 from meowgram.backend.asyncio_separator import async_run
+
 from meowgram.constants import Constants
 
 
 class LoginManager:
     def login(self, window, phone_number):
         async_run(client.login, (phone_number,))
-        window.confirm_code_page.set_visible_child_name('via-tg')
-        window.page_carousel.scroll_to(window.confirm_code_page)
-        window.prev_button.set_visible(True)
-        window.confirm_code_tg.grab_focus()
+        if not Gio.Settings(Constants.APPID).get_boolean('logged-in'):
+            window.confirm_code_page.set_visible_child_name('via-tg')
+            window.page_carousel.scroll_to(window.confirm_code_page)
+            window.prev_button.set_visible(True)
+            window.confirm_code_tg.grab_focus()
 
     def send_code(self, window, code):  # 0 - wrong code; 1 - need 2FA; 2 - all is ok
         request = async_run(client.auth_code, (code,))

@@ -27,10 +27,10 @@ class ContactRow(Handy.ActionRow):
     time_label = Gtk.Template.Child()
     avatar = Gtk.Template.Child()
 
-    def __init__(self, **kwargs):
+    def __init__(self, dialog_data, **kwargs):
         super().__init__(**kwargs)
 
         self.add_prefix(self.avatar)
-        self.set_title("Lorem Ipsum")
-        self.set_subtitle("Hello there. How are you?")
-        self.time_label.set_label("22∶05")
+        self.set_title(dialog_data.title if hasattr(dialog_data, 'title') else dialog_data.name)
+        self.set_subtitle(dialog_data.message.message)
+        self.time_label.set_label(dialog_data.message.date.strftime('%H:%M:%S'))

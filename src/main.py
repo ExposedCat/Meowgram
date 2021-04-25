@@ -24,9 +24,11 @@ gi.require_version("Gst", "1.0")
 from gi.repository import Gio, Gtk, Handy, Gdk, GLib
 
 from meowgram.widgets.window import MeowgramWindow
-from meowgram.widgets.preferenceswindow import MeowgramPreferencesWindow
-from meowgram.widgets.loginwindow import MeowgramLoginWindow
+from meowgram.widgets.preferences_window import MeowgramPreferencesWindow
+from meowgram.widgets.login_window import MeowgramLoginWindow
 from meowgram.constants import Constants
+
+from meowgram.connectors.login import login_manager
 
 
 class Application(Gtk.Application):
@@ -57,6 +59,7 @@ class Application(Gtk.Application):
         win = self.props.active_window
         if not win:
             if Gio.Settings(Constants.APPID).get_boolean('logged-in'):
+                login_manager.login(None, None)
                 win = MeowgramWindow(application=self)
             else:
                 win = MeowgramLoginWindow(application=self)

@@ -17,9 +17,9 @@
 
 from gi.repository import Gtk, Handy, GObject
 
-from meowgram.widgets.contactrow import ContactRow
-from meowgram.widgets.messagerow import MessageRow
 from meowgram.constants import Constants
+
+from meowgram.connectors.dialogs import dialogs_manager
 
 
 @Gtk.Template(resource_path=f"{Constants.RESOURCEID}/ui/window.ui")
@@ -55,9 +55,7 @@ class MeowgramWindow(Handy.ApplicationWindow):
                                           GObject.BindingFlags.BIDIRECTIONAL)
         self.popover_init()
 
-        for index in range(10):
-            self.contacts_listbox.insert(ContactRow(), -1)
-            self.message_box.add(MessageRow(index % 2))
+        dialogs_manager.show_dialogs(self)
 
     @Gtk.Template.Callback()
     def on_contacts_activated(self, listbox, row):
