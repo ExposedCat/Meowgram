@@ -19,7 +19,7 @@ from gi.repository import Gtk, Handy
 from meowgram.meowgram_constants import meowgram_constants as constants
 
 
-@Gtk.Template(resource_path=constants['RESOURCEID'] + '/ui/contactrow.ui')
+@Gtk.Template(resource_path=f"{constants['RESOURCEID']}/ui/contactrow.ui")
 class ContactRow(Handy.ActionRow):
     __gtype_name__ = 'ContactRow'
 
