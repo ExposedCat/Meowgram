@@ -102,8 +102,20 @@ class Application(Gtk.Application):
         about.set_version(self.version)
         about.set_program_name("Meowgram")
         about.set_logo_icon_name(constants['APPID'])
+        about.set_authors(
+            [
+                "Artem Prokop",
+                "Dave Patrick",
+                "Gleb Smirnov",
+                "Artem Kudyakov",
+                "Alexey Mikhailov"
+            ]
+        )
+        about.set_comments(_("GTK Telegram Client"))
         about.set_wrap_license(True)
         about.set_license_type(Gtk.License.GPL_3_0)
+        # Translators: Replace "translator-credits" with your names, one name per line
+        about.set_translator_credits(_("translator-credits"))
         about.set_website_label(_("GitHub"))
         about.set_website("https://github.com/ExposedCat/Meowgram")
         about.show()

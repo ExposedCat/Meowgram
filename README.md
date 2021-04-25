@@ -3,7 +3,7 @@
   Meowgram
 </h1>
 
-<p align="center"><strong>Telegram client written in GTK & Python</strong></p>
+<p align="center"><strong>GTK Telegram Client</strong></p>
 
 <br>
 <p align="center">
