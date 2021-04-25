@@ -1,4 +1,5 @@
 from gi.repository import Handy, Gtk
+
 from meowgram.constants import Constants
 
 
