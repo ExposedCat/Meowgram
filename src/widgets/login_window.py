@@ -20,6 +20,7 @@
 import re
 
 from gi.repository import Gtk, Handy
+
 from meowgram.connectors.login import login_manager
 from meowgram.constants import Constants
 
