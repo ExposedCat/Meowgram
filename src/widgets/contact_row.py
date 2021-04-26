@@ -37,6 +37,9 @@ class ContactRow(Handy.ActionRow):
             contact_name = f"{contact_name} ✓"
 
         last_message = dialog_data.message.message
+        if dialog_data.message.media:
+            last_message = "🖼️ Photo"
+
         last_message_time = dialog_data.message.date.strftime('%H∶%M∶%S')
 
         self.set_title(contact_name)
