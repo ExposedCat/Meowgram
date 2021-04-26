@@ -58,9 +58,9 @@ class ContactRow(Handy.ActionRow):
         last_message_time = last_message_time.replace(tzinfo=datetime.timezone.utc).astimezone()
 
         if days_difference <= 1:
-            last_message_time = last_message_time.strftime('%I:%M %p') # 08:57 AM
+            last_message_time = last_message_time.strftime('%I:%M %p')  # 08:57 AM
         elif days_difference < 7:
-            last_message_time = last_message_time.strftime('%a') # Fri
+            last_message_time = last_message_time.strftime('%a')  # Fri
         elif days_difference >= 7:
-            last_message_time = last_message_time.strftime('%b %d') # Apr 08
+            last_message_time = last_message_time.strftime('%b %d')  # Apr 08
         return last_message_time

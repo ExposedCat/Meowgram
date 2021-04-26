@@ -1,5 +1,4 @@
 from meowgram.config import API_ID, API_HASH
-from meowgram.constants import Constants
 from telethon import TelegramClient, errors
 
 from os import listdir
