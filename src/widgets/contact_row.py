@@ -31,6 +31,11 @@ class ContactRow(Handy.ActionRow):
         super().__init__(**kwargs)
 
         self.add_prefix(self.avatar)
-        self.set_title(dialog_data.title if hasattr(dialog_data, 'title') else dialog_data.name)
-        self.set_subtitle(dialog_data.message.message)
-        self.time_label.set_label(dialog_data.message.date.strftime('%H:%M:%S'))
+
+        contact_name = dialog_data.title if hasattr(dialog_data, 'title') else dialog_data.name
+        last_message = dialog_data.message.message
+        last_message_time = dialog_data.message.date.strftime('%H∶%M∶%S')
+
+        self.set_title(contact_name)
+        self.set_subtitle(last_message.split("\n")[0].strip())
+        self.time_label.set_label(last_message_time)
