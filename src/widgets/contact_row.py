@@ -76,7 +76,7 @@ class ContactRow(Handy.ActionRow):
             days_difference = (today - last_message_time).days
 
             if days_difference <= 1:
-                last_message_time = last_message_time.strftime('%I:%M %p')  # 08:57 AM
+                last_message_time = last_message_time.strftime('%I∶%M %p')  # 08:57 AM
             elif days_difference < 7:
                 last_message_time = last_message_time.strftime('%a')  # Fri
             elif days_difference >= 7:
