@@ -15,6 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import datetime
+
 from gi.repository import Gtk, Handy
 
 from meowgram.constants import Constants
@@ -30,18 +32,35 @@ class ContactRow(Handy.ActionRow):
     def __init__(self, dialog_data, **kwargs):
         super().__init__(**kwargs)
 
+        self.dialog_data = dialog_data
         self.add_prefix(self.avatar)
 
-        contact_name = dialog_data.title if hasattr(dialog_data, 'title') else dialog_data.name
-        if dialog_data.entity.verified:
+        self.set_title(self.get_contact_name())
+        self.set_subtitle(self.get_last_message())
+        self.time_label.set_label(self.get_last_message_time())
+
+    def get_contact_name(self):
+        contact_name = self.dialog_data.title if hasattr(self.dialog_data, 'title') else self.dialog_data.name
+        if self.dialog_data.entity.verified:
             contact_name = f"{contact_name} ✓"
+        return contact_name
 
-        last_message = dialog_data.message.message
-        if dialog_data.message.media:
+    def get_last_message(self):
+        last_message = self.dialog_data.message.message
+        if self.dialog_data.message.media:
             last_message = "🖼️ Photo"
+        return last_message.split('\n')[0].strip()
 
-        last_message_time = dialog_data.message.date.strftime('%H∶%M∶%S')
+    def get_last_message_time(self):
+        last_message_time = self.dialog_data.message.date
+        today = datetime.datetime.now().astimezone()
+        days_difference = (today - last_message_time).days
+        last_message_time = last_message_time.replace(tzinfo=datetime.timezone.utc).astimezone()
 
-        self.set_title(contact_name)
-        self.set_subtitle(last_message.split("\n")[0].strip())
-        self.time_label.set_label(last_message_time)
+        if days_difference <= 1:
+            last_message_time = last_message_time.strftime('%I:%M %p') # 08:57 AM
+        elif days_difference < 7:
+            last_message_time = last_message_time.strftime('%a') # Fri
+        elif days_difference >= 7:
+            last_message_time = last_message_time.strftime('%b %d') # Apr 08
+        return last_message_time
