@@ -60,6 +60,7 @@ class ContactRow(Handy.ActionRow):
             if self.dialog_data.message.out:
                 sender = "You"
             else:
+                # TODO Hide the sender when the not coming from a group chat
                 sender = self.dialog_data.message.sender.first_name
             return f"{sender}: {last_message}"
         except Exception as error:
@@ -76,6 +77,7 @@ class ContactRow(Handy.ActionRow):
             days_difference = (today - last_message_time).days
 
             if days_difference <= 1:
+                # TODO Make this work with military time
                 last_message_time = last_message_time.strftime('%I∶%M %p')  # 08:57 AM
             elif days_difference < 7:
                 last_message_time = last_message_time.strftime('%a')  # Fri
