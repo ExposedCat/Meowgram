@@ -64,7 +64,7 @@ class ContactRow(Handy.ActionRow):
             if self.dialog_data.message.out:
                 return f"You: {last_message}"
             else:
-                return last_message
+                return f"{self.dialog_data.message.sender.first_name}: {last_message}"
 
     def get_last_message_time(self):
         try:
