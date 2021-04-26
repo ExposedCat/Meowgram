@@ -33,6 +33,9 @@ class ContactRow(Handy.ActionRow):
         self.add_prefix(self.avatar)
 
         contact_name = dialog_data.title if hasattr(dialog_data, 'title') else dialog_data.name
+        if dialog_data.entity.verified:
+            contact_name = f"{contact_name} ✓"
+
         last_message = dialog_data.message.message
         last_message_time = dialog_data.message.date.strftime('%H∶%M∶%S')
 
