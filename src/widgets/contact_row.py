@@ -35,7 +35,7 @@ class ContactRow(Handy.ActionRow):
 
         self.dialog_data = dialog_data
         self.add_prefix(self.avatar)
-        self.set_last_message_is_sent()
+        self.set_message_status()
 
         self.set_title(self.get_contact_name())
         self.set_subtitle(self.get_last_message())
@@ -46,25 +46,25 @@ class ContactRow(Handy.ActionRow):
             contact_name = getattr(self.dialog_data, 'title', self.dialog_data.name)
             if self.dialog_data.entity.verified:
                 contact_name = f"{contact_name} ✓"
+            return contact_name
         except Exception as error:
             print(f"Error {error}")
-            contact_name = ""
-        finally:
-            return contact_name
+            return ""
 
     def get_last_message(self):
         try:
             last_message = self.dialog_data.message.message.split('\n')[0].strip()
             if self.dialog_data.message.media:
                 last_message = "🖼️ Photo"
+
+            if self.dialog_data.message.out:
+                sender = "You"
+            else:
+                sender = self.dialog_data.message.sender.first_name
+            return f"{sender}: {last_message}"
         except Exception as error:
             print(f"Error {error}")
-            last_message = ""
-        finally:
-            if self.dialog_data.message.out:
-                return f"You: {last_message}"
-            else:
-                return f"{self.dialog_data.message.sender.first_name}: {last_message}"
+            return ""
 
     def get_last_message_time(self):
         try:
@@ -81,13 +81,12 @@ class ContactRow(Handy.ActionRow):
                 last_message_time = last_message_time.strftime('%a')  # Fri
             elif days_difference >= 7:
                 last_message_time = last_message_time.strftime('%b %d')  # Apr 08
+            return last_message_time
         except Exception as error:
             print(f"Error {error}")
-            last_message_time = ""
-        finally:
-            return last_message_time
+            return ""
 
-    def set_last_message_is_sent(self):
+    def set_message_status(self):
         try:
             self.read_status.set_visible(self.dialog_data.message.out)
         except Exception as error:
