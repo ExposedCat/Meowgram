@@ -46,10 +46,15 @@ class ContactRow(Handy.ActionRow):
         return contact_name
 
     def get_last_message(self):
-        last_message = self.dialog_data.message.message.split('\n')[0].strip()
-        if self.dialog_data.message.media:
-            last_message = "🖼️ Photo"
-        return last_message
+        try:
+            last_message = self.dialog_data.message.message.split('\n')[0].strip()
+            if self.dialog_data.message.media:
+                last_message = "🖼️ Photo"
+        except Exception as error:
+            print(f"Error {error}")
+            last_message = ""
+        finally:
+            return last_message
 
     def get_last_message_time(self):
         last_message_time = self.dialog_data.message.date
