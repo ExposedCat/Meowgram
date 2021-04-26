@@ -87,7 +87,6 @@ class ContactRow(Handy.ActionRow):
 
     def set_last_message_is_sent(self):
         try:
-            print(self.dialog_data.message.out)
             self.read_status.set_visible(self.dialog_data.message.out)
         except Exception as error:
             print(f"Error {error}")
