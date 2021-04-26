@@ -43,7 +43,7 @@ class ContactRow(Handy.ActionRow):
 
     def get_contact_name(self):
         try:
-            contact_name = self.dialog_data.title if hasattr(self.dialog_data, 'title') else self.dialog_data.name
+            contact_name = getattr(self.dialog_data, 'title', self.dialog.name)
             if self.dialog_data.entity.verified:
                 contact_name = f"{contact_name} ✓"
         except Exception as error:
