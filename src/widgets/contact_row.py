@@ -40,10 +40,15 @@ class ContactRow(Handy.ActionRow):
         self.time_label.set_label(self.get_last_message_time())
 
     def get_contact_name(self):
-        contact_name = self.dialog_data.title if hasattr(self.dialog_data, 'title') else self.dialog_data.name
-        if self.dialog_data.entity.verified:
-            contact_name = f"{contact_name} ✓"
-        return contact_name
+        try:
+            contact_name = self.dialog_data.title if hasattr(self.dialog_data, 'title') else self.dialog_data.name
+            if self.dialog_data.entity.verified:
+                contact_name = f"{contact_name} ✓"
+        except Exception as error:
+            print(f"Error {error}")
+            last_message = ""
+        finally:
+            return contact_name
 
     def get_last_message(self):
         try:
