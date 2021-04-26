@@ -28,12 +28,14 @@ class ContactRow(Handy.ActionRow):
 
     time_label = Gtk.Template.Child()
     avatar = Gtk.Template.Child()
+    read_status = Gtk.Template.Child()
 
     def __init__(self, dialog_data, **kwargs):
         super().__init__(**kwargs)
 
         self.dialog_data = dialog_data
         self.add_prefix(self.avatar)
+        self.set_last_message_is_sent()
 
         self.set_title(self.get_contact_name())
         self.set_subtitle(self.get_last_message())
@@ -59,7 +61,10 @@ class ContactRow(Handy.ActionRow):
             print(f"Error {error}")
             last_message = ""
         finally:
-            return last_message
+            if self.dialog_data.message.out:
+                return f"You: {last_message}"
+            else:
+                return last_message
 
     def get_last_message_time(self):
         try:
@@ -79,3 +84,10 @@ class ContactRow(Handy.ActionRow):
             last_message_time = ""
         finally:
             return last_message_time
+
+    def set_last_message_is_sent(self):
+        try:
+            print(self.dialog_data.message.out)
+            self.read_status.set_visible(self.dialog_data.message.out)
+        except Exception as error:
+            print(f"Error {error}")

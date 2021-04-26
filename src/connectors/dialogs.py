@@ -10,7 +10,7 @@ class DialogsManager:
         request = async_run(client.get_dialogs, ())
         dialogs = request.result()
         for dialog in dialogs:
-            print(dialogs)
+            print(dialog)
             window.contacts_listbox.insert(ContactRow(dialog), -1)
             window.message_box.add(MessageRow(dialog))
 
