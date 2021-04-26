@@ -21,25 +21,42 @@
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
-        <property name="valign">start</property>
-        <property name="margin-top">12</property>
-        <property name="spacing">6</property>
+        <property name="valign">center</property>
+        <property name="orientation">vertical</property>
         <child>
-          <object class="GtkImage" id="read_status">
-            <property name="pixel-size">12</property>
-            <property name="icon-name">object-select-symbolic</property>
-            <style>
-              <class name="dim-label"/>
-            </style>
+          <object class="GtkBox">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="spacing">6</property>
+            <child>
+              <object class="GtkImage" id="read_status">
+                <property name="can-focus">False</property>
+                <property name="pixel-size">12</property>
+                <property name="icon-name">object-select-symbolic</property>
+                <style>
+                  <class name="dim-label"/>
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="time_label">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">22:05</property>
+                <style>
+                  <class name="dim-label"/>
+                  <class name="time-label"/>
+                </style>
+              </object>
+            </child>
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="time_label">
-            <property name="visible">True</property>
-            <property name="label" translatable="yes">22:05</property>
+          <object class="GtkLabel" id="unread_label">
+            <property name="can-focus">False</property>
+            <property name="halign">end</property>
             <style>
-              <class name="dim-label"/>
-              <class name="time-label"/>
+              <class name="unread-badge"/>
             </style>
           </object>
         </child>

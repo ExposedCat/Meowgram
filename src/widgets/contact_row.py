@@ -29,6 +29,7 @@ class ContactRow(Handy.ActionRow):
     time_label = Gtk.Template.Child()
     avatar = Gtk.Template.Child()
     read_status = Gtk.Template.Child()
+    unread_label = Gtk.Template.Child()
 
     def __init__(self, dialog_data, **kwargs):
         super().__init__(**kwargs)
@@ -36,6 +37,7 @@ class ContactRow(Handy.ActionRow):
         self.dialog_data = dialog_data
         self.add_prefix(self.avatar)
         self.set_message_status()
+        self.set_unread_status()
 
         self.set_title(self.get_contact_name())
         self.set_subtitle(self.get_last_message())
@@ -87,6 +89,15 @@ class ContactRow(Handy.ActionRow):
         except Exception as error:
             print(f"Error {error}")
             return ""
+
+    def set_unread_status(self):
+        try:
+            unread_count = self.dialog_data.unread_count
+            self.unread_label.set_label(str(unread_count))
+            print(unread_count)
+            self.unread_label.set_visible(unread_count)
+        except Exception as error:
+            print(f"Error {error}")
 
     def set_message_status(self):
         try:
