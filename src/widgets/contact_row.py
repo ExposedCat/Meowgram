@@ -62,9 +62,14 @@ class ContactRow(Handy.ActionRow):
             if self.dialog_data.message.out:
                 sender = "You"
             else:
-                # TODO Hide the sender when the not coming from a group chat
                 sender = self.dialog_data.message.sender.first_name
-            return f"{sender}: {last_message}"
+
+            if self.dialog_data.is_user and not self.dialog_data.message.out:
+                return last_message
+
+            elif self.dialog_data.is_group or self.dialog_data.is_channel:
+                return f"{sender}: {last_message}"
+
         except Exception as error:
             print(f"Error {error}")
             return ""
@@ -94,7 +99,6 @@ class ContactRow(Handy.ActionRow):
         try:
             unread_count = self.dialog_data.unread_count
             self.unread_label.set_label(str(unread_count))
-            print(unread_count)
             self.unread_label.set_visible(unread_count)
         except Exception as error:
             print(f"Error {error}")
