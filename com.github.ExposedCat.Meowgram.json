@@ -1,16 +1,16 @@
 {
-    "app-id" : "com.github.ExposedCat.Meowgram",
-    "runtime" : "org.gnome.Platform",
-    "runtime-version" : "40",
-    "sdk" : "org.gnome.Sdk",
-    "command" : "meowgram",
-    "finish-args" : [
+    "app-id": "com.github.ExposedCat.Meowgram",
+    "runtime": "org.gnome.Platform",
+    "runtime-version": "40",
+    "sdk": "org.gnome.Sdk",
+    "command": "meowgram",
+    "finish-args": [
         "--share=network",
         "--share=ipc",
         "--socket=fallback-x11",
         "--socket=wayland"
     ],
-    "cleanup" : [
+    "cleanup": [
         "/include",
         "/lib/pkgconfig",
         "/man",
@@ -21,7 +21,7 @@
         "*.la",
         "*.a"
     ],
-    "modules" : [
+    "modules": [
         {
             "name": "python3-telethon",
             "buildsystem": "simple",
@@ -52,13 +52,42 @@
             ]
         },
         {
-            "name" : "meowgram",
-            "builddir" : true,
-            "buildsystem" : "meson",
-            "sources" : [
+            "name": "python3-icecream",
+            "buildsystem": "simple",
+            "build-commands": [
+                "pip3 install --exists-action=i --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} \"icecream==2.1.0\" --no-build-isolation"
+            ],
+            "sources": [
                 {
-                    "type" : "dir",
-                    "path" : "."
+                    "type": "file",
+                    "url": "https://files.pythonhosted.org/packages/82/83/efe8678d7e2c8b1805de1a089523b7068be68ab681cbcc555ab2748b979c/executing-0.6.0.tar.gz",
+                    "sha256": "a07046e608c56948a899e1c7dc45327ed84ee67edf245041eb8c6722658c14e3"
+                },
+                {
+                    "type": "file",
+                    "url": "https://files.pythonhosted.org/packages/1f/bb/5d3246097ab77fa083a61bd8d3d527b7ae063c7d8e8671b1cf8c4ec10cbe/colorama-0.4.4.tar.gz",
+                    "sha256": "5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"
+                },
+                {
+                    "type": "file",
+                    "url": "https://files.pythonhosted.org/packages/aa/51/59965dead3960a97358f289c7c11ebc1f6c5d28710fab5d421000fe60353/asttokens-2.0.5.tar.gz",
+                    "sha256": "9a54c114f02c7a9480d56550932546a3f1fe71d8a02f1bc7ccd0ee3ee35cf4d5"
+                },
+                {
+                    "type": "file",
+                    "url": "https://files.pythonhosted.org/packages/c2/39/96d696620e3d86929aadd10519e62adfa8c4ad207208712638c2500df0ab/icecream-2.1.0.tar.gz",
+                    "sha256": "c2e7b74c1c12caa2cfde050f2e636493ee77a9fb4a494b5593418ab359924a24"
+                }
+            ]
+        },
+        {
+            "name": "meowgram",
+            "builddir": true,
+            "buildsystem": "meson",
+            "sources": [
+                {
+                    "type": "dir",
+                    "path": "."
                 }
             ]
         }
