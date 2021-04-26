@@ -46,7 +46,7 @@ class ContactRow(Handy.ActionRow):
                 contact_name = f"{contact_name} ✓"
         except Exception as error:
             print(f"Error {error}")
-            last_message = ""
+            contact_name = ""
         finally:
             return contact_name
 
@@ -62,15 +62,20 @@ class ContactRow(Handy.ActionRow):
             return last_message
 
     def get_last_message_time(self):
-        last_message_time = self.dialog_data.message.date
-        today = datetime.datetime.now().astimezone()
-        days_difference = (today - last_message_time).days
-        last_message_time = last_message_time.replace(tzinfo=datetime.timezone.utc).astimezone()
+        try:
+            last_message_time = self.dialog_data.message.date
+            today = datetime.datetime.now().astimezone()
+            days_difference = (today - last_message_time).days
+            last_message_time = last_message_time.replace(tzinfo=datetime.timezone.utc).astimezone()
 
-        if days_difference <= 1:
-            last_message_time = last_message_time.strftime('%I:%M %p')  # 08:57 AM
-        elif days_difference < 7:
-            last_message_time = last_message_time.strftime('%a')  # Fri
-        elif days_difference >= 7:
-            last_message_time = last_message_time.strftime('%b %d')  # Apr 08
-        return last_message_time
+            if days_difference <= 1:
+                last_message_time = last_message_time.strftime('%I:%M %p')  # 08:57 AM
+            elif days_difference < 7:
+                last_message_time = last_message_time.strftime('%a')  # Fri
+            elif days_difference >= 7:
+                last_message_time = last_message_time.strftime('%b %d')  # Apr 08
+        except Exception as error:
+            print(f"Error {error}")
+            last_message_time = ""
+        finally:
+            return last_message_time
