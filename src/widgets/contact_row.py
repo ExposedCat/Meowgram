@@ -68,10 +68,12 @@ class ContactRow(Handy.ActionRow):
 
     def get_last_message_time(self):
         try:
-            last_message_time = self.dialog_data.message.date
+            last_message_time = self.dialog_data.message.date \
+                .replace(tzinfo=datetime.timezone.utc) \
+                .astimezone()
+
             today = datetime.datetime.now().astimezone()
             days_difference = (today - last_message_time).days
-            last_message_time = last_message_time.replace(tzinfo=datetime.timezone.utc).astimezone()
 
             if days_difference <= 1:
                 last_message_time = last_message_time.strftime('%I:%M %p')  # 08:57 AM
