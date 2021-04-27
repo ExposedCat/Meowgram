@@ -61,17 +61,26 @@ class ContactRow(Gtk.Box):
 
     def get_last_message(self):
         try:
-            last_message = self.dialog_data.message.message.split('\n')[0].strip()
-            if self.dialog_data.message.media:
+            message = self.dialog_data.message
+            if message.message == None:
+                # TODO add action text
+                return "Action"
+            last_message = message.message.split('\n')[0].strip()
+            if message.media:
                 last_message = "🖼️ Photo"
 
-            if self.dialog_data.message.out:
-                sender = "You: "
-            elif self.dialog_data.is_user and not self.dialog_data.message.out:
-                sender = ""
+            if message.out:
+                sender_label = "You: "
+            elif self.dialog_data.is_user and not message.out:
+                sender_label = ""
             else:
-                sender = f"{self.dialog_data.message.sender.first_name}: "
-            return "".join([sender, last_message])
+                if hasattr(message.sender, 'first_name'):
+                    sender_label = f"{message.sender.first_name}: "
+                elif hasattr(message.sender, 'post_author'):
+                    sender_label = f"{message.sender.post_author}: "
+                else:
+                    sender_label = ''
+            return f"{sender_label}{last_message}"
         except Exception as error:
             print(f"Error {error}")
             return ""

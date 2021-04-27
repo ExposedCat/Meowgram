@@ -8,12 +8,14 @@ from meowgram.constants import Constants
 
 class LoginManager:
     def login(self, window, phone_number):
-        async_run(client.login, (phone_number,))
-        if not Gio.Settings(Constants.APPID).get_boolean('logged-in'):
+        request = async_run(client.login, (phone_number,))
+        auth = request.result()
+        if auth == 1:
             window.confirm_code_page.set_visible_child_name('via-tg')
             window.page_carousel.scroll_to(window.confirm_code_page)
             window.prev_button.set_visible(True)
             window.confirm_code_tg.grab_focus()
+        return auth
 
     def send_code(self, window, code):  # 0 - wrong code; 1 - need 2FA; 2 - all is ok
         request = async_run(client.auth_code, (code,))

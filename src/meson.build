@@ -27,6 +27,7 @@ meowgram_sources = [
 ]
 
 install_data(meowgram_sources, install_dir: moduledir)
+install_subdir('utils', install_dir: moduledir)
 install_subdir('backend', install_dir: moduledir)
 install_subdir('connectors', install_dir: moduledir)
 install_subdir('widgets', install_dir: moduledir)

@@ -58,8 +58,8 @@ class Application(Gtk.Application):
     def do_activate(self):
         win = self.props.active_window
         if not win:
-            if Gio.Settings(Constants.APPID).get_boolean('logged-in'):
-                login_manager.login(None, None)
+            auth = login_manager.login(None, None)
+            if auth == 2:
                 win = MeowgramWindow(application=self)
             else:
                 win = MeowgramLoginWindow(application=self)
