@@ -26,15 +26,17 @@ from meowgram.constants import Constants
 class ContactRow(Handy.ActionRow):
     __gtype_name__ = 'ContactRow'
 
-    time_label = Gtk.Template.Child()
     avatar = Gtk.Template.Child()
     read_status = Gtk.Template.Child()
+    pin_status = Gtk.Template.Child()
     unread_label = Gtk.Template.Child()
+    time_label = Gtk.Template.Child()
 
     def __init__(self, dialog_data, **kwargs):
         super().__init__(**kwargs)
 
         self.dialog_data = dialog_data
+
         self.add_prefix(self.avatar)
         self.set_message_status()
         self.set_unread_status()
@@ -93,9 +95,14 @@ class ContactRow(Handy.ActionRow):
 
     def set_unread_status(self):
         try:
+            is_pinned = self.dialog_data.pinned
             unread_count = self.dialog_data.unread_count
-            self.unread_label.set_label(str(unread_count))
             self.unread_label.set_visible(unread_count)
+            self.unread_label.set_label(str(unread_count))
+            self.pin_status.set_visible(is_pinned)
+
+            if unread_count and is_pinned:
+                self.pin_status.set_visible(False)
         except Exception as error:
             print(f"Error {error}")
 

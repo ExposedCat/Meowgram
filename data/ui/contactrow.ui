@@ -52,12 +52,36 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="unread_label">
+          <object class="GtkBox">
+            <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="halign">end</property>
-            <style>
-              <class name="unread-badge"/>
-            </style>
+            <property name="spacing">6</property>
+            <child>
+              <object class="GtkLabel" id="unread_label">
+                <property name="can-focus">False</property>
+                <property name="halign">end</property>
+                <style>
+                  <class name="unread-badge"/>
+                </style>
+              </object>
+              <packing>
+                <property name="pack-type">end</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkImage" id="pin_status">
+                <property name="can-focus">False</property>
+                <property name="halign">end</property>
+                <property name="pixel-size">12</property>
+                <property name="icon-name">pin-symbolic</property>
+                <style>
+                  <class name="dim-label"/>
+                </style>
+              </object>
+              <packing>
+                <property name="pack-type">end</property>
+              </packing>
+            </child>
           </object>
         </child>
       </object>
