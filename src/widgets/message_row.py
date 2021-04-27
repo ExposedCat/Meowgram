@@ -38,7 +38,7 @@ class MessageRow(Gtk.Box):
         else:
             self.set_message_in()
 
-    def set_message_in(self):
+    def set_message_out(self):
         self.avatar.set_visible(False)
         self.message_label.set_margin_start(108)
         self.message_label.set_halign(Gtk.Align.END)
@@ -46,7 +46,7 @@ class MessageRow(Gtk.Box):
         self.message_style_context.add_class('message-out')
         self.read_status.set_halign(Gtk.Align.END)
 
-    def set_message_out(self):
+    def set_message_in(self):
         self.avatar.set_visible(True)
         self.message_label.set_margin_end(108)
         self.message_label.set_halign(Gtk.Align.START)
