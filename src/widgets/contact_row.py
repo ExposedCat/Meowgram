@@ -23,12 +23,14 @@ from meowgram.constants import Constants
 
 
 @Gtk.Template(resource_path=f"{Constants.RESOURCEID}/ui/contactrow.ui")
-class ContactRow(Handy.ActionRow):
+class ContactRow(Gtk.Box):
     __gtype_name__ = 'ContactRow'
 
-    avatar = Gtk.Template.Child()
     read_status = Gtk.Template.Child()
     pin_status = Gtk.Template.Child()
+
+    contact_name_label = Gtk.Template.Child()
+    last_message_label = Gtk.Template.Child()
     unread_label = Gtk.Template.Child()
     time_label = Gtk.Template.Child()
 
@@ -37,20 +39,24 @@ class ContactRow(Handy.ActionRow):
 
         self.dialog_data = dialog_data
 
-        self.add_prefix(self.avatar)
         self.set_message_status()
         self.set_unread_status()
 
-        self.set_title(self.get_contact_name())
-        self.set_subtitle(self.get_last_message())
-        self.time_label.set_label(self.get_last_message_time())
+        self.contact_name_label.set_text(self.get_contact_name())
+        self.last_message_label.set_text(self.get_last_message())
+        self.time_label.set_label(f" • {self.get_last_message_time()}")
 
     def get_contact_name(self):
         try:
             contact_name = getattr(self.dialog_data, 'title', self.dialog_data.name)
-            if self.dialog_data.entity.verified:
-                contact_name = f"{contact_name} ✓"
-            return contact_name
+            is_muted = self.dialog_data.dialog.notify_settings.mute_until
+            is_verified = self.dialog_data.entity.verified
+            return_list = [contact_name]
+            if is_verified:
+                return_list.append("✓")
+            if is_muted:
+                return_list.append("🔇")
+            return " ".join(return_list)
         except Exception as error:
             print(f"Error {error}")
             return ""

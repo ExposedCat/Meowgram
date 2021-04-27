@@ -75,7 +75,7 @@
 
 .muted-badge {
   background-color: #bfbfbf;
-  color: white;
+  color: @theme_bg_color;
 }
 
 row:selected .unread-badge {
