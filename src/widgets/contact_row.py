@@ -60,16 +60,12 @@ class ContactRow(Handy.ActionRow):
                 last_message = "🖼️ Photo"
 
             if self.dialog_data.message.out:
-                sender = "You"
+                sender = "You: "
+            elif self.dialog_data.is_user and not self.dialog_data.message.out:
+                sender = ""
             else:
-                sender = self.dialog_data.message.sender.first_name
-
-            if self.dialog_data.is_user and not self.dialog_data.message.out:
-                return last_message
-
-            elif self.dialog_data.is_group or self.dialog_data.is_channel:
-                return f"{sender}: {last_message}"
-
+                sender = f"{self.dialog_data.message.sender.first_name}: "
+            return "".join([sender, last_message])
         except Exception as error:
             print(f"Error {error}")
             return ""
