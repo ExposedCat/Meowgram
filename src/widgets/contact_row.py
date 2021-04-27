@@ -28,10 +28,11 @@ class ContactRow(Gtk.Box):
 
     read_status = Gtk.Template.Child()
     pin_status = Gtk.Template.Child()
+    mute_status = Gtk.Template.Child()
+    unread_label = Gtk.Template.Child()
 
     contact_name_label = Gtk.Template.Child()
     last_message_label = Gtk.Template.Child()
-    unread_label = Gtk.Template.Child()
     time_label = Gtk.Template.Child()
 
     def __init__(self, dialog_data, **kwargs):
@@ -41,6 +42,7 @@ class ContactRow(Gtk.Box):
 
         self.set_message_status()
         self.set_unread_status()
+        self.set_mute_status()
 
         self.contact_name_label.set_text(self.get_contact_name())
         self.last_message_label.set_text(self.get_last_message())
@@ -49,14 +51,10 @@ class ContactRow(Gtk.Box):
     def get_contact_name(self):
         try:
             contact_name = getattr(self.dialog_data, 'title', self.dialog_data.name)
-            is_muted = self.dialog_data.dialog.notify_settings.mute_until
             is_verified = self.dialog_data.entity.verified
-            return_list = [contact_name]
             if is_verified:
-                return_list.append("✓")
-            if is_muted:
-                return_list.append("🔇")
-            return " ".join(return_list)
+                contact_name = f"{contact_name} ✓"
+            return contact_name
         except Exception as error:
             print(f"Error {error}")
             return ""
@@ -115,5 +113,11 @@ class ContactRow(Gtk.Box):
     def set_message_status(self):
         try:
             self.read_status.set_visible(self.dialog_data.message.out)
+        except Exception as error:
+            print(f"Error {error}")
+
+    def set_mute_status(self):
+        try:
+            self.mute_status.set_visible(self.dialog_data.dialog.notify_settings.mute_until)
         except Exception as error:
             print(f"Error {error}")
