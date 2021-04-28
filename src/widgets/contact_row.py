@@ -78,10 +78,10 @@ class ContactRow(Gtk.Box):
         else:
             try:
                 sender_name = message.sender.first_name
-            except AttributeError as error:
+            except AttributeError:
                 try:
                     sender_name = message.sender.post_author
-                except AttributeError as error:
+                except AttributeError:
                     sender_name = ""
 
         return (f"{sender_name}: " if sender_name else "") + last_message
