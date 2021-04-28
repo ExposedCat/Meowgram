@@ -55,7 +55,7 @@ class ContactRow(Gtk.Box):
             if is_verified:
                 contact_name = f"{contact_name} ✓"
             return contact_name
-        except Exception as error:
+        except AttributeError as error:
             print(f"Error {error}")
             return ""
 
@@ -73,15 +73,11 @@ class ContactRow(Gtk.Box):
                 sender_label = "You: "
             elif self.dialog_data.is_user and not message.out:
                 sender_label = ""
-            else:
-                if hasattr(message.sender, 'first_name'):
-                    sender_label = f"{message.sender.first_name}: "
-                elif hasattr(message.sender, 'post_author'):
-                    sender_label = f"{message.sender.post_author}: "
-                else:
-                    sender_label = ''
+
+            sender_label = getattr(message.sender, 'first_name', message.sender.first_name)
+
             return f"{sender_label}{last_message}"
-        except Exception as error:
+        except AttributeError as error:
             print(f"Error {error}")
             return ""
 
@@ -102,7 +98,7 @@ class ContactRow(Gtk.Box):
             elif days_difference >= 7:
                 format_string = '%b %d'  # Apr 08
             return last_message_time.strftime(format_string)
-        except Exception as error:
+        except AttributeError as error:
             print(f"Error {error}")
             return ""
 
@@ -116,17 +112,17 @@ class ContactRow(Gtk.Box):
 
             if unread_count and is_pinned:
                 self.pin_status.set_visible(False)
-        except Exception as error:
+        except AttributeError as error:
             print(f"Error {error}")
 
     def set_message_status(self):
         try:
             self.read_status.set_visible(self.dialog_data.message.out)
-        except Exception as error:
+        except AttributeError as error:
             print(f"Error {error}")
 
     def set_mute_status(self):
         try:
             self.mute_status.set_visible(self.dialog_data.dialog.notify_settings.mute_until)
-        except Exception as error:
+        except AttributeError as error:
             print(f"Error {error}")
