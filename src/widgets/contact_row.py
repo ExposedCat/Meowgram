@@ -57,7 +57,8 @@ class ContactRow(Gtk.Box):
         self.time_label.set_label(f" • {self.get_last_message_time()}")
 
     def get_contact_name(self):
-        contact_name = getattr(self.dialog_data, 'title', self.dialog_data.name)
+        contact_name = getattr(self.dialog_data, 'title',
+                               self.dialog_data.name)
         return contact_name
 
     def get_last_message(self):
@@ -71,7 +72,7 @@ class ContactRow(Gtk.Box):
             last_message = "🖼️ Photo"
 
         if message.out:
-            sender_name = "You: "
+            sender_name = "You"
         elif self.dialog_data.is_user:
             sender_name = ""
         else:
@@ -82,9 +83,8 @@ class ContactRow(Gtk.Box):
                     sender_name = message.sender.post_author
                 except AttributeError as error:
                     sender_name = ""
-            sender_name = f"{sender_name}: "
 
-        return f"{sender_name}{last_message}"
+        return (f"{sender_name}: " if sender_name else "") + last_message
 
     def get_last_message_time(self):
         last_message_time = self.dialog_data.message.date \
@@ -123,4 +123,5 @@ class ContactRow(Gtk.Box):
         self.read_status.set_visible(self.dialog_data.message.out)
 
     def set_mute_status(self):
-            self.mute_status.set_visible(self.dialog_data.dialog.notify_settings.mute_until)
+        self.mute_status.set_visible(
+            self.dialog_data.dialog.notify_settings.mute_until)
