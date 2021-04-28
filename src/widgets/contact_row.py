@@ -40,9 +40,11 @@ class ContactRow(Gtk.Box):
     def __init__(self, dialog_data, **kwargs):
         super().__init__(**kwargs)
 
-        self.dialog_data = dialog_data
-
         self.contact_name_label.bind_property('label', self.avatar, 'text')
+        self.update(dialog_data)
+
+    def update(self, dialog_data):
+        self.dialog_data = dialog_data
 
         self.set_message_status()
         self.set_unread_status()
