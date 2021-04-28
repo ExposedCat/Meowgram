@@ -20,6 +20,8 @@ from gi.repository import Gtk
 import datetime
 from telethon.tl.types import Channel, User
 
+PHOTO_SYMBOL = "🖼️"
+
 
 @Gtk.Template(resource_path=f"{Constants.RESOURCEID}/ui/contactrow.ui")
 class ContactRow(Gtk.Box):
@@ -58,12 +60,17 @@ class ContactRow(Gtk.Box):
 
     def get_last_message(self):
         message = self.dialog_data.message
-        if message.message is None:
-            # TODO add action text
-            last_message = "Action"
-        last_message = message.message.split('\n')[0].strip()
+        last_message = ""
         if message.media:
-            last_message = "🖼️ Photo"
+            last_message += f"{PHOTO_SYMBOL} "
+        if message.message:
+            # TODO add action text
+            last_message += message.message.split('\n')[0].strip()
+
+        if message == "":
+            last_message = "Action"
+        elif message == PHOTO_SYMBOL:
+            last_message += "Photo"
 
         if message.out:
             sender_name = "You: "
