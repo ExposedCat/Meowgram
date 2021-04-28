@@ -28,10 +28,14 @@ class MessageRow(Gtk.Box):
     message_label = Gtk.Template.Child()
     read_status = Gtk.Template.Child()
 
-    def __init__(self, dialog, **kwargs):
+    def __init__(self, message, **kwargs):
         super().__init__(**kwargs)
 
-        if dialog.message.out:
+        try:
+            self.message_label.set_text(message.message)
+        except AttributeError as error:
+            self.message_label.set_text("Message type is not supported yet")
+        if message.out:
             self.set_message_out()
         else:
             self.set_message_in()

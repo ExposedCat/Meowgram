@@ -11,7 +11,6 @@ class DialogsManager:
         dialogs = request.result()
         for dialog in dialogs:
             window.contacts_listbox.insert(ContactRow(dialog), -1)
-            window.message_box.add(MessageRow(dialog))
 
 
 dialogs_manager = DialogsManager()

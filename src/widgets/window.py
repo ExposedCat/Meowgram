@@ -20,6 +20,7 @@ from gi.repository import Gtk, Handy, GObject
 from meowgram.constants import Constants
 
 from meowgram.connectors.dialogs import dialogs_manager
+from meowgram.connectors.messages import messages_manager
 
 
 @Gtk.Template(resource_path=f"{Constants.RESOURCEID}/ui/window.ui")
@@ -65,8 +66,10 @@ class MeowgramWindow(Handy.ApplicationWindow):
     @Gtk.Template.Callback()
     def on_contacts_activated(self, listbox, row):
         self.main_leaflet.set_visible_child_name('messages_pane')
-        self.messages_headerbar.set_title(row.get_child().get_contact_name())
-        self.messages_headerbar.set_subtitle(row.get_child().get_room_members_count())
+        contact = row.get_child()
+        self.messages_headerbar.set_title(contact.get_contact_name())
+        self.messages_headerbar.set_subtitle(contact.get_room_members_count())
+        messages_manager.show_messages(self, contact.chat_id)
 
     @Gtk.Template.Callback()
     def on_back_button_clicked(self, button):

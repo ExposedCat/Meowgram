@@ -26,6 +26,7 @@ from meowgram.constants import Constants
 class ContactRow(Gtk.Box):
     __gtype_name__ = 'ContactRow'
 
+    chat_id = None
     avatar = Gtk.Template.Child()
 
     contact_name_label = Gtk.Template.Child()
@@ -40,6 +41,7 @@ class ContactRow(Gtk.Box):
     def __init__(self, dialog_data, **kwargs):
         super().__init__(**kwargs)
 
+        self.chat_id = dialog_data.message.peer_id
         self.contact_name_label.bind_property('label', self.avatar, 'text')
         self.update(dialog_data)
 
