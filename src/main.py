@@ -16,6 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import sys
+import logging
 
 import gi
 gi.require_version("Gtk", "3.0")
@@ -30,6 +31,7 @@ from meowgram.constants import Constants
 
 from meowgram.connectors.login import login_manager
 
+logging.basicConfig(level=logging.DEBUG)
 
 class Application(Gtk.Application):
     def __init__(self, version):
