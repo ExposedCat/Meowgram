@@ -74,7 +74,7 @@ class ContactRow(Gtk.Box):
             elif self.dialog_data.is_user and not message.out:
                 sender_label = ""
 
-            sender_label = getattr(message.sender, 'first_name', message.sender.first_name)
+            sender_label = f"{getattr(message.sender, 'first_name', message.sender.first_name)}: "
 
             return f"{sender_label}{last_message}"
         except AttributeError as error:
