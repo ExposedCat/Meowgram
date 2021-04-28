@@ -59,6 +59,9 @@ class MeowgramWindow(Handy.ApplicationWindow):
 
         dialogs_manager.show_dialogs(self)
 
+        # TODO save last selected contact instead of selecting the first one
+        self.contacts_listbox.select_row(self.contacts_listbox.get_children()[0])
+
     @Gtk.Template.Callback()
     def on_contacts_activated(self, listbox, row):
         self.main_leaflet.set_visible_child_name('messages_pane')
