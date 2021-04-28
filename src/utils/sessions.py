@@ -32,6 +32,6 @@ class SessionManager:
             None
         )
         print(self.get_sessions())
-        
+
 
 session_manager = SessionManager()

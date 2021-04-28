@@ -17,7 +17,7 @@
 
 import datetime
 
-from gi.repository import Gtk, Handy
+from gi.repository import Gtk
 
 from meowgram.constants import Constants
 
@@ -63,7 +63,7 @@ class ContactRow(Gtk.Box):
     def get_last_message(self):
         try:
             message = self.dialog_data.message
-            if message.message == None:
+            if message.message is None:
                 # TODO add action text
                 last_message = "Action"
             last_message = message.message.split('\n')[0].strip()
