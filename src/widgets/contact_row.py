@@ -18,7 +18,7 @@
 from meowgram.constants import Constants
 from gi.repository import Gtk
 import datetime
-from telethon.tl.types import Channel, User
+from telethon.tl.types import User
 
 PHOTO_SYMBOL = "🖼️"
 
@@ -54,8 +54,8 @@ class ContactRow(Gtk.Box):
         self.time_label.set_label(f" • {self.get_last_message_time()}")
 
     def get_contact_name(self):
-        contact_name = getattr(
-            self.dialog_data, 'title', self.dialog_data.name)
+        contact_name = getattr(self.dialog_data, 'title',
+                               self.dialog_data.name)
         return contact_name
 
     def get_last_message(self):
