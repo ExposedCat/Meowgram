@@ -26,19 +26,23 @@ from meowgram.constants import Constants
 class ContactRow(Gtk.Box):
     __gtype_name__ = 'ContactRow'
 
-    read_status = Gtk.Template.Child()
-    pin_status = Gtk.Template.Child()
-    mute_status = Gtk.Template.Child()
-    unread_label = Gtk.Template.Child()
+    avatar = Gtk.Template.Child()
 
     contact_name_label = Gtk.Template.Child()
     last_message_label = Gtk.Template.Child()
     time_label = Gtk.Template.Child()
 
+    read_status = Gtk.Template.Child()
+    pin_status = Gtk.Template.Child()
+    mute_status = Gtk.Template.Child()
+    unread_label = Gtk.Template.Child()
+
     def __init__(self, dialog_data, **kwargs):
         super().__init__(**kwargs)
 
         self.dialog_data = dialog_data
+
+        self.contact_name_label.bind_property('label', self.avatar, 'text')
 
         self.set_message_status()
         self.set_unread_status()
@@ -51,9 +55,6 @@ class ContactRow(Gtk.Box):
     def get_contact_name(self):
         try:
             contact_name = getattr(self.dialog_data, 'title', self.dialog_data.name)
-            is_verified = self.dialog_data.entity.verified
-            if is_verified:
-                contact_name = f"{contact_name} ✓"
             return contact_name
         except AttributeError as error:
             print(f"Error {error}")
@@ -70,13 +71,13 @@ class ContactRow(Gtk.Box):
                 last_message = "🖼️ Photo"
 
             if message.out:
-                sender_label = "You: "
+                sender_name = "You: "
             elif self.dialog_data.is_user and not message.out:
-                sender_label = ""
+                sender_name = ""
 
-            sender_label = f"{getattr(message.sender, 'first_name', message.sender.first_name)}: "
+            sender_name = f"{getattr(message.sender, 'first_name', message.sender.first_name)}: "
 
-            return f"{sender_label}{last_message}"
+            return f"{sender_name}{last_message}"
         except AttributeError as error:
             print(f"Error {error}")
             return ""

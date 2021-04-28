@@ -14,7 +14,7 @@
     <child>
       <object class="HdyAvatar" id="avatar">
         <property name="visible">True</property>
-        <property name="can-focus">False</property>
+        <property name="show-initials">True</property>
         <property name="size">42</property>
       </object>
     </child>
