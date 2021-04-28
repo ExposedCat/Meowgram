@@ -41,9 +41,11 @@ class ContactRow(Gtk.Box):
     def __init__(self, dialog_data, **kwargs):
         super().__init__(**kwargs)
 
-        self.dialog_data = dialog_data
-
         self.contact_name_label.bind_property('label', self.avatar, 'text')
+        self.update(dialog_data)
+
+    def update(self, dialog_data):
+        self.dialog_data = dialog_data
 
         self.set_message_status()
         self.set_unread_status()
@@ -60,28 +62,26 @@ class ContactRow(Gtk.Box):
 
     def get_last_message(self):
         message = self.dialog_data.message
-        last_message = ""
-        if message.media:
-            last_message += f"{PHOTO_SYMBOL} "
+        
         if message.message:
             # TODO add action text
-            last_message += message.message.split('\n')[0].strip()
-
-        if message == "":
-            last_message = "Action"
-        elif message == PHOTO_SYMBOL:
-            last_message += "Photo"
-
+            last_message = f"{PHOTO_SYMBOL} " if message.media else "" + message.message.split('\n')[0].strip()
+        else:
+            last_message = f"{PHOTO_SYMBOL} Photo" if message.media else "Action"
+            
         if message.out:
             sender_name = "You: "
-        elif self.dialog_data.is_user and not message.out:
+        elif self.dialog_data.is_user:
             sender_name = ""
         else:
-            if isinstance(message.sender, User):
+            try:
                 sender_name = message.sender.first_name
-                sender_name = f"{sender_name}: "
-            else:  # sender is Channel
-                sender_name = ''
+            except AttributeError as error:
+                try:
+                    sender_name = message.sender.post_author
+                except AttributeError as error:
+                    sender_name = ""
+            sender_name = f"{sender_name}: "
 
         return f"{sender_name}{last_message}"
 
@@ -103,10 +103,10 @@ class ContactRow(Gtk.Box):
         return last_message_time.strftime(format_string)
 
     def get_room_members_count(self):
-        if isinstance(self.dialog_data.entity, User):
-            return None
-        else:
+        try:
             return f"{self.dialog_data.entity.participants_count} members"
+        except AttributeError:
+            return None
 
     def set_unread_status(self):
         is_pinned = self.dialog_data.pinned
