@@ -65,7 +65,7 @@ class ContactRow(Gtk.Box):
             message = self.dialog_data.message
             if message.message == None:
                 # TODO add action text
-                return "Action"
+                last_message = "Action"
             last_message = message.message.split('\n')[0].strip()
             if message.media:
                 last_message = "🖼️ Photo"
