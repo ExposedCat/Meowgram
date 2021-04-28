@@ -103,7 +103,10 @@ class ContactRow(Gtk.Box):
         return last_message_time.strftime(format_string)
 
     def get_room_members_count(self):
-        return f"{self.dialog_data.entity.participants_count} members"
+        if isinstance(self.dialog_data.entity, User):
+            return None
+        else:
+            return f"{self.dialog_data.entity.participants_count} members"
 
     def set_unread_status(self):
         is_pinned = self.dialog_data.pinned

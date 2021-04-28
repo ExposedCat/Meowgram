@@ -51,8 +51,10 @@ class MeowgramWindow(Handy.ApplicationWindow):
         super().__init__(**kwargs)
 
         self.main_leaflet.bind_property('folded', self.back_button, 'visible')
-        self.main_leaflet.bind_property('folded', self.headerbar_group, 'decorate-all')
-        self.search_button.bind_property('active', self.search_revealer, 'reveal-child')
+        self.main_leaflet.bind_property(
+            'folded', self.headerbar_group, 'decorate-all')
+        self.search_button.bind_property(
+            'active', self.search_revealer, 'reveal-child')
         self.sidebar_button.bind_property('active', self.channel_flap, 'reveal-flap',
                                           GObject.BindingFlags.BIDIRECTIONAL)
         self.popover_init()
@@ -60,13 +62,15 @@ class MeowgramWindow(Handy.ApplicationWindow):
         dialogs_manager.show_dialogs(self)
 
         # TODO save last selected contact instead of selecting the first one
-        self.contacts_listbox.select_row(self.contacts_listbox.get_children()[0])
+        self.contacts_listbox.select_row(
+            self.contacts_listbox.get_children()[0])
 
     @Gtk.Template.Callback()
     def on_contacts_activated(self, listbox, row):
         self.main_leaflet.set_visible_child_name('messages_pane')
         self.messages_headerbar.set_title(row.get_child().get_contact_name())
-        self.messages_headerbar.set_subtitle(row.get_child().get_room_members_count())
+        self.messages_headerbar.set_subtitle(
+            row.get_child().get_room_members_count())
 
     @Gtk.Template.Callback()
     def on_back_button_clicked(self, button):
@@ -86,5 +90,6 @@ class MeowgramWindow(Handy.ApplicationWindow):
         self.menu_button.set_popover(popover)
 
         submenu_model = builder.get_object('submenu')
-        popover = Gtk.Popover.new_from_model(self.submenu_button, submenu_model)
+        popover = Gtk.Popover.new_from_model(
+            self.submenu_button, submenu_model)
         self.submenu_button.set_popover(popover)
