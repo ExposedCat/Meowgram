@@ -27,6 +27,8 @@ class MeowgramWindow(Handy.ApplicationWindow):
     __gtype_name__ = 'MeowgramWindow'
 
     headerbar_group = Gtk.Template.Child()
+    messages_headerbar = Gtk.Template.Child()
+
     main_leaflet = Gtk.Template.Child()
     contacts_listbox = Gtk.Template.Child()
     message_box = Gtk.Template.Child()
@@ -60,6 +62,8 @@ class MeowgramWindow(Handy.ApplicationWindow):
     @Gtk.Template.Callback()
     def on_contacts_activated(self, listbox, row):
         self.main_leaflet.set_visible_child_name('messages_pane')
+        self.messages_headerbar.set_title(row.get_child().get_contact_name())
+        self.messages_headerbar.set_subtitle(row.get_child().get_room_members_count())
 
     @Gtk.Template.Callback()
     def on_back_button_clicked(self, button):

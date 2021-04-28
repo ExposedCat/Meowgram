@@ -104,6 +104,13 @@ class ContactRow(Gtk.Box):
             print(f"Error {error}")
             return ""
 
+    def get_room_members_count(self):
+        try:
+            return f"{self.dialog_data.entity.participants_count} members"
+        except AttributeError as error:
+            print(f"Error {error}")
+            return ""
+
     def set_unread_status(self):
         try:
             is_pinned = self.dialog_data.pinned
