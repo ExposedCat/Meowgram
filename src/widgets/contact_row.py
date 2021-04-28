@@ -18,7 +18,6 @@
 from meowgram.constants import Constants
 from gi.repository import Gtk
 import datetime
-from telethon.tl.types import User
 
 PHOTO_SYMBOL = "🖼️"
 
@@ -62,13 +61,16 @@ class ContactRow(Gtk.Box):
 
     def get_last_message(self):
         message = self.dialog_data.message
-        
+
         if message.message:
             # TODO add action text
-            last_message = f"{PHOTO_SYMBOL} " if message.media else "" + message.message.split('\n')[0].strip()
+            last_message = f"{PHOTO_SYMBOL} " if message.media else "" + \
+                message.message.split('\n')[0].strip()
         else:
-            last_message = f"{PHOTO_SYMBOL} Photo" if message.media else "Action"
-            
+            last_message = f"{PHOTO_SYMBOL} Photo" \
+                if message.media \
+                else "Action"
+
         if message.out:
             sender_name = "You: "
         elif self.dialog_data.is_user:
@@ -76,10 +78,10 @@ class ContactRow(Gtk.Box):
         else:
             try:
                 sender_name = message.sender.first_name
-            except AttributeError as error:
+            except AttributeError:
                 try:
                     sender_name = message.sender.post_author
-                except AttributeError as error:
+                except AttributeError:
                     sender_name = ""
             sender_name = f"{sender_name}: "
 
