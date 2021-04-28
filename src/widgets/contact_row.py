@@ -15,11 +15,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import datetime
-
-from gi.repository import Gtk
-
 from meowgram.constants import Constants
+from gi.repository import Gtk
+import datetime
+from telethon.tl.types import Channel, User
 
 
 @Gtk.Template(resource_path=f"{Constants.RESOURCEID}/ui/contactrow.ui")
@@ -54,7 +53,8 @@ class ContactRow(Gtk.Box):
 
     def get_contact_name(self):
         try:
-            contact_name = getattr(self.dialog_data, 'title', self.dialog_data.name)
+            contact_name = getattr(
+                self.dialog_data, 'title', self.dialog_data.name)
             return contact_name
         except AttributeError as error:
             print(f"Error {error}")
@@ -75,8 +75,11 @@ class ContactRow(Gtk.Box):
             elif self.dialog_data.is_user and not message.out:
                 sender_name = ""
             else:
-                sender_name = getattr(message.sender, 'first_name', message.sender.first_name)
-                sender_name = f"{sender_name}: "
+                if isinstance(message.sender, User):
+                    sender_name = message.sender.first_name
+                    sender_name = f"{sender_name}: "
+                else:  # sender is Channel
+                    sender_name = ''
 
             return f"{sender_name}{last_message}"
         except AttributeError as error:
@@ -132,6 +135,7 @@ class ContactRow(Gtk.Box):
 
     def set_mute_status(self):
         try:
-            self.mute_status.set_visible(self.dialog_data.dialog.notify_settings.mute_until)
+            self.mute_status.set_visible(
+                self.dialog_data.dialog.notify_settings.mute_until)
         except AttributeError as error:
             print(f"Error {error}")
