@@ -10,26 +10,22 @@ class MeowgramClient:
     phone_number = None
 
     async def login(self, phone_number):  # 0 - error; 1 - need auth; 2 - already authorized
-        try:
-            session = StringSession()
-            if not phone_number:
-                existing_sessions = session_manager.get_sessions()
-                if existing_sessions:
-                    phone_number = existing_sessions[0]
-                    session = StringSession(phone_number)
-                else:
-                    return
-            self.client = TelegramClient(session, API_ID, API_HASH)
-            self.phone_number = phone_number
-            await self.client.connect()
-            if not await self.client.is_user_authorized():
-                await self.client.send_code_request(phone_number)
-                return 1
+        session = StringSession()
+        if not phone_number:
+            existing_sessions = session_manager.get_sessions()
+            if existing_sessions:
+                phone_number = existing_sessions[0]
+                session = StringSession(phone_number)
             else:
-                return 2
-        except Exception as error:
-            print(f"Error {error}")
-            return 0
+                return
+        self.client = TelegramClient(session, API_ID, API_HASH)
+        self.phone_number = phone_number
+        await self.client.connect()
+        if not await self.client.is_user_authorized():
+            await self.client.send_code_request(phone_number)
+            return 1
+        else:
+            return 2
 
     async def auth_code(self, code):  # 0 - wrong code; 1 - need 2FA; 2 - all is ok
         try:
@@ -50,11 +46,8 @@ class MeowgramClient:
             return 0
 
     async def get_dialogs(self):
-        try:
-            dialogs = await self.client.get_dialogs(limit=50)
-            return dialogs
-        except Exception as error:
-            print(f"Error {error}")
+        dialogs = await self.client.get_dialogs(limit=50)
+        return dialogs
 
     def save_session(self):
         session_manager.add_session(self.client.session.save())

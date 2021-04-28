@@ -52,90 +52,65 @@ class ContactRow(Gtk.Box):
         self.time_label.set_label(f" • {self.get_last_message_time()}")
 
     def get_contact_name(self):
-        try:
-            contact_name = getattr(
-                self.dialog_data, 'title', self.dialog_data.name)
-            return contact_name
-        except AttributeError as error:
-            print(f"Error {error}")
-            return ""
+        contact_name = getattr(
+            self.dialog_data, 'title', self.dialog_data.name)
+        return contact_name
 
     def get_last_message(self):
-        try:
-            message = self.dialog_data.message
-            if message.message is None:
-                # TODO add action text
-                last_message = "Action"
-            last_message = message.message.split('\n')[0].strip()
-            if message.media:
-                last_message = "🖼️ Photo"
+        message = self.dialog_data.message
+        if message.message is None:
+            # TODO add action text
+            last_message = "Action"
+        last_message = message.message.split('\n')[0].strip()
+        if message.media:
+            last_message = "🖼️ Photo"
 
-            if message.out:
-                sender_name = "You: "
-            elif self.dialog_data.is_user and not message.out:
-                sender_name = ""
-            else:
-                if isinstance(message.sender, User):
-                    sender_name = message.sender.first_name
-                    sender_name = f"{sender_name}: "
-                else:  # sender is Channel
-                    sender_name = ''
+        if message.out:
+            sender_name = "You: "
+        elif self.dialog_data.is_user and not message.out:
+            sender_name = ""
+        else:
+            if isinstance(message.sender, User):
+                sender_name = message.sender.first_name
+                sender_name = f"{sender_name}: "
+            else:  # sender is Channel
+                sender_name = ''
 
-            return f"{sender_name}{last_message}"
-        except AttributeError as error:
-            print(f"Error {error}")
-            return ""
+        return f"{sender_name}{last_message}"
 
     def get_last_message_time(self):
-        try:
-            last_message_time = self.dialog_data.message.date \
-                .replace(tzinfo=datetime.timezone.utc) \
-                .astimezone()
+        last_message_time = self.dialog_data.message.date \
+            .replace(tzinfo=datetime.timezone.utc) \
+            .astimezone()
 
-            today = datetime.datetime.now().astimezone()
-            days_difference = (today - last_message_time).days
+        today = datetime.datetime.now().astimezone()
+        days_difference = (today - last_message_time).days
 
-            if days_difference < 1:
-                # TODO Make this work with military time
-                format_string = '%I∶%M %p'  # 08:57 AM
-            elif 1 <= days_difference < 7:
-                format_string = '%a'  # Fri
-            elif days_difference >= 7:
-                format_string = '%b %d'  # Apr 08
-            return last_message_time.strftime(format_string)
-        except AttributeError as error:
-            print(f"Error {error}")
-            return ""
+        if days_difference < 1:
+            # TODO Make this work with military time
+            format_string = '%I∶%M %p'  # 08:57 AM
+        elif 1 <= days_difference < 7:
+            format_string = '%a'  # Fri
+        elif days_difference >= 7:
+            format_string = '%b %d'  # Apr 08
+        return last_message_time.strftime(format_string)
 
     def get_room_members_count(self):
-        try:
-            return f"{self.dialog_data.entity.participants_count} members"
-        except AttributeError as error:
-            print(f"Error {error}")
-            return ""
+        return f"{self.dialog_data.entity.participants_count} members"
 
     def set_unread_status(self):
-        try:
-            is_pinned = self.dialog_data.pinned
-            unread_count = self.dialog_data.unread_count
-            self.unread_label.set_visible(unread_count)
-            self.unread_label.set_label(str(unread_count))
-            self.pin_status.set_visible(is_pinned)
+        is_pinned = self.dialog_data.pinned
+        unread_count = self.dialog_data.unread_count
+        self.unread_label.set_visible(unread_count)
+        self.unread_label.set_label(str(unread_count))
+        self.pin_status.set_visible(is_pinned)
 
-            if unread_count and is_pinned:
-                self.pin_status.set_visible(False)
-        except AttributeError as error:
-            print(f"Error {error}")
+        if unread_count and is_pinned:
+            self.pin_status.set_visible(False)
 
     def set_message_status(self):
-        try:
-            self.read_status.set_visible(self.dialog_data.message.out)
-        except AttributeError as error:
-            print(f"Error {error}")
+        self.read_status.set_visible(self.dialog_data.message.out)
 
     def set_mute_status(self):
-        try:
-            self.mute_status.set_visible(
-                self.dialog_data.dialog.notify_settings.mute_until)
-        except AttributeError as error:
-            print(f"Error {error}")
+        self.mute_status.set_visible(
+            self.dialog_data.dialog.notify_settings.mute_until)
