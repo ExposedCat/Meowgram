@@ -52,9 +52,7 @@ class MessageRow(Gtk.Grid):
         self.time_label.set_label(self.get_message_time())
 
     def get_message(self):
-        if message := self.message.message:
-            pass
-        else:
+        if not (message := self.message.message):
             message = "<span style=\"italic\">Message type is not supported yet.</span>"
             self.message_label.set_use_markup("True")
         return message
@@ -77,9 +75,7 @@ class MessageRow(Gtk.Grid):
         return last_message_time.strftime(format_string)
 
     def get_message_sender(self):
-        if message_sender := self.message.sender.username:
-            pass
-        else:
+        if not (message_sender := self.message.sender.username):
             message_sender = ""
         return message_sender
 
