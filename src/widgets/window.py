@@ -50,6 +50,9 @@ class MeowgramWindow(Handy.ApplicationWindow):
 
     messages_adjustment = Gtk.Template.Child()
 
+    messages_view = Gtk.Template.Child()
+    empty_view = Gtk.Template.Child()
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
@@ -61,17 +64,7 @@ class MeowgramWindow(Handy.ApplicationWindow):
         self.popover_init()
 
         dialogs_manager.show_dialogs(self)
-
-        # TODO save last selected contact instead of selecting the first one
-        self.contacts_listbox.select_row(self.contacts_listbox.get_children()[0])
-
-        self.messages_adjustment.connect("value-changed", self.on_messages_adjustment_changed)
-
-    def
-
-    def on_messages_adjustment_changed(self, adjustment):
-        if not adjustment.get_value():
-            print("you have reached the top")
+        self.update_view()
 
     def scroll_to_bottom_messages(self):
         GLib.timeout_add(
@@ -80,6 +73,19 @@ class MeowgramWindow(Handy.ApplicationWindow):
             )
         )
 
+    def update_view(self):
+        if self.contacts_listbox.get_selected_row():
+            self.channel_flap.set_content(self.messages_view)
+            self.sidebar_button.set_visible(True)
+        else:
+            self.channel_flap.set_content(self.empty_view)
+            self.sidebar_button.set_visible(False)
+
+    @Gtk.Template.Callback()
+    def on_messages_adjustment_changed(self, adjustment):
+        if not adjustment.get_value():
+            print("you have reached the top of messages")
+
     @Gtk.Template.Callback()
     def on_contacts_activated(self, listbox, row):
         self.main_leaflet.set_visible_child_name('messages_pane')
@@ -87,7 +93,9 @@ class MeowgramWindow(Handy.ApplicationWindow):
         self.messages_headerbar.set_title(contact.get_contact_name())
         self.messages_headerbar.set_subtitle(contact.get_room_members_count())
         messages_manager.show_messages(self, contact.chat_id)
+
         self.scroll_to_bottom_messages()
+        self.update_view()
 
     @Gtk.Template.Callback()
     def on_back_button_clicked(self, button):

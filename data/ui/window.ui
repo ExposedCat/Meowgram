@@ -335,7 +335,7 @@
                       <object class="GtkImage">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="icon-name">mail-send-symbolic</property>
+                        <property name="icon-name">send-symbolic</property>
                       </object>
                     </child>
                     <style>
@@ -638,7 +638,6 @@
                 <property name="locked">True</property>
                 <property name="reveal-flap">False</property>
                 <property name="flap">channel_sidebar</property>
-                <property name="content">messages_view</property>
                 <property name="separator">separator</property>
               </object>
               <packing>
@@ -655,6 +654,14 @@
       </object>
     </child>
   </template>
+  <object class="HdyStatusPage" id="empty_view">
+    <property name="visible">True</property>
+    <property name="hexpand">True</property>
+    <property name="vexpand">True</property>
+    <property name="icon-name">chat-icon-symbolic</property>
+    <property name="title" translatable="yes">No chat selected</property>
+    <property name="description" translatable="yes">Select a chat to start messaging</property>
+  </object>
   <object class="HdyHeaderGroup" id="headerbar_group">
     <headerbars>
       <headerbar name="headerbar1"/>
@@ -669,5 +676,6 @@
     </style>
   </object>
   <object class="GtkAdjustment" id="messages_adjustment">
+    <signal name="value-changed" handler="on_messages_adjustment_changed" swapped="no"/>
   </object>
 </interface>
