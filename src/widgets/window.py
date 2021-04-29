@@ -32,21 +32,17 @@ class MeowgramWindow(Handy.ApplicationWindow):
 
     main_leaflet = Gtk.Template.Child()
     contacts_listbox = Gtk.Template.Child()
-    message_box = Gtk.Template.Child()
+    messages_listbox = Gtk.Template.Child()
 
     back_button = Gtk.Template.Child()
-    menu_button = Gtk.Template.Child()
-    submenu_button = Gtk.Template.Child()
-
     search_button = Gtk.Template.Child()
     search_revealer = Gtk.Template.Child()
+    sidebar_button = Gtk.Template.Child()
+    channel_flap = Gtk.Template.Child()
 
     send_message_revealer = Gtk.Template.Child()
     message_tool_revealer = Gtk.Template.Child()
     message_entry = Gtk.Template.Child()
-
-    channel_flap = Gtk.Template.Child()
-    sidebar_button = Gtk.Template.Child()
 
     messages_adjustment = Gtk.Template.Child()
 

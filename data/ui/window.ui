@@ -242,7 +242,7 @@
               <object class="HdyClamp">
                 <property name="visible">True</property>
                 <child>
-                  <object class="GtkListBox" id="message_box">
+                  <object class="GtkListBox" id="messages_listbox">
                     <property name="visible">True</property>
                     <style>
                       <class name="message-box"/>

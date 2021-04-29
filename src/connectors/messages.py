@@ -25,15 +25,15 @@ class MessagesManager:
             index = self.loaded_chat_id.index(actual_chat_id)
             messages = self.loaded_messages[index]
 
-        self.update_window_message_box(messages, window)
+        self.update_window_messages_listbox(messages, window)
 
-    def update_window_message_box(self, messages, window):
-        current_messages = window.message_box.get_children()
+    def update_window_messages_listbox(self, messages, window):
+        current_messages = window.messages_listbox.get_children()
         for message in current_messages:
-            window.message_box.remove(message)
+            window.messages_listbox.remove(message)
 
         for message in reversed(messages):
-            window.message_box.insert(MessageRow(message), -1)
+            window.messages_listbox.insert(MessageRow(message), -1)
 
     def _get_actual_id(self, chat_id):
         if hasattr(chat_id, 'channel_id'):
