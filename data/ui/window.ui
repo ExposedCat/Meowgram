@@ -190,6 +190,7 @@
         <property name="visible">True</property>
         <property name="can-focus">True</property>
         <property name="vexpand">True</property>
+        <property name="vadjustment">messages_adjustment</property>
         <child>
           <object class="GtkViewport">
             <property name="visible">True</property>
@@ -675,5 +676,7 @@
     <style>
       <class name="sidebar"/>
     </style>
+  </object>
+  <object class="GtkAdjustment" id="messages_adjustment">
   </object>
 </interface>

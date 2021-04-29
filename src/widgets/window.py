@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from gi.repository import Gtk, Handy, GObject
+from gi.repository import Gtk, Handy, GObject, GLib
 
 from meowgram.constants import Constants
 
@@ -48,6 +48,8 @@ class MeowgramWindow(Handy.ApplicationWindow):
     channel_flap = Gtk.Template.Child()
     sidebar_button = Gtk.Template.Child()
 
+    messages_adjustment = Gtk.Template.Child()
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
@@ -70,6 +72,7 @@ class MeowgramWindow(Handy.ApplicationWindow):
         self.messages_headerbar.set_title(contact.get_contact_name())
         self.messages_headerbar.set_subtitle(contact.get_room_members_count())
         messages_manager.show_messages(self, contact.chat_id)
+        self.scroll_to_bottom_messages()
 
     @Gtk.Template.Callback()
     def on_back_button_clicked(self, button):
@@ -80,6 +83,13 @@ class MeowgramWindow(Handy.ApplicationWindow):
         is_there_text = entry.get_text()
         self.message_tool_revealer.set_reveal_child(not is_there_text)
         self.send_message_revealer.set_reveal_child(is_there_text)
+
+    def scroll_to_bottom_messages(self):
+        GLib.timeout_add(
+            20, lambda: self.messages_adjustment.set_value(
+                self.messages_adjustment.get_upper()
+            )
+        )
 
     def popover_init(self):
         builder = Gtk.Builder()
