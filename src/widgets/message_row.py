@@ -37,6 +37,11 @@ class MessageRow(Gtk.Grid):
 
         self.message = message
 
+        if message.out:
+            self.set_message_out()
+        else:
+            self.set_message_in()
+
         # TODO automatically hide the sender_label and reduce padding when
         # the sender is the same as the last one
 
@@ -45,11 +50,6 @@ class MessageRow(Gtk.Grid):
         self.message_label.set_label(self.get_message())
         self.sender_label.set_label(self.get_message_sender())
         self.time_label.set_label(self.get_message_time())
-
-        if message.out:
-            self.set_message_out()
-        else:
-            self.set_message_in()
 
     def get_message(self):
         if message := self.message.message:
