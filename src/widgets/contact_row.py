@@ -55,7 +55,7 @@ class ContactRow(Gtk.Box):
 
         self.contact_name_label.set_text(self.get_contact_name())
         self.last_message_label.set_text(self.get_last_message())
-        self.time_label.set_label(f" • {self.get_last_message_time()}")
+        self.time_label.set_label(self.get_last_message_time())
 
     def get_contact_name(self):
         try:

@@ -21,6 +21,7 @@
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
+        <property name="hexpand">True</property>
         <property name="orientation">vertical</property>
         <property name="homogeneous">True</property>
         <child>
@@ -51,12 +52,44 @@
                 </style>
               </object>
             </child>
+            <child>
+              <object class="GtkLabel" id="time_label">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="valign">center</property>
+                <property name="margin-top">3</property>
+                <property name="label" translatable="yes">22:05</property>
+                <style>
+                  <class name="dim-label"/>
+                  <class name="time-label"/>
+                </style>
+              </object>
+              <packing>
+                <property name="pack-type">end</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkImage" id="read_status">
+                <property name="can-focus">False</property>
+                <property name="halign">center</property>
+                <property name="margin-top">2</property>
+                <property name="pixel-size">12</property>
+                <property name="icon-name">object-select-symbolic</property>
+                <style>
+                  <class name="dim-label"/>
+                </style>
+              </object>
+              <packing>
+                <property name="pack-type">end</property>
+              </packing>
+            </child>
           </object>
         </child>
         <child>
           <object class="GtkBox">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
+            <property name="spacing">6</property>
             <child>
               <object class="GtkLabel" id="last_message_label">
                 <property name="visible">True</property>
@@ -71,69 +104,38 @@
               </object>
             </child>
             <child>
-              <object class="GtkLabel" id="time_label">
-                <property name="visible">True</property>
+              <object class="GtkLabel" id="unread_label">
                 <property name="can-focus">False</property>
-                <property name="margin-top">3</property>
+                <property name="halign">end</property>
                 <property name="valign">center</property>
-                <property name="label" translatable="yes">22:05</property>
+                <property name="label" translatable="yes">3123</property>
                 <style>
-                  <class name="dim-label"/>
-                  <class name="time-label"/>
+                  <class name="unread-badge"/>
                 </style>
               </object>
+              <packing>
+                <property name="pack-type">end</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkImage" id="pin_status">
+                <property name="can-focus">False</property>
+                <property name="halign">center</property>
+                <property name="valign">center</property>
+                <property name="pixel-size">12</property>
+                <property name="icon-name">pin-symbolic</property>
+                <style>
+                  <class name="unread-badge"/>
+                  <class name="muted-badge"/>
+                </style>
+              </object>
+              <packing>
+                <property name="pack-type">end</property>
+              </packing>
             </child>
           </object>
         </child>
       </object>
-    </child>
-    <child>
-      <object class="GtkBox">
-        <property name="visible">True</property>
-        <property name="can-focus">False</property>
-        <property name="spacing">6</property>
-        <child>
-          <object class="GtkImage" id="read_status">
-            <property name="can-focus">False</property>
-            <property name="valign">center</property>
-            <property name="pixel-size">12</property>
-            <property name="icon-name">object-select-symbolic</property>
-            <style>
-              <class name="dim-label"/>
-            </style>
-          </object>
-        </child>
-        <child>
-          <object class="GtkLabel" id="unread_label">
-            <property name="can-focus">False</property>
-            <property name="halign">end</property>
-            <property name="valign">center</property>
-            <property name="label" translatable="yes">3</property>
-            <style>
-              <class name="unread-badge"/>
-            </style>
-          </object>
-        </child>
-        <child>
-          <object class="GtkImage" id="pin_status">
-            <property name="can-focus">False</property>
-            <property name="halign">center</property>
-            <property name="valign">center</property>
-            <property name="pixel-size">12</property>
-            <property name="icon-name">pin-symbolic</property>
-            <style>
-              <class name="unread-badge"/>
-              <class name="muted-badge"/>
-            </style>
-          </object>
-          <packing>
-            <property name="pack-type">end</property>
-          </packing>
-        </child>
-      </object>
-      <packing>
-        <property name="pack-type">end</property>
-      </packing>
     </child>
   </template>
 </interface>
