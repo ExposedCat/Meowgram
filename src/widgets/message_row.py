@@ -77,7 +77,11 @@ class MessageRow(Gtk.Grid):
         return last_message_time.strftime(format_string)
 
     def get_message_sender(self):
-        return self.message.sender.username
+        if message_sender := self.message.sender.username:
+            pass
+        else:
+            message_sender = ""
+        return message_sender
 
     def set_message_out(self):
         self.sender_label.set_visible(False)
