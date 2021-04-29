@@ -245,6 +245,7 @@
           <object class="GtkBox">
             <property name="visible">True</property>
             <property name="orientation">vertical</property>
+            <property name="hexpand">False</property>
             <child>
               <object class="HdyHeaderBar" id="headerbar1">
                 <property name="visible">True</property>
