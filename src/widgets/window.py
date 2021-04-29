@@ -67,7 +67,7 @@ class MeowgramWindow(Handy.ApplicationWindow):
 
     def scroll_to_bottom_messages(self):
         GLib.timeout_add(
-            20, lambda: self.messages_adjustment.set_value(
+            50, lambda: self.messages_adjustment.set_value(
                 self.messages_adjustment.get_upper()
             )
         )

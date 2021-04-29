@@ -5,7 +5,6 @@
   <requires lib="libhandy" version="1.0"/>
   <template class="ContactRow" parent="GtkBox">
     <property name="visible">True</property>
-    <property name="can-focus">False</property>
     <property name="margin-start">12</property>
     <property name="margin-end">6</property>
     <property name="margin-top">6</property>
@@ -32,7 +31,6 @@
               <object class="GtkLabel" id="contact_name_label">
                 <property name="visible">True</property>
                 <property name="halign">start</property>
-                <property name="label" translatable="yes">label</property>
                 <property name="ellipsize">end</property>
                 <property name="xalign">0</property>
                 <style>
@@ -55,10 +53,8 @@
             <child>
               <object class="GtkLabel" id="time_label">
                 <property name="visible">True</property>
-                <property name="can-focus">False</property>
                 <property name="valign">center</property>
                 <property name="margin-top">3</property>
-                <property name="label" translatable="yes">22:05</property>
                 <style>
                   <class name="dim-label"/>
                   <class name="time-label"/>
@@ -70,7 +66,6 @@
             </child>
             <child>
               <object class="GtkImage" id="read_status">
-                <property name="can-focus">False</property>
                 <property name="halign">center</property>
                 <property name="margin-top">2</property>
                 <property name="pixel-size">12</property>
@@ -88,14 +83,11 @@
         <child>
           <object class="GtkBox">
             <property name="visible">True</property>
-            <property name="can-focus">False</property>
             <property name="spacing">6</property>
             <child>
               <object class="GtkLabel" id="last_message_label">
                 <property name="visible">True</property>
-                <property name="can-focus">False</property>
                 <property name="halign">start</property>
-                <property name="label" translatable="yes">label</property>
                 <property name="ellipsize">end</property>
                 <property name="xalign">0</property>
                 <style>
@@ -105,10 +97,8 @@
             </child>
             <child>
               <object class="GtkLabel" id="unread_label">
-                <property name="can-focus">False</property>
                 <property name="halign">end</property>
                 <property name="valign">center</property>
-                <property name="label" translatable="yes">3123</property>
                 <style>
                   <class name="unread-badge"/>
                 </style>
@@ -119,7 +109,6 @@
             </child>
             <child>
               <object class="GtkImage" id="pin_status">
-                <property name="can-focus">False</property>
                 <property name="halign">center</property>
                 <property name="valign">center</property>
                 <property name="pixel-size">12</property>

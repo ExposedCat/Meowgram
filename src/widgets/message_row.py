@@ -26,11 +26,14 @@ from meowgram.constants import Constants
 class MessageRow(Gtk.Grid):
     __gtype_name__ = 'MessageRow'
 
+    status_box = Gtk.Template.Child()
+    read_status = Gtk.Template.Child()
+
+    time_label = Gtk.Template.Child()
+    sender_label = Gtk.Template.Child()
+
     avatar = Gtk.Template.Child()
     message_label = Gtk.Template.Child()
-    read_status = Gtk.Template.Child()
-    sender_label = Gtk.Template.Child()
-    time_label = Gtk.Template.Child()
 
     def __init__(self, message, **kwargs):
         super().__init__(**kwargs)
@@ -87,7 +90,7 @@ class MessageRow(Gtk.Grid):
         self.message_label.set_halign(Gtk.Align.END)
         self.message_label.set_justify(Gtk.Justification.RIGHT)
         self.message_label.get_style_context().add_class('message-out')
-        self.read_status.set_halign(Gtk.Align.END)
+        self.status_box.set_halign(Gtk.Align.END)
 
     def set_message_in(self):
         self.sender_label.set_visible(True)
@@ -97,4 +100,4 @@ class MessageRow(Gtk.Grid):
         self.message_label.set_halign(Gtk.Align.START)
         self.message_label.set_justify(Gtk.Justification.LEFT)
         self.message_label.get_style_context().add_class('message-in')
-        self.read_status.set_halign(Gtk.Align.START)
+        self.status_box.set_halign(Gtk.Align.START)
