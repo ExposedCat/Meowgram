@@ -15,6 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import datetime
+
 from gi.repository import Gtk
 
 from meowgram.constants import Constants
@@ -28,6 +30,7 @@ class MessageRow(Gtk.Grid):
     message_label = Gtk.Template.Child()
     read_status = Gtk.Template.Child()
     sender_label = Gtk.Template.Child()
+    time_label = Gtk.Template.Child()
 
     def __init__(self, message, **kwargs):
         super().__init__(**kwargs)
@@ -39,6 +42,7 @@ class MessageRow(Gtk.Grid):
 
         self.message_label.set_label(self.get_message())
         self.sender_label.set_label(self.get_message_sender())
+        self.time_label.set_label(self.get_message_time())
 
         if message.out:
             self.set_message_out()
@@ -46,13 +50,28 @@ class MessageRow(Gtk.Grid):
             self.set_message_in()
 
     def get_message(self):
-        try:
-            message = self.message.message
-        except AttributeError:
-            message = "Message type is not supported yet"
-        except TypeError:
-            message = ""
+        if message := self.message.message:
+            pass
+        else:
+            message = "<span style=\"italic\">Message type is not supported yet.</span>"
         return message
+
+    def get_message_time(self):
+        last_message_time = self.message.date \
+            .replace(tzinfo=datetime.timezone.utc) \
+            .astimezone()
+
+        today = datetime.datetime.now().astimezone()
+        days_difference = (today - last_message_time).days
+
+        if days_difference < 1:
+            # TODO Make this work with military time
+            format_string = '%I∶%M %p'  # 08:57 AM
+        elif 1 <= days_difference < 7:
+            format_string = '%a at %I∶%M %p'  # Fri at 08:57 AM
+        elif days_difference >= 7:
+            format_string = '%b %d at %I∶%M %p'  # Apr 08 at 08:57 AM
+        return last_message_time.strftime(format_string)
 
     def get_message_sender(self):
         return self.message.sender.username
