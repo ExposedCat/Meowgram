@@ -78,14 +78,16 @@ class ContactRow(Gtk.Box):
                 last_message = "🖼️ Photo"
 
             if message.out:
-                sender_name = "You: "
-            elif self.dialog_data.is_user and not message.out:
-                sender_name = ""
+                sender_name = "You"
             else:
-                sender_name = getattr(message.sender, 'post_author', message.sender.first_name)
-                sender_name = f"{sender_name}: "
+                sender_name = getattr(
+                    message.sender, 'post_author', getattr(message.sender, 'first_name', "")
+                )
 
-            return f"{sender_name}{last_message}"
+            if self.dialog_data.is_user:
+                sender_name = ""
+
+            return f"{sender_name}{': ' if sender_name else ''}{last_message}"
         except AttributeError as error:
             logging.debug(error)
             return ""
