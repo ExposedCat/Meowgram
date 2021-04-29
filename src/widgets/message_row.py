@@ -40,6 +40,8 @@ class MessageRow(Gtk.Grid):
         # TODO automatically hide the sender_label and reduce padding when
         # the sender is the same as the last one
 
+        # TODO also, hide the sender_label when it is the same as in the headerbar
+
         self.message_label.set_label(self.get_message())
         self.sender_label.set_label(self.get_message_sender())
         self.time_label.set_label(self.get_message_time())
