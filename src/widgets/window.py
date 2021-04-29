@@ -67,6 +67,8 @@ class MeowgramWindow(Handy.ApplicationWindow):
 
         self.messages_adjustment.connect("value-changed", self.on_messages_adjustment_changed)
 
+    def
+
     def on_messages_adjustment_changed(self, adjustment):
         if not adjustment.get_value():
             print("you have reached the top")
