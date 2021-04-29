@@ -54,6 +54,7 @@
                 <property name="visible">True</property>
                 <property name="halign">end</property>
                 <property name="margin-start">9</property>
+                <property name="margin-end">9</property>
                 <property name="label" translatable="yes">22:05</property>
                 <style>
                   <class name="dim-label"/>
