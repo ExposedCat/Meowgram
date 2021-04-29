@@ -13,7 +13,7 @@ class MessagesManager:
         for message in current_messages:
             window.message_box.remove(message)
         for message in reversed(messages):
-            window.message_box.add(MessageRow(message))
+            window.message_box.insert(MessageRow(message), -1)
 
 
 messages_manager = MessagesManager()

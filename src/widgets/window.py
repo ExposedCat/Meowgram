@@ -65,6 +65,19 @@ class MeowgramWindow(Handy.ApplicationWindow):
         # TODO save last selected contact instead of selecting the first one
         self.contacts_listbox.select_row(self.contacts_listbox.get_children()[0])
 
+        self.messages_adjustment.connect("value-changed", self.on_messages_adjustment_changed)
+
+    def on_messages_adjustment_changed(self, adjustment):
+        if not adjustment.get_value():
+            print("you have reached the top")
+
+    def scroll_to_bottom_messages(self):
+        GLib.timeout_add(
+            20, lambda: self.messages_adjustment.set_value(
+                self.messages_adjustment.get_upper()
+            )
+        )
+
     @Gtk.Template.Callback()
     def on_contacts_activated(self, listbox, row):
         self.main_leaflet.set_visible_child_name('messages_pane')
@@ -83,13 +96,6 @@ class MeowgramWindow(Handy.ApplicationWindow):
         is_there_text = entry.get_text()
         self.message_tool_revealer.set_reveal_child(not is_there_text)
         self.send_message_revealer.set_reveal_child(is_there_text)
-
-    def scroll_to_bottom_messages(self):
-        GLib.timeout_add(
-            20, lambda: self.messages_adjustment.set_value(
-                self.messages_adjustment.get_upper()
-            )
-        )
 
     def popover_init(self):
         builder = Gtk.Builder()
