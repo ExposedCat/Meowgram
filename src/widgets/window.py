@@ -61,7 +61,6 @@ class MeowgramWindow(Handy.ApplicationWindow):
         self.search_button.bind_property('active', self.search_revealer, 'reveal-child')
         self.sidebar_button.bind_property('active', self.channel_flap, 'reveal-flap',
                                           GObject.BindingFlags.BIDIRECTIONAL)
-        self.popover_init()
 
         dialogs_manager.show_dialogs(self)
         self.update_view()
@@ -106,14 +105,3 @@ class MeowgramWindow(Handy.ApplicationWindow):
         is_there_text = entry.get_text()
         self.message_tool_revealer.set_reveal_child(not is_there_text)
         self.send_message_revealer.set_reveal_child(is_there_text)
-
-    def popover_init(self):
-        builder = Gtk.Builder()
-        builder.add_from_resource(f"{Constants.RESOURCEID}/ui/menus.ui")
-        menu_model = builder.get_object('primary_menu')
-        popover = Gtk.Popover.new_from_model(self.menu_button, menu_model)
-        self.menu_button.set_popover(popover)
-
-        submenu_model = builder.get_object('submenu')
-        popover = Gtk.Popover.new_from_model(self.submenu_button, submenu_model)
-        self.submenu_button.set_popover(popover)

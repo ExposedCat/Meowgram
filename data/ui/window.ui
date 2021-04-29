@@ -5,86 +5,45 @@
   <requires lib="libhandy" version="1.0"/>
   <object class="GtkPopover" id="accounts_menu">
     <property name="name">accounts_menu</property>
-    <property name="can-focus">False</property>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
-        <property name="can-focus">False</property>
-        <property name="margin-start">6</property>
-        <property name="margin-end">6</property>
-        <property name="margin-top">6</property>
-        <property name="margin-bottom">6</property>
+        <property name="margin">6</property>
         <property name="orientation">vertical</property>
         <child>
           <object class="GtkBox">
             <property name="visible">True</property>
-            <property name="can-focus">False</property>
             <child>
               <object class="GtkBox">
                 <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="margin-start">6</property>
-                <property name="margin-end">6</property>
-                <property name="margin-top">6</property>
-                <property name="margin-bottom">6</property>
+                <property name="margin">6</property>
                 <property name="orientation">vertical</property>
                 <child>
                   <object class="GtkLabel">
                     <property name="name">account_name_label</property>
                     <property name="visible">True</property>
-                    <property name="can-focus">False</property>
                     <property name="label" translatable="yes">Account name</property>
                   </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
                 </child>
                 <child>
                   <object class="GtkLabel">
                     <property name="visible">True</property>
-                    <property name="can-focus">False</property>
                     <property name="label" translatable="yes">+380123456789</property>
                     <style>
                       <class name="dim-label"/>
                     </style>
                   </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
                 </child>
               </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
             </child>
             <child>
               <object class="GtkImage">
                 <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="margin-left">10</property>
-                <property name="margin-right">10</property>
-                <property name="margin-start">10</property>
-                <property name="margin-end">10</property>
+                <property name="margin">10</property>
                 <property name="icon-name">object-select-symbolic</property>
               </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">2</property>
-              </packing>
             </child>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
         </child>
         <child>
           <object class="GtkModelButton">
@@ -93,22 +52,11 @@
             <property name="receives-default">True</property>
             <property name="text" translatable="yes">Account Settings</property>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
         </child>
         <child>
           <object class="GtkSeparator">
             <property name="visible">True</property>
-            <property name="can-focus">False</property>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">2</property>
-          </packing>
         </child>
         <child>
           <object class="GtkModelButton">
@@ -117,65 +65,40 @@
             <property name="receives-default">True</property>
             <property name="text" translatable="yes">New Account</property>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">3</property>
-          </packing>
         </child>
       </object>
     </child>
   </object>
   <object class="GtkBox" id="channel_sidebar">
     <property name="visible">True</property>
-    <property name="can-focus">False</property>
     <property name="orientation">vertical</property>
     <property name="spacing">6</property>
     <child>
       <object class="HdyAvatar">
         <property name="visible">True</property>
-        <property name="can-focus">False</property>
         <property name="margin-start">24</property>
         <property name="margin-end">24</property>
         <property name="margin-top">24</property>
         <property name="size">144</property>
       </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-        <property name="position">0</property>
-      </packing>
     </child>
     <child>
       <object class="GtkLabel">
         <property name="visible">True</property>
-        <property name="can-focus">False</property>
         <property name="margin-top">6</property>
         <property name="label" translatable="yes">GNOME Ru</property>
         <style>
           <class name="bold-label"/>
         </style>
       </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-        <property name="position">1</property>
-      </packing>
     </child>
     <child>
       <object class="GtkLabel">
         <property name="visible">True</property>
-        <property name="can-focus">False</property>
-        <property name="label" translatable="yes">62 members</property>
         <style>
           <class name="dim-label"/>
         </style>
       </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-        <property name="position">2</property>
-      </packing>
     </child>
     <style>
       <class name="dark-bg"/>
@@ -183,7 +106,6 @@
   </object>
   <object class="GtkBox" id="messages_view">
     <property name="visible">True</property>
-    <property name="can-focus">False</property>
     <property name="orientation">vertical</property>
     <child>
       <object class="GtkScrolledWindow">
@@ -194,11 +116,9 @@
         <child>
           <object class="GtkViewport">
             <property name="visible">True</property>
-            <property name="can-focus">False</property>
             <child>
               <object class="HdyClamp">
                 <property name="visible">True</property>
-                <property name="can-focus">False</property>
                 <child>
                   <object class="GtkListBox" id="message_box">
                     <property name="visible">True</property>
@@ -212,51 +132,31 @@
           </object>
         </child>
       </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-        <property name="position">0</property>
-      </packing>
     </child>
     <child>
       <object class="GtkSeparator">
         <property name="visible">True</property>
-        <property name="can-focus">False</property>
         <style>
           <class name="sidebar"/>
         </style>
       </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-        <property name="position">1</property>
-      </packing>
     </child>
     <child>
       <object class="HdyClamp">
         <property name="visible">True</property>
-        <property name="can-focus">False</property>
         <child>
           <object class="GtkBox">
             <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="margin-left">6</property>
-            <property name="margin-right">6</property>
-            <property name="margin-start">6</property>
-            <property name="margin-end">6</property>
-            <property name="margin-top">6</property>
-            <property name="margin-bottom">6</property>
+            <property name="margin">6</property>
             <property name="spacing">6</property>
             <child>
               <object class="GtkRevealer" id="message_tool_revealer">
                 <property name="visible">True</property>
-                <property name="can-focus">False</property>
                 <property name="transition-type">slide-left</property>
                 <property name="reveal-child">True</property>
                 <child>
                   <object class="GtkBox">
                     <property name="visible">True</property>
-                    <property name="can-focus">False</property>
                     <property name="spacing">6</property>
                     <child>
                       <object class="GtkButton">
@@ -266,16 +166,10 @@
                         <child>
                           <object class="GtkImage">
                             <property name="visible">True</property>
-                            <property name="can-focus">False</property>
                             <property name="icon-name">mail-attachment-symbolic</property>
                           </object>
                         </child>
                       </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkButton">
@@ -285,25 +179,14 @@
                         <child>
                           <object class="GtkImage">
                             <property name="visible">True</property>
-                            <property name="can-focus">False</property>
                             <property name="icon-name">audio-input-microphone-symbolic</property>
                           </object>
                         </child>
                       </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">1</property>
-                      </packing>
                     </child>
                   </object>
                 </child>
               </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
             </child>
             <child>
               <object class="GtkEntry" id="message_entry">
@@ -315,16 +198,10 @@
                 <property name="placeholder-text" translatable="yes">Write a message…</property>
                 <signal name="changed" handler="on_message_entry_changed" swapped="no"/>
               </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">2</property>
-              </packing>
             </child>
             <child>
               <object class="GtkRevealer" id="send_message_revealer">
                 <property name="visible">True</property>
-                <property name="can-focus">False</property>
                 <property name="transition-type">slide-left</property>
                 <child>
                   <object class="GtkButton">
@@ -334,7 +211,6 @@
                     <child>
                       <object class="GtkImage">
                         <property name="visible">True</property>
-                        <property name="can-focus">False</property>
                         <property name="icon-name">send-symbolic</property>
                       </object>
                     </child>
@@ -344,11 +220,6 @@
                   </object>
                 </child>
               </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">4</property>
-              </packing>
             </child>
           </object>
         </child>
@@ -356,76 +227,51 @@
           <class name="dark-bg"/>
         </style>
       </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-        <property name="position">2</property>
-      </packing>
     </child>
   </object>
   <object class="GtkPopover" id="popover1">
-    <property name="can-focus">False</property>
     <child>
       <placeholder/>
     </child>
   </object>
   <template class="MeowgramWindow" parent="HdyApplicationWindow">
-    <property name="can-focus">False</property>
     <property name="default-width">800</property>
     <property name="default-height">500</property>
     <child>
       <object class="HdyLeaflet" id="main_leaflet">
         <property name="visible">True</property>
-        <property name="can-focus">False</property>
         <property name="transition-type">slide</property>
         <child>
           <object class="GtkBox">
             <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="hexpand">False</property>
             <property name="orientation">vertical</property>
             <child>
               <object class="HdyHeaderBar" id="headerbar1">
                 <property name="visible">True</property>
-                <property name="can-focus">False</property>
                 <property name="show-close-button">True</property>
                 <child type="title">
                   <object class="GtkMenuButton">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
-                    <property name="focus-on-click">False</property>
                     <property name="receives-default">True</property>
                     <property name="popover">popover1</property>
                     <child>
                       <object class="GtkBox">
                         <property name="visible">True</property>
-                        <property name="can-focus">False</property>
                         <child>
                           <object class="GtkLabel">
                             <property name="visible">True</property>
-                            <property name="can-focus">False</property>
                             <property name="label" translatable="yes">All Chats</property>
                             <style>
                               <class name="title"/>
                             </style>
                           </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">0</property>
-                          </packing>
                         </child>
                         <child>
                           <object class="GtkImage">
                             <property name="visible">True</property>
-                            <property name="can-focus">False</property>
                             <property name="icon-name">pan-down-symbolic</property>
                           </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">1</property>
-                          </packing>
                         </child>
                       </object>
                     </child>
@@ -440,10 +286,10 @@
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
+                    <property name="menu-model">primary_menu</property>
                     <child>
                       <object class="GtkImage">
                         <property name="visible">True</property>
-                        <property name="can-focus">False</property>
                         <property name="icon-name">open-menu-symbolic</property>
                       </object>
                     </child>
@@ -461,14 +307,10 @@
                     <child>
                       <object class="HdyAvatar">
                         <property name="visible">True</property>
-                        <property name="can-focus">False</property>
                         <property name="size">18</property>
                       </object>
                     </child>
                   </object>
-                  <packing>
-                    <property name="position">1</property>
-                  </packing>
                 </child>
                 <child>
                   <object class="GtkToggleButton" id="search_button">
@@ -478,31 +320,22 @@
                     <child>
                       <object class="GtkImage">
                         <property name="visible">True</property>
-                        <property name="can-focus">False</property>
                         <property name="icon-name">system-search-symbolic</property>
                       </object>
                     </child>
                   </object>
                   <packing>
                     <property name="pack-type">end</property>
-                    <property name="position">2</property>
                   </packing>
                 </child>
               </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
             </child>
             <child>
               <object class="GtkRevealer" id="search_revealer">
                 <property name="visible">True</property>
-                <property name="can-focus">False</property>
                 <child>
                   <object class="GtkSearchBar">
                     <property name="visible">True</property>
-                    <property name="can-focus">False</property>
                     <property name="search-mode-enabled">True</property>
                     <child>
                       <object class="GtkEntry">
@@ -516,11 +349,6 @@
                   </object>
                 </child>
               </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
             </child>
             <child>
               <object class="GtkScrolledWindow">
@@ -530,22 +358,15 @@
                 <child>
                   <object class="GtkViewport">
                     <property name="visible">True</property>
-                    <property name="can-focus">False</property>
                     <child>
                       <object class="GtkListBox" id="contacts_listbox">
                         <property name="visible">True</property>
-                        <property name="can-focus">False</property>
                         <signal name="row-selected" handler="on_contacts_activated" swapped="no"/>
                       </object>
                     </child>
                   </object>
                 </child>
               </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">2</property>
-              </packing>
             </child>
           </object>
           <packing>
@@ -555,7 +376,6 @@
         <child>
           <object class="GtkSeparator">
             <property name="visible">True</property>
-            <property name="can-focus">False</property>
             <style>
               <class name="sidebar"/>
             </style>
@@ -564,23 +384,21 @@
         <child>
           <object class="GtkBox" id="messages_pane">
             <property name="visible">True</property>
-            <property name="can-focus">False</property>
             <property name="hexpand">True</property>
             <property name="orientation">vertical</property>
             <child>
               <object class="HdyHeaderBar" id="messages_headerbar">
                 <property name="visible">True</property>
-                <property name="can-focus">False</property>
                 <property name="show-close-button">True</property>
                 <child>
                   <object class="GtkMenuButton" id="submenu_button">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
+                    <property name="menu-model">submenu</property>
                     <child>
                       <object class="GtkImage">
                         <property name="visible">True</property>
-                        <property name="can-focus">False</property>
                         <property name="icon-name">view-more-symbolic</property>
                       </object>
                     </child>
@@ -597,14 +415,10 @@
                     <child>
                       <object class="GtkImage">
                         <property name="visible">True</property>
-                        <property name="can-focus">False</property>
                         <property name="icon-name">go-previous-symbolic</property>
                       </object>
                     </child>
                   </object>
-                  <packing>
-                    <property name="position">2</property>
-                  </packing>
                 </child>
                 <child>
                   <object class="GtkToggleButton" id="sidebar_button">
@@ -614,22 +428,15 @@
                     <child>
                       <object class="GtkImage">
                         <property name="visible">True</property>
-                        <property name="can-focus">False</property>
                         <property name="icon-name">toggle-sidebar-symbolic</property>
                       </object>
                     </child>
                   </object>
                   <packing>
                     <property name="pack-type">end</property>
-                    <property name="position">2</property>
                   </packing>
                 </child>
               </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
             </child>
             <child>
               <object class="HdyFlap" id="channel_flap">
@@ -640,11 +447,6 @@
                 <property name="flap">channel_sidebar</property>
                 <property name="separator">separator</property>
               </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
             </child>
           </object>
           <packing>
@@ -670,7 +472,6 @@
   </object>
   <object class="GtkSeparator" id="separator">
     <property name="visible">True</property>
-    <property name="can-focus">False</property>
     <style>
       <class name="sidebar"/>
     </style>
@@ -678,4 +479,72 @@
   <object class="GtkAdjustment" id="messages_adjustment">
     <signal name="value-changed" handler="on_messages_adjustment_changed" swapped="no"/>
   </object>
+  <menu id="primary_menu">
+    <section>
+      <item>
+        <attribute name="action">app.action</attribute>
+        <attribute name="label" translatable="yes">Create Group</attribute>
+      </item>
+      <item>
+        <attribute name="action">app.action</attribute>
+        <attribute name="label" translatable="yes">Create Channel</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="action">app.action</attribute>
+        <attribute name="label" translatable="yes">Contacts</attribute>
+      </item>
+      <item>
+        <attribute name="action">app.action</attribute>
+        <attribute name="label" translatable="yes">Calls</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="action">app.show-preferences</attribute>
+        <attribute name="label" translatable="yes">Preferences</attribute>
+      </item>
+      <item>
+        <attribute name="action">app.show-shortcuts</attribute>
+        <attribute name="label" translatable="yes">Keyboard Shortcuts</attribute>
+      </item>
+      <item>
+        <attribute name="action">app.show-about</attribute>
+        <attribute name="label" translatable="yes">About Meowgram</attribute>
+      </item>
+    </section>
+  </menu>
+  <menu id="submenu">
+    <section>
+      <item>
+        <attribute name="action">app.action</attribute>
+        <attribute name="label" translatable="yes">Group Details</attribute>
+      </item>
+      <item>
+        <attribute name="action">app.action</attribute>
+        <attribute name="label" translatable="yes">Invite New Member</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="action">app.action</attribute>
+        <attribute name="label" translatable="yes">Leave Group</attribute>
+      </item>
+    </section>
+  </menu>
+  <menu id="pm_menu">
+    <section>
+      <item>
+        <attribute name="action">app.action</attribute>
+        <attribute name="label" translatable="yes">View Profile</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="action">app.action</attribute>
+        <attribute name="label" translatable="yes">Delete Chat</attribute>
+      </item>
+    </section>
+  </menu>
 </interface>
