@@ -33,6 +33,7 @@ from meowgram.connectors.login import login_manager
 
 logging.basicConfig(level=logging.DEBUG)
 
+
 class Application(Gtk.Application):
     def __init__(self, version):
         super().__init__(application_id=Constants.APPID,

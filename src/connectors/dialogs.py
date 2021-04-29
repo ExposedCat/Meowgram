@@ -1,5 +1,4 @@
 from meowgram.widgets.contact_row import ContactRow
-from meowgram.widgets.message_row import MessageRow
 
 from meowgram.backend.telegram_client import client
 from meowgram.backend.asyncio_separator import async_run

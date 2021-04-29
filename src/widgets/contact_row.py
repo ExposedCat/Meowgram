@@ -142,4 +142,4 @@ class ContactRow(Gtk.Box):
         try:
             self.mute_status.set_visible(self.dialog_data.dialog.notify_settings.mute_until)
         except AttributeError as error:
-           logging.debug(error)
+            logging.debug(error)
