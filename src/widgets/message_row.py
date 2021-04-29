@@ -40,6 +40,8 @@ class MessageRow(Gtk.Grid):
 
         self.message = message
 
+        self.sender_label.bind_property('label', self.avatar, 'text')
+
         if message.out:
             self.set_message_out()
         else:
