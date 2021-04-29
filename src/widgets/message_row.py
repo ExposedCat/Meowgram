@@ -35,6 +35,8 @@ class MessageRow(Gtk.Box):
             self.message_label.set_text(message.message)
         except AttributeError as error:
             self.message_label.set_text("Message type is not supported yet")
+        except TypeError:
+            self.message_label.set_text("")
         if message.out:
             self.set_message_out()
         else:
