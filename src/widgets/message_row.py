@@ -32,16 +32,30 @@ class MessageRow(Gtk.Grid):
     def __init__(self, message, **kwargs):
         super().__init__(**kwargs)
 
-        try:
-            self.message_label.set_text(message.message)
-        except AttributeError as error:
-            self.message_label.set_text("Message type is not supported yet")
-        except TypeError:
-            self.message_label.set_text("")
+        self.message = message
+
+        # TODO automatically hide the sender_label and reduce padding when
+        # the sender is the same as the last one
+
+        self.message_label.set_label(self.get_message())
+        self.sender_label.set_label(self.get_message_sender())
+
         if message.out:
             self.set_message_out()
         else:
             self.set_message_in()
+
+    def get_message(self):
+        try:
+            message = self.message.message
+        except AttributeError:
+            message = "Message type is not supported yet"
+        except TypeError:
+            message = ""
+        return message
+
+    def get_message_sender(self):
+        return self.message.sender.username
 
     def set_message_out(self):
         self.sender_label.set_visible(False)
