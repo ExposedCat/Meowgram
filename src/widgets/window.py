@@ -80,11 +80,18 @@ class MeowgramWindow(Handy.ApplicationWindow):
         try:
             contact_name = contact.get_contact_name()
             if not (subtitle := contact.get_room_members_count()):
+                # TODO include here also the number of onlined members
                 subtitle = contact.get_last_active()
             if contact.get_is_bot():
                 subtitle = "bot"
         except AttributeError:
             contact_name = subtitle = ""
+
+        try:
+            if contact.chat_id.user_id == 777000:
+                subtitle = "service notifications"
+        except AttributeError:
+            pass
 
         self.messages_headerbar.set_title(contact_name)
         self.messages_headerbar.set_subtitle(subtitle)
