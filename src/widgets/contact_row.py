@@ -124,7 +124,7 @@ class ContactRow(Gtk.Box):
         try:
             contact_status = self.dialog_data.entity.status
             if isinstance(contact_status, UserStatusOnline):
-                last_active = "Active now"
+                last_active = "online"
             elif isinstance(contact_status, UserStatusOffline):
                 last_active = contact_status.was_online \
                     .replace(tzinfo=datetime.timezone.utc) \
@@ -135,17 +135,17 @@ class ContactRow(Gtk.Box):
 
                 if days_difference < 1:
                     # TODO Make this work with military time
-                    format_string = 'Last seen at %I∶%M %p'  # at 08:57 AM
+                    format_string = 'last seen at %I∶%M %p'  # at 08:57 AM
                 elif 1 <= days_difference < 2:
-                    format_string = 'Last seen yesterday at %I∶%M %p'  # yesterday at 08:57 AM
+                    format_string = 'last seen yesterday at %I∶%M %p'  # yesterday at 08:57 AM
                 elif 2 <= days_difference < 7:
-                    format_string = 'Last seen %a at %I∶%M %p'  # Fri at 08:57 AM
+                    format_string = 'last seen %a at %I∶%M %p'  # Fri at 08:57 AM
                 elif days_difference >= 7:
-                    format_string = 'Last seen %b %d at %I∶%M %p'  # Apr 08 at 08:57 AM
+                    format_string = 'last seen %b %d at %I∶%M %p'  # Apr 08 at 08:57 AM
                 last_active = last_active.strftime(format_string)
 
             elif isinstance(contact_status, UserStatusRecently):
-                last_active = "Last seen recently"
+                last_active = "last seen recently"
             else:
                 # TODO Fix this also with Telegram bot
                 last_active = "Either a bot or service notifications"
