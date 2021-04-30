@@ -93,15 +93,19 @@ class MeowgramWindow(Handy.ApplicationWindow):
     def on_contacts_activated(self, listbox, row):
         self.main_leaflet.set_visible_child_name('messages_pane')
 
-        contact = row.get_child()
-        self.update_headerbar(contact)
+        try:
+            contact = row.get_child()
+            self.update_headerbar(contact)
+            messages_manager.show_messages(self, contact.chat_id)
+            self.scroll_to_bottom_messages()
+        except AttributeError:
+            pass  # This means that there is no selected row, so don't show messages
 
-        messages_manager.show_messages(self, contact.chat_id)
-        self.scroll_to_bottom_messages()
         self.update_view()
 
     @Gtk.Template.Callback()
     def on_back_button_clicked(self, button):
+        self.contacts_listbox.unselect_all()
         self.main_leaflet.set_visible_child_name('contacts_pane')
 
     @Gtk.Template.Callback()
