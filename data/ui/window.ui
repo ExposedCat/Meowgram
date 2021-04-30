@@ -212,6 +212,7 @@
               <object class="HdyFlap" id="channel_flap">
                 <property name="visible">True</property>
                 <property name="flap-position">end</property>
+                <property name="fold-policy">always</property>
                 <property name="locked">True</property>
                 <property name="reveal-flap">False</property>
                 <property name="flap">channel_sidebar</property>
