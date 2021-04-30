@@ -245,6 +245,7 @@
                 <child>
                   <object class="GtkListBox" id="messages_listbox">
                     <property name="visible">True</property>
+                    <property name="valign">end</property>
                     <style>
                       <class name="message-box"/>
                     </style>
