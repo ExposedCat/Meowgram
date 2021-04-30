@@ -38,19 +38,21 @@ class MessageRow(Gtk.Grid):
     def __init__(self, message, **kwargs):
         super().__init__(**kwargs)
 
-        self.message = message
-
         self.sender_label.bind_property('label', self.avatar, 'text')
-
-        if message.out:
-            self.set_message_out()
-        else:
-            self.set_message_in()
+        self.update(message)
 
         # TODO automatically hide the sender_label and reduce padding when
         # the sender is the same as the last one
 
         # TODO also, hide the sender_label when it is the same as in the headerbar
+
+    def update(self, message):
+        self.message = message
+
+        if self.message.out:
+            self.set_message_out()
+        else:
+            self.set_message_in()
 
         self.message_label.set_label(self.get_message())
         self.sender_label.set_label(self.get_message_sender())
