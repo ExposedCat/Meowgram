@@ -15,10 +15,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import logging
+
 from gi.repository import Gtk, Handy, GObject, GLib
 
 from meowgram.constants import Constants
-
 from meowgram.connectors.dialogs import dialogs_manager
 from meowgram.connectors.messages import messages_manager
 

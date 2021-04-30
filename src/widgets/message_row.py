@@ -66,8 +66,7 @@ class MessageRow(Gtk.Grid):
             message = "<span style=\"italic\">Message type is not supported yet.</span>"
             self.message_label.set_use_markup("True")
         if self.message.action:
-            print(type(self.message.action))
-            message = f"Someone did something"
+            message = f"{self.message.sender.username} did something - {self.message.action}"
         return message
 
     def get_message_time(self):
