@@ -62,6 +62,8 @@ class MeowgramWindow(Handy.ApplicationWindow):
         dialogs_manager.show_dialogs(self)
         self.update_view()
 
+        # TODO add button to scroll down
+
     def scroll_to_bottom_messages(self):
         GLib.timeout_add(
             50, lambda: self.messages_adjustment.set_value(
@@ -76,6 +78,8 @@ class MeowgramWindow(Handy.ApplicationWindow):
         else:
             self.channel_flap.set_content(self.empty_view)
             self.sidebar_button.set_visible(False)
+
+        # TODO animate this
 
     def update_headerbar(self, contact):
         try:
