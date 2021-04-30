@@ -145,7 +145,7 @@ class ContactRow(Gtk.Box):
                 last_active = last_active.strftime(format_string)
 
             elif isinstance(contact_status, UserStatusRecently):
-                last_active = "Active recently"
+                last_active = "Last seen recently"
             else:
                 # TODO Fix this also with Telegram bot
                 last_active = "Either a bot or service notifications"
