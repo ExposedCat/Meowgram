@@ -110,7 +110,7 @@ class MeowgramWindow(Handy.ApplicationWindow):
 
     def load_window_size(self):
         settings = Gio.Settings(Constants.APPID)
-        size = list(settings.get_value('window-size'))
+        size = settings.get_value('window-size')
 
         self.set_default_size(*size)
 
