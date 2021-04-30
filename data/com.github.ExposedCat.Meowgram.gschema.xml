@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist gettext-domain="meowgram">
   <schema id="com.github.ExposedCat.Meowgram" path="/com/github/ExposedCat/Meowgram/">
-    <key name="logged-in" type="b">
+    <key type="b" name="logged-in">
       <default>false</default>
       <summary>Logged in</summary>
       <description>Is user logged into at least one account</description>
+    </key>
+    <key type="ai" name="window-size">
+      <default>[870, 600]</default>
+    </key>
+    <key type="b" name="is-maximized">
+      <default>false</default>
     </key>
   </schema>
 </schemalist>

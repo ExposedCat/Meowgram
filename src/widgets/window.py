@@ -17,7 +17,7 @@
 
 import logging
 
-from gi.repository import Gtk, Handy, GObject, GLib
+from gi.repository import Gtk, Handy, GObject, GLib, Gio
 
 from meowgram.constants import Constants
 from meowgram.connectors.dialogs import dialogs_manager
@@ -59,6 +59,7 @@ class MeowgramWindow(Handy.ApplicationWindow):
         self.sidebar_button.bind_property('active', self.channel_flap, 'reveal-flap',
                                           GObject.BindingFlags.BIDIRECTIONAL)
 
+        self.load_window_size()
         dialogs_manager.show_dialogs(self)
         self.update_view()
 
@@ -101,6 +102,18 @@ class MeowgramWindow(Handy.ApplicationWindow):
         self.messages_headerbar.set_title(contact_name)
         self.messages_headerbar.set_subtitle(subtitle)
 
+    def save_window_size(self):
+        settings = Gio.Settings(Constants.APPID)
+        size = self.get_size()
+
+        settings.set_value('window-size', GLib.Variant('ai', [*size]))
+
+    def load_window_size(self):
+        settings = Gio.Settings(Constants.APPID)
+        size = list(settings.get_value('window-size'))
+
+        self.set_default_size(*size)
+
     @Gtk.Template.Callback()
     def on_messages_adjustment_changed(self, adjustment):
         if not adjustment.get_value():
@@ -131,3 +144,7 @@ class MeowgramWindow(Handy.ApplicationWindow):
         is_there_text = entry.get_text()
         self.message_tool_revealer.set_reveal_child(not is_there_text)
         self.send_message_revealer.set_reveal_child(is_there_text)
+
+    @Gtk.Template.Callback()
+    def on_destroy(self, window, event):
+        self.save_window_size()
