@@ -71,7 +71,7 @@
                 <property name="pixel-size">12</property>
                 <property name="icon-name">object-select-symbolic</property>
                 <style>
-                  <class name="dim-label"/>
+                  <class name="status"/>
                 </style>
               </object>
               <packing>

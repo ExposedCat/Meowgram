@@ -103,3 +103,11 @@ row:selected .unread-badge {
   background-color: white;
   color: @theme_selected_bg_color;
 }
+
+.status {
+  color: @theme_selected_bg_color;
+}
+
+row:selected .status {
+  color: @theme_fg_color;
+}
