@@ -9,7 +9,7 @@
     <child>
       <object class="HdyLeaflet" id="main_leaflet">
         <property name="visible">True</property>
-        <property name="transition-type">slide</property>
+        <property name="transition-type">over</property>
         <child>
           <object class="GtkBox">
             <property name="visible">True</property>
