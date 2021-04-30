@@ -75,21 +75,19 @@ class ContactRow(Gtk.Box):
             message = self.dialog_data.message
             if message.message:
                 last_message = message.message.split('\n')[0].strip()
-            else:
-                # TODO add action text
-                last_message = "Action"
-
-            if message.media:
+            elif message.action:
+                last_message = f"did something - {message.action}"
+            elif message.media:
                 last_message = "🖼️ Photo"
 
             if message.out:
                 sender_name = "You"
+            elif self.dialog_data.is_user:
+                sender_name = ""
             else:
                 sender_name = getattr(
                     message.sender, 'post_author', getattr(message.sender, 'first_name', "")
                 )
-                if self.dialog_data.is_user:
-                    sender_name = ""
 
             return f"{sender_name}{': ' if sender_name else ''}{last_message}"
         except AttributeError as error:
