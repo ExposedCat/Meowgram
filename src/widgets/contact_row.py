@@ -46,6 +46,10 @@ class ContactRow(Gtk.Box):
         self.contact_name_label.bind_property('label', self.avatar, 'text')
         self.update(dialog_data)
 
+        # TODO show contact picture
+        # TODO add indicator if a contact is online
+        # TODO add indicator if a message was read
+
     def update(self, dialog_data):
         self.dialog_data = dialog_data
         self.chat_id = self.dialog_data.message.peer_id

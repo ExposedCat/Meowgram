@@ -18,6 +18,7 @@
 import datetime
 
 from gi.repository import Gtk
+from telethon.tl.types import UserStatusOffline, UserStatusRecently, UserStatusOnline
 
 from meowgram.constants import Constants
 
@@ -49,7 +50,9 @@ class MessageRow(Gtk.Grid):
     def update(self, message):
         self.message = message
 
-        if self.message.out:
+        if self.message.action:
+            self.set_as_action_message()
+        elif self.message.out:
             self.set_message_out()
         else:
             self.set_message_in()
@@ -62,6 +65,9 @@ class MessageRow(Gtk.Grid):
         if not (message := self.message.message):
             message = "<span style=\"italic\">Message type is not supported yet.</span>"
             self.message_label.set_use_markup("True")
+        if self.message.action:
+            print(type(self.message.action))
+            message = f"Someone did something"
         return message
 
     def get_message_time(self):
@@ -105,3 +111,11 @@ class MessageRow(Gtk.Grid):
         self.message_label.set_justify(Gtk.Justification.LEFT)
         self.message_label.get_style_context().add_class('message-in')
         self.status_box.set_halign(Gtk.Align.START)
+
+    def set_as_action_message(self):
+        self.sender_label.set_visible(False)
+        self.avatar.set_visible(False)
+        self.time_label.set_visible(False)
+        self.set_halign(Gtk.Align.CENTER)
+        self.message_label.get_style_context().add_class('message-status')
+        self.message_label.get_style_context().add_class('dim-label')

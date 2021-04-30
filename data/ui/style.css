@@ -33,6 +33,13 @@
   color: @theme_fg_color;
 }
 
+.message-status {
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0 0 0 0;
+  font-size: 12px;
+}
+
 
 
 row:active .message-in,
