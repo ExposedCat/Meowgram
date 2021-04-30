@@ -76,6 +76,14 @@ class MeowgramWindow(Handy.ApplicationWindow):
             self.channel_flap.set_content(self.empty_view)
             self.sidebar_button.set_visible(False)
 
+    def update_headerbar(self, contact):
+        self.messages_headerbar.set_title(contact.get_contact_name())
+        if not (subtitle := contact.get_room_members_count()):
+            subtitle = contact.get_last_active()
+        if contact.get_is_bot():
+            subtitle = "bot"
+        self.messages_headerbar.set_subtitle(subtitle)
+
     @Gtk.Template.Callback()
     def on_messages_adjustment_changed(self, adjustment):
         if not adjustment.get_value():
@@ -84,11 +92,11 @@ class MeowgramWindow(Handy.ApplicationWindow):
     @Gtk.Template.Callback()
     def on_contacts_activated(self, listbox, row):
         self.main_leaflet.set_visible_child_name('messages_pane')
-        contact = row.get_child()
-        self.messages_headerbar.set_title(contact.get_contact_name())
-        self.messages_headerbar.set_subtitle(contact.get_room_members_count())
-        messages_manager.show_messages(self, contact.chat_id)
 
+        contact = row.get_child()
+        self.update_headerbar(contact)
+
+        messages_manager.show_messages(self, contact.chat_id)
         self.scroll_to_bottom_messages()
         self.update_view()
 

@@ -19,6 +19,7 @@ import datetime
 import logging
 
 from gi.repository import Gtk
+from telethon.tl.types import UserStatusOffline, UserStatusRecently, UserStatusOnline
 
 from meowgram.constants import Constants
 
@@ -42,12 +43,12 @@ class ContactRow(Gtk.Box):
     def __init__(self, dialog_data, **kwargs):
         super().__init__(**kwargs)
 
-        self.chat_id = dialog_data.message.peer_id
         self.contact_name_label.bind_property('label', self.avatar, 'text')
         self.update(dialog_data)
 
     def update(self, dialog_data):
         self.dialog_data = dialog_data
+        self.chat_id = self.dialog_data.message.peer_id
 
         self.set_message_status()
         self.set_unread_status()
@@ -118,6 +119,47 @@ class ContactRow(Gtk.Box):
             return f"{self.dialog_data.entity.participants_count} members"
         except AttributeError:
             return ""
+
+    def get_last_active(self):
+        try:
+            contact_status = self.dialog_data.entity.status
+            if isinstance(contact_status, UserStatusOnline):
+                last_active = "Active now"
+            elif isinstance(contact_status, UserStatusOffline):
+                last_active = contact_status.was_online \
+                    .replace(tzinfo=datetime.timezone.utc) \
+                    .astimezone()
+
+                today = datetime.datetime.now().astimezone()
+                days_difference = (today - last_active).days
+
+                if days_difference < 1:
+                    # TODO Make this work with military time
+                    format_string = 'Last seen at %I∶%M %p'  # at 08:57 AM
+                elif 1 <= days_difference < 2:
+                    format_string = 'Last seen yesterday at %I∶%M %p'  # yesterday at 08:57 AM
+                elif 2 <= days_difference < 7:
+                    format_string = 'Last seen %a at %I∶%M %p'  # Fri at 08:57 AM
+                elif days_difference >= 7:
+                    format_string = 'Last seen %b %d at %I∶%M %p'  # Apr 08 at 08:57 AM
+                last_active = last_active.strftime(format_string)
+
+            elif isinstance(contact_status, UserStatusRecently):
+                last_active = "Active recently"
+            else:
+                # TODO Fix this also with Telegram bot
+                last_active = "Either a bot or service notifications"
+
+            return last_active
+        except AttributeError:
+            return ""
+
+    def get_is_bot(self):
+        try:
+            is_bot = self.dialog_data.entity.bot
+            return is_bot
+        except AttributeError:
+            return False
 
     def set_unread_status(self):
         try:
