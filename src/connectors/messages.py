@@ -1,7 +1,7 @@
 from meowgram.widgets.message_row import MessageRow
 
 from meowgram.backend.telegram_client import client
-from meowgram.backend.asyncio_separator import async_run
+from meowgram.backend.asyncio_separator import aio
 
 
 class MessagesManager:
@@ -15,7 +15,7 @@ class MessagesManager:
         actual_chat_id = self._get_actual_id(chat_id)
 
         if actual_chat_id not in self.loaded_chat_id:
-            request = async_run(client.get_messages, (chat_id,))
+            request = aio.run(client.get_messages, (chat_id,))
             messages = request.result()
 
             self.loaded_chat_id.append(actual_chat_id)
