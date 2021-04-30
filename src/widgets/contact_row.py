@@ -63,57 +63,75 @@ class ContactRow(Gtk.Box):
         self.time_label.set_label(self.get_last_message_time())
 
     def get_contact_name(self):
-        try:
-            contact_name = getattr(self.dialog_data, 'title', self.dialog_data.name)
-            return contact_name
-        except AttributeError as error:
-            logging.debug(error)
-            return ""
+        contact_name = getattr(self.dialog_data, 'title', self.dialog_data.name)
+        return contact_name
 
     def get_last_message(self):
-        try:
-            message = self.dialog_data.message
-            if message.message:
-                last_message = message.message.split('\n')[0].strip()
-            elif message.action:
-                last_message = f"did something - {message.action}"
-            elif message.media:
-                last_message = "🖼️ Photo"
+        message = self.dialog_data.message
+        if message.message:
+            last_message = message.message.split('\n')[0].strip()
+        elif message.action:
+            last_message = f"did something - {message.action}"
+        elif message.media:
+            last_message = "🖼️ Photo"
 
-            if message.out:
-                sender_name = "You"
-            elif self.dialog_data.is_user:
-                sender_name = ""
-            else:
-                sender_name = getattr(
-                    message.sender, 'post_author', getattr(message.sender, 'first_name', "")
-                )
+        if message.out:
+            sender_name = "You"
+        elif self.dialog_data.is_user:
+            sender_name = ""
+        else:
+            sender_name = getattr(
+                message.sender, 'post_author', getattr(message.sender, 'first_name', "")
+            )
 
-            return f"{sender_name}{': ' if sender_name else ''}{last_message}"
-        except AttributeError as error:
-            logging.debug(error)
-            return ""
+        return f"{sender_name}{': ' if sender_name else ''}{last_message}"
 
     def get_last_message_time(self):
-        try:
-            last_message_time = self.dialog_data.message.date \
+        last_message_time = self.dialog_data.message.date \
+            .replace(tzinfo=datetime.timezone.utc) \
+            .astimezone()
+
+        today = datetime.datetime.now().astimezone()
+        days_difference = (today - last_message_time).days
+
+        if days_difference < 1:
+           # TODO Make this work with military time
+            format_string = '%I∶%M %p'  # 08:57 AM
+        elif 1 <= days_difference < 7:
+            format_string = '%a'  # Fri
+        elif days_difference >= 7:
+            format_string = '%b %d'  # Apr 08
+        return last_message_time.strftime(format_string)
+
+    def get_last_active(self):
+        contact_status = self.dialog_data.entity.status
+        if isinstance(contact_status, UserStatusOnline):
+            last_active = "online"
+        elif isinstance(contact_status, UserStatusOffline):
+            last_active = contact_status.was_online \
                 .replace(tzinfo=datetime.timezone.utc) \
                 .astimezone()
 
             today = datetime.datetime.now().astimezone()
-            days_difference = (today - last_message_time).days
+            days_difference = (today - last_active).days
 
             if days_difference < 1:
                 # TODO Make this work with military time
-                format_string = '%I∶%M %p'  # 08:57 AM
-            elif 1 <= days_difference < 7:
-                format_string = '%a'  # Fri
+                format_string = 'at %I∶%M %p'  # at 08:57 AM
+            elif 1 <= days_difference < 2:
+                format_string = 'yesterday at %I∶%M %p'  # yesterday at 08:57 AM
+            elif 2 <= days_difference < 7:
+                format_string = '%a at %I∶%M %p'  # Fri at 08:57 AM
             elif days_difference >= 7:
-                format_string = '%b %d'  # Apr 08
-            return last_message_time.strftime(format_string)
-        except AttributeError as error:
-            logging.debug(error)
-            return ""
+                format_string = '%b %d at %I∶%M %p'  # Apr 08 at 08:57 AM
+            last_active = last_active.strftime(f"last seen {format_string}")
+        elif isinstance(contact_status, UserStatusRecently):
+            last_active = "last seen recently"
+        else:
+            # TODO replace with something from UserStatus
+            last_active = "Unknown time"
+
+        return last_active
 
     def get_room_members_count(self):
         try:
@@ -121,68 +139,25 @@ class ContactRow(Gtk.Box):
         except AttributeError:
             return ""
 
-    def get_last_active(self):
-        try:
-            contact_status = self.dialog_data.entity.status
-            if isinstance(contact_status, UserStatusOnline):
-                last_active = "online"
-            elif isinstance(contact_status, UserStatusOffline):
-                last_active = contact_status.was_online \
-                    .replace(tzinfo=datetime.timezone.utc) \
-                    .astimezone()
-
-                today = datetime.datetime.now().astimezone()
-                days_difference = (today - last_active).days
-
-                if days_difference < 1:
-                    # TODO Make this work with military time
-                    format_string = 'last seen at %I∶%M %p'  # at 08:57 AM
-                elif 1 <= days_difference < 2:
-                    format_string = 'last seen yesterday at %I∶%M %p'  # yesterday at 08:57 AM
-                elif 2 <= days_difference < 7:
-                    format_string = 'last seen %a at %I∶%M %p'  # Fri at 08:57 AM
-                elif days_difference >= 7:
-                    format_string = 'last seen %b %d at %I∶%M %p'  # Apr 08 at 08:57 AM
-                last_active = last_active.strftime(format_string)
-
-            elif isinstance(contact_status, UserStatusRecently):
-                last_active = "last seen recently"
-            else:
-                # TODO Fix this also with Telegram bot
-                last_active = "Either a bot or service notifications"
-
-            return last_active
-        except AttributeError:
-            return ""
-
     def get_is_bot(self):
         try:
-            is_bot = self.dialog_data.entity.bot
-            return is_bot
+            return self.dialog_data.entity.bot
         except AttributeError:
             return False
 
     def set_unread_status(self):
-        try:
-            is_pinned = self.dialog_data.pinned
-            unread_count = self.dialog_data.unread_count
-            self.unread_label.set_visible(unread_count)
-            self.unread_label.set_label(str(unread_count))
-            self.pin_status.set_visible(is_pinned)
+        is_pinned = self.dialog_data.pinned
+        unread_count = self.dialog_data.unread_count
 
-            if unread_count and is_pinned:
-                self.pin_status.set_visible(False)
-        except AttributeError as error:
-            logging.debug(error)
+        self.unread_label.set_visible(unread_count)
+        self.unread_label.set_label(str(unread_count))
+        self.pin_status.set_visible(is_pinned)
+
+        if unread_count and is_pinned:
+           self.pin_status.set_visible(False)
 
     def set_message_status(self):
-        try:
-            self.read_status.set_visible(self.dialog_data.message.out)
-        except AttributeError as error:
-            logging.debug(error)
+        self.read_status.set_visible(self.dialog_data.message.out)
 
     def set_mute_status(self):
-        try:
-            self.mute_status.set_visible(self.dialog_data.dialog.notify_settings.mute_until)
-        except AttributeError as error:
-            logging.debug(error)
+        self.mute_status.set_visible(self.dialog_data.dialog.notify_settings.mute_until)
