@@ -19,9 +19,11 @@ import logging
 
 from gi.repository import Gtk, Handy, GObject, GLib, Gio
 
-from meowgram.constants import Constants
+from meowgram.widgets.contact_row import ContactRow
+from meowgram.widgets.message_row import MessageRow
 from meowgram.connectors.dialogs import dialogs_manager
 from meowgram.connectors.messages import messages_manager
+from meowgram.constants import Constants
 
 
 @Gtk.Template(resource_path=f"{Constants.RESOURCEID}/ui/window.ui")
@@ -101,6 +103,18 @@ class MeowgramWindow(Handy.ApplicationWindow):
 
         self.messages_headerbar.set_title(contact_name)
         self.messages_headerbar.set_subtitle(subtitle)
+
+    def update_contacts_listbox(self, dialogs):
+        for dialog in dialogs:
+            self.contacts_listbox.insert(ContactRow(dialog), -1)
+
+    def update_messages_listbox(self, messages):
+        current_messages = self.messages_listbox.get_children()
+        for message in current_messages:
+            self.messages_listbox.remove(message)
+
+        for message in reversed(messages):
+            self.messages_listbox.insert(MessageRow(message), -1)
 
     def save_window_size(self):
         settings = Gio.Settings(Constants.APPID)
