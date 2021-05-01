@@ -91,9 +91,13 @@ class MessageRow(Gtk.Grid):
         return last_message_time.strftime(format_string)
 
     def get_message_sender(self):
-        if not (message_sender := self.message.sender.username):
-            message_sender = ""
-        return message_sender
+        message_sender = self.message.sender
+        try:
+            contact_name = (f"{getattr(message_sender, 'first_name')} "
+                            f"{str(message_sender.last_name or '')}")
+        except AttributeError:
+            contact_name = getattr(message_sender, 'title')
+        return contact_name
 
     def set_message_out(self):
         self.sender_label.set_visible(False)
