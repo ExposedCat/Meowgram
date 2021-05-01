@@ -68,12 +68,6 @@ class ContactRow(Gtk.Box):
 
     def get_last_message(self):
         message = self.dialog_data.message
-        if message.message:
-            last_message = message.message.split('\n')[0].strip()
-        elif message.action:
-            last_message = f"did something - {message.action}"
-        elif message.media:
-            last_message = "🖼️ Photo"
 
         if message.out:
             sender_name = "You"
@@ -83,6 +77,14 @@ class ContactRow(Gtk.Box):
             sender_name = getattr(
                 message.sender, 'post_author', getattr(message.sender, 'first_name', "")
             )
+
+        if message.message:
+            last_message = message.message.split('\n')[0].strip()
+        elif message.action:
+            last_message = f"{sender_name} did something - {message.action}"
+            sender_name = ""
+        elif message.media:
+            last_message = "🖼️ Photo"
 
         return f"{sender_name}{': ' if sender_name else ''}{last_message}"
 
