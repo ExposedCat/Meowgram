@@ -35,10 +35,11 @@ class ContactRow(Gtk.Box):
     last_message_label = Gtk.Template.Child()
     time_label = Gtk.Template.Child()
 
-    read_status = Gtk.Template.Child()
+    unread_label = Gtk.Template.Child()
+    mention_status = Gtk.Template.Child()
     pin_status = Gtk.Template.Child()
     mute_status = Gtk.Template.Child()
-    unread_label = Gtk.Template.Child()
+    read_status = Gtk.Template.Child()
 
     def __init__(self, dialog_data, **kwargs):
         super().__init__(**kwargs)
@@ -148,18 +149,18 @@ class ContactRow(Gtk.Box):
             return False
 
     def set_unread_status(self):
-        is_pinned = self.dialog_data.pinned
-        unread_count = self.dialog_data.unread_count
-
-        self.unread_label.set_visible(unread_count)
-        self.unread_label.set_label(str(unread_count))
-        self.pin_status.set_visible(is_pinned)
-
-        if unread_count and is_pinned:
-           self.pin_status.set_visible(False)
+        if self.dialog_data.unread_mentions_count:
+            self.mention_status.set_visible(True)
+        elif unread_count := self.dialog_data.unread_count:
+            self.unread_label.set_visible(True)
+            self.unread_label.set_label(str(unread_count))
+        elif self.dialog_data.pinned:
+            self.pin_status.set_visible(True)
 
     def set_message_status(self):
         self.read_status.set_visible(self.dialog_data.message.out)
 
     def set_mute_status(self):
-        self.mute_status.set_visible(self.dialog_data.dialog.notify_settings.mute_until)
+        if self.dialog_data.dialog.notify_settings.mute_until:
+            self.mute_status.set_visible(True)
+            self.unread_label.get_style_context().add_class('muted-badge')

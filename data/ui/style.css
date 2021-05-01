@@ -134,5 +134,8 @@ row:selected .unread-badge {
   -gtk-outline-radius: 9999px;
   min-width: 18px;
   min-height: 18px;
+}
 
+.small-icon {
+  padding: 3px;
 }
