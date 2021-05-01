@@ -27,6 +27,8 @@ from meowgram.constants import Constants
 class MessageRow(Gtk.Grid):
     __gtype_name__ = 'MessageRow'
 
+    message_bubble = Gtk.Template.Child()
+
     status_box = Gtk.Template.Child()
     read_status = Gtk.Template.Child()
 
@@ -97,26 +99,25 @@ class MessageRow(Gtk.Grid):
         self.sender_label.set_visible(False)
         self.avatar.set_visible(False)
         self.set_halign(Gtk.Align.END)
-        self.message_label.set_margin_start(108)
-        self.message_label.set_halign(Gtk.Align.END)
+        # self.message_label.set_halign(Gtk.Align.END)
         self.message_label.set_justify(Gtk.Justification.RIGHT)
-        self.message_label.get_style_context().add_class('message-out')
-        self.status_box.set_halign(Gtk.Align.END)
+        self.message_bubble.set_margin_start(108)
+        self.message_bubble.get_style_context().add_class('message-out')
 
     def set_message_in(self):
         self.sender_label.set_visible(True)
         self.avatar.set_visible(True)
         self.set_halign(Gtk.Align.START)
-        self.message_label.set_margin_end(108)
         self.message_label.set_halign(Gtk.Align.START)
         self.message_label.set_justify(Gtk.Justification.LEFT)
-        self.message_label.get_style_context().add_class('message-in')
-        self.status_box.set_halign(Gtk.Align.START)
+        self.message_bubble.set_margin_end(108)
+        self.message_bubble.get_style_context().add_class('message-in')
 
     def set_as_action_message(self):
         self.sender_label.set_visible(False)
         self.avatar.set_visible(False)
         self.time_label.set_visible(False)
         self.set_halign(Gtk.Align.CENTER)
-        self.message_label.get_style_context().add_class('message-status')
-        self.message_label.get_style_context().add_class('dim-label')
+        self.message_label.set_justify(Gtk.Justification.CENTER)
+        self.message_bubble.get_style_context().add_class('message-status')
+        self.message_bubble.get_style_context().add_class('dim-label')
