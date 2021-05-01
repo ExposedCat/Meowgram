@@ -71,7 +71,6 @@
               <object class="GtkLabel" id="time_label">
                 <property name="visible">True</property>
                 <property name="valign">center</property>
-                <property name="margin-top">3</property>
                 <style>
                   <class name="dim-label"/>
                   <class name="time-label"/>
@@ -84,7 +83,6 @@
             <child>
               <object class="GtkImage" id="read_status">
                 <property name="halign">center</property>
-                <property name="margin-top">2</property>
                 <property name="pixel-size">12</property>
                 <property name="icon-name">object-select-symbolic</property>
                 <style>
