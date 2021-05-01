@@ -2,6 +2,12 @@
  * FORKED FROM GSCONNECT and CHATTY
  */
 
+.message-bubble {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  border-radius: 9px;
+  padding: 6px 9px 6px 9px;
+}
+
 .message-in {
   border: 1px solid alpha(@theme_fg_color, 0.1);
   background-color: @theme_bg_color;
@@ -24,26 +30,24 @@
   color: @theme_selected_bg_color;
 }
 
-.message-bubble {
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
-  border-radius: 9px;
-  padding: 6px 9px 6px 9px;
-}
-
 .message-in *:link,
 .message-out *:link {
   color: @theme_fg_color;
 }
 
 .message-status {
-  box-shadow: none;
-  border-radius: 0;
-  padding: 0 0 0 0;
-  font-size: 12px;
-  color: @insensitive_fg_color
+  color: @theme_selected_bg_color;
+}
+
+row:selected .message-status {
+  color: white;
 }
 
 
+
+
+
+/* messages listbox things things */
 
 row:active .message-in,
 row:selected .message-in,
@@ -60,6 +64,12 @@ row:selected .message-out {
   box-shadow: none;
 }
 
+
+
+
+
+/* Mainwindow things */
+
 .message-view viewport {
   background-color: @theme_base_color;
 }
@@ -67,10 +77,6 @@ row:selected .message-out {
 .contacts-view {
   background-color: @theme_bg_color;
 }
-
-
-
-
 
 .header-dropdown {
     margin-top: 0;
@@ -81,22 +87,11 @@ row:selected .message-out {
     font-weight: 700;
 }
 
-.bold-label {
-  font-weight: bold;
-}
-
-.time-label {
-  font-size: 12px;
-}
-
-.dark-bg {
-  background-color: @theme_bg_color;
-}
 
 
 
 
-
+/* Contacts or Dialogs things */
 
 .unread-badge {
   background-color: @theme_selected_bg_color;
@@ -108,20 +103,30 @@ row:selected .message-out {
   padding: 2px 5px;
 }
 
-.muted-badge {
-  background-color: #bfbfbf;
-  color: @theme_bg_color;
-}
-
 row:selected .unread-badge {
   background-color: white;
   color: @theme_selected_bg_color;
 }
 
-.status {
-  color: @theme_selected_bg_color;
+.muted-badge {
+  background-color: #bfbfbf;
+  color: @theme_bg_color;
 }
 
-row:selected .status {
-  color: @theme_fg_color;
+
+
+
+
+/* General */
+
+.bold-label {
+  font-weight: bold;
+}
+
+.time-label {
+  font-size: 12px;
+}
+
+.dark-bg {
+  background-color: @theme_bg_color;
 }

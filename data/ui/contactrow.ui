@@ -70,7 +70,7 @@
                 <property name="pixel-size">12</property>
                 <property name="icon-name">object-select-symbolic</property>
                 <style>
-                  <class name="status"/>
+                  <class name="message-status"/>
                 </style>
               </object>
               <packing>
