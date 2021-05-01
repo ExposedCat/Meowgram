@@ -45,8 +45,7 @@ class MessageRow(Gtk.Grid):
         self.sender_label.bind_property('label', self.avatar, 'text')
         self.update(message)
 
-        # TODO automatically hide the sender_label and reduce padding when
-        # the sender is the same as the last one
+        # TODO Fix selection theming in messages listbox
 
         # TODO also, hide the sender_label when it is the same as in the headerbar
 

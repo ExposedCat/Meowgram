@@ -49,7 +49,6 @@ class ContactRow(Gtk.Box):
         self.update(dialog_data)
 
         # TODO show contact picture
-        # TODO add indicator if a contact is online
         # TODO add indicator if a message was read
 
     def update(self, dialog_data):
