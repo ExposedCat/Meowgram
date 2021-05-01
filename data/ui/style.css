@@ -1,6 +1,4 @@
-/**
- * FORKED FROM GSCONNECT and CHATTY
- */
+/* Message Row */
 
 .message-bubble {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
@@ -45,9 +43,7 @@ row:selected .message-status {
 
 
 
-
-
-/* messages listbox things things */
+/* Messages Listbox */
 
 row:active .message-in,
 row:selected .message-in,
@@ -66,9 +62,7 @@ row:selected .message-out {
 
 
 
-
-
-/* Mainwindow things */
+/* Meowgram Window */
 
 .message-view viewport {
   background-color: @theme_base_color;
@@ -89,9 +83,7 @@ row:selected .message-out {
 
 
 
-
-
-/* Contacts or Dialogs things */
+/* Contact Row */
 
 .unread-badge {
   background-color: @theme_selected_bg_color;
@@ -115,9 +107,7 @@ row:selected .unread-badge {
 
 
 
-
-
-/* General */
+/* General Classes */
 
 .bold-label {
   font-weight: bold;
