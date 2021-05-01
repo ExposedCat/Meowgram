@@ -88,6 +88,7 @@
                 <property name="visible">True</property>
                 <property name="halign">start</property>
                 <property name="ellipsize">end</property>
+                <property name="margin-end">6</property>
                 <property name="xalign">0</property>
                 <style>
                   <class name="dim-label"/>

@@ -79,7 +79,7 @@ class ContactRow(Gtk.Box):
             )
 
         if message.message:
-            last_message = message.message.split('\n')[0].strip()
+            last_message = message.message.replace("\n", " ")
         elif message.action:
             last_message = f"{sender_name} did something - {message.action}"
             sender_name = ""
