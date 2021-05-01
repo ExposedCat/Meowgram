@@ -132,7 +132,7 @@ row:selected .unread-badge {
   border-radius: 9999px;
   padding: 12px;
   -gtk-outline-radius: 9999px;
-  min-width: 24px;
-  min-height: 24px;
+  min-width: 18px;
+  min-height: 18px;
 
 }

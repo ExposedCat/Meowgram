@@ -71,7 +71,7 @@ class MessageRow(Gtk.Grid):
         if message := self.message.message:
             message = self.message.message
         elif self.message.action:
-            message = f"{self.message.sender.username} did something - {self.message.action}"
+            message = f"{self.get_message_sender()} did something - {self.message.action}"
         else:
             message = "<span style=\"italic\">Message type is not supported yet.</span>"
             self.message_label.set_use_markup("True")
