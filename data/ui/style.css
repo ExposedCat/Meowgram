@@ -112,6 +112,10 @@ row:selected .unread-badge {
   color: @theme_bg_color;
 }
 
+.online-status {
+  color: @theme_selected_bg_color;
+}
+
 
 
 /* General Classes */

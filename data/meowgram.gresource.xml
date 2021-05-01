@@ -14,6 +14,7 @@
     <file preprocess="xml-stripblanks">icons/scalable/status/pin-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/status/send-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/status/chat-icon-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/status/circle-filled-symbolic.svg</file>
 
     <file>ui/style.css</file>
   </gresource>

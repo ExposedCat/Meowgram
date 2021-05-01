@@ -40,6 +40,7 @@ class ContactRow(Gtk.Box):
     pin_status = Gtk.Template.Child()
     mute_status = Gtk.Template.Child()
     read_status = Gtk.Template.Child()
+    online_status = Gtk.Template.Child()
 
     def __init__(self, dialog_data, **kwargs):
         super().__init__(**kwargs)
@@ -58,6 +59,7 @@ class ContactRow(Gtk.Box):
         self.set_message_status()
         self.set_unread_status()
         self.set_mute_status()
+        self.set_online_status()
 
         self.contact_name_label.set_text(self.get_contact_name())
         self.last_message_label.set_text(self.get_last_message())
@@ -164,3 +166,10 @@ class ContactRow(Gtk.Box):
         if self.dialog_data.dialog.notify_settings.mute_until:
             self.mute_status.set_visible(True)
             self.unread_label.get_style_context().add_class('muted-badge')
+
+    def set_online_status(self):
+        try:
+            is_online = isinstance(self.dialog_data.entity.status, UserStatusOnline)
+            self.online_status.set_visible(is_online)
+        except AttributeError:
+            pass

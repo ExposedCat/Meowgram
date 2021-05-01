@@ -10,10 +10,29 @@
     <property name="margin-bottom">6</property>
     <property name="spacing">12</property>
     <child>
-      <object class="HdyAvatar" id="avatar">
+      <object class="GtkOverlay">
         <property name="visible">True</property>
-        <property name="show-initials">True</property>
-        <property name="size">42</property>
+        <child>
+          <object class="HdyAvatar" id="avatar">
+            <property name="visible">True</property>
+            <property name="show-initials">True</property>
+            <property name="size">42</property>
+          </object>
+        </child>
+        <child type="overlay">
+          <object class="GtkImage" id="online_status">
+            <property name="halign">end</property>
+            <property name="valign">end</property>
+            <property name="margin">2</property>
+            <property name="pixel-size">12</property>
+            <property name="icon-name">circle-filled-symbolic</property>
+            <style>
+              <class name="online-status"/>
+            </style>
+          </object>
+        </child>
+        <child>
+        </child>
       </object>
     </child>
     <child>
@@ -39,7 +58,6 @@
             </child>
             <child>
               <object class="GtkImage" id="mute_status">
-                <property name="visible">True</property>
                 <property name="halign">start</property>
                 <property name="valign">center</property>
                 <property name="pixel-size">12</property>
