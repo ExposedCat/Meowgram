@@ -126,3 +126,13 @@ class MessageRow(Gtk.Grid):
         self.set_halign(Gtk.Align.CENTER)
         self.message_label.set_justify(Gtk.Justification.CENTER)
         self.message_bubble.get_style_context().add_class('message-status')
+
+    def set_as_group(self, is_group):
+        if is_group:
+            self.sender_label.set_visible(False)
+            self.avatar.set_visible(False)
+            self.set_margin_left(56)
+            self.set_margin_top(0)
+        else:
+            self.set_margin_top(12)
+        

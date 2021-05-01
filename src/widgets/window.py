@@ -52,6 +52,8 @@ class MeowgramWindow(Handy.ApplicationWindow):
     messages_view = Gtk.Template.Child()
     empty_view = Gtk.Template.Child()
 
+    contact_name_mem = None
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
@@ -73,6 +75,7 @@ class MeowgramWindow(Handy.ApplicationWindow):
                 self.messages_adjustment.get_upper()
             )
         )
+        # TODO animate this
 
     def update_view(self):
         if self.contacts_listbox.get_selected_row():
@@ -81,8 +84,6 @@ class MeowgramWindow(Handy.ApplicationWindow):
         else:
             self.channel_flap.set_content(self.empty_view)
             self.sidebar_button.set_visible(False)
-
-        # TODO animate this
 
     def update_headerbar(self, contact):
         try:
@@ -114,7 +115,11 @@ class MeowgramWindow(Handy.ApplicationWindow):
             self.messages_listbox.remove(message)
 
         for message in reversed(messages):
-            self.messages_listbox.insert(MessageRow(message), -1)
+            contact_name = message.sender.username
+            message_row = MessageRow(message)
+            message_row.set_as_group(self.contact_name_mem == contact_name)
+            self.contact_name_mem = contact_name
+            self.messages_listbox.insert(message_row, -1)
 
     def save_window_size(self):
         settings = Gio.Settings(Constants.APPID)
@@ -142,8 +147,9 @@ class MeowgramWindow(Handy.ApplicationWindow):
             self.update_headerbar(contact)
             messages_manager.show_messages(self, contact.chat_id)
             self.scroll_to_bottom_messages()
-        except AttributeError:
-            pass  # This means that there is no selected row, so don't show messages
+        except AttributeError as error:
+            logging.debug(error)
+            # This means that there is no selected row, so don't show messages
 
         self.update_view()
 
