@@ -52,11 +52,7 @@ row:selected .message-out {
   transition: 200ms ease-in-out;
 }
 
-.message-box {
-  background-color: none;
-  box-shadow: none;
-}
-
+.message-box,
 .message-box row:selected,
 .message-box row:hover {
   background-color: transparent;
@@ -64,7 +60,7 @@ row:selected .message-out {
 }
 
 .message-view viewport {
-  background-color: @text_view_bg;
+  background-color: @theme_base_color;
 }
 
 .contacts-view {
@@ -93,7 +89,7 @@ row:selected .message-out {
 }
 
 .dark-bg {
-  background-color: @theme_base_color;
+  background-color: @theme_bg_color;
 }
 
 
