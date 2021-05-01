@@ -41,6 +41,13 @@ row:selected .message-status {
   color: white;
 }
 
+.message-action {
+  box-shadow: none;
+  border-radius: 0;
+  font-size: 12px;
+  color: @insensitive_fg_color;
+}
+
 
 
 /* Messages Listbox */
