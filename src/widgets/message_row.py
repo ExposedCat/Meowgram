@@ -51,6 +51,8 @@ class MessageRow(Gtk.Grid):
 
         # TODO add proper read status
 
+        # TODO move avatar to most bottom part of message group
+
     def update(self, message):
         self.message = message
 
