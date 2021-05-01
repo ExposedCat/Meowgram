@@ -228,32 +228,130 @@
       </object>
     </child>
   </template>
-  <object class="GtkBox" id="messages_view">
+  <object class="GtkOverlay" id="messages_view">
     <property name="visible">True</property>
-    <property name="orientation">vertical</property>
     <child>
-      <object class="GtkScrolledWindow">
+      <object class="GtkBox">
         <property name="visible">True</property>
-        <property name="can-focus">True</property>
-        <property name="vexpand">True</property>
-        <property name="vadjustment">messages_adjustment</property>
-        <style>
-          <class name="message-view"/>
-        </style>
+        <property name="orientation">vertical</property>
         <child>
-          <object class="GtkViewport">
+          <object class="GtkScrolledWindow">
             <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="vexpand">True</property>
+            <property name="vadjustment">messages_adjustment</property>
+            <style>
+              <class name="message-view"/>
+            </style>
             <child>
-              <object class="HdyClamp">
+              <object class="GtkViewport">
                 <property name="visible">True</property>
-                <property name="maximum-size">700</property>
                 <child>
-                  <object class="GtkListBox" id="messages_listbox">
+                  <object class="HdyClamp">
                     <property name="visible">True</property>
-                    <property name="valign">end</property>
-                    <style>
-                      <class name="message-box"/>
-                    </style>
+                    <property name="maximum-size">700</property>
+                    <child>
+                      <object class="GtkListBox" id="messages_listbox">
+                        <property name="visible">True</property>
+                        <property name="valign">end</property>
+                        <style>
+                          <class name="message-box"/>
+                        </style>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <property name="visible">True</property>
+            <style>
+              <class name="sidebar"/>
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="HdyClamp">
+            <property name="visible">True</property>
+            <property name="maximum-size">700</property>
+            <child>
+              <object class="GtkBox">
+                <property name="visible">True</property>
+                <property name="margin">6</property>
+                <property name="spacing">6</property>
+                <child>
+                  <object class="GtkRevealer" id="message_tool_revealer">
+                    <property name="visible">True</property>
+                    <property name="transition-type">slide-left</property>
+                    <property name="reveal-child">True</property>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="spacing">6</property>
+                        <child>
+                          <object class="GtkButton">
+                            <property name="visible">True</property>
+                            <property name="can-focus">True</property>
+                            <property name="receives-default">True</property>
+                            <child>
+                              <object class="GtkImage">
+                                <property name="visible">True</property>
+                                <property name="icon-name">mail-attachment-symbolic</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkButton">
+                            <property name="visible">True</property>
+                            <property name="can-focus">True</property>
+                            <property name="receives-default">True</property>
+                            <child>
+                              <object class="GtkImage">
+                                <property name="visible">True</property>
+                                <property name="icon-name">audio-input-microphone-symbolic</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkEntry" id="message_entry">
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="hexpand">True</property>
+                    <property name="enable-emoji-completion">True</property>
+                    <property name="show-emoji-icon">True</property>
+                    <property name="placeholder-text" translatable="yes">Write a message…</property>
+                    <signal name="changed" handler="on_message_entry_changed" swapped="no"/>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkRevealer" id="send_message_revealer">
+                    <property name="visible">True</property>
+                    <property name="transition-type">slide-left</property>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">True</property>
+                        <child>
+                          <object class="GtkImage">
+                            <property name="visible">True</property>
+                            <property name="icon-name">send-symbolic</property>
+                          </object>
+                        </child>
+                        <style>
+                          <class name="suggested-action"/>
+                        </style>
+                      </object>
+                    </child>
                   </object>
                 </child>
               </object>
@@ -262,93 +360,26 @@
         </child>
       </object>
     </child>
-    <child>
-      <object class="GtkSeparator">
+    <child type="overlay">
+      <object class="GtkRevealer" id="scrolldown_button_revealer">
         <property name="visible">True</property>
-        <style>
-          <class name="sidebar"/>
-        </style>
-      </object>
-    </child>
-    <child>
-      <object class="HdyClamp">
-        <property name="visible">True</property>
-        <property name="maximum-size">700</property>
+        <property name="transition-type">crossfade</property>
+        <property name="halign">end</property>
+        <property name="valign">end</property>
+        <property name="margin-right">18</property>
+        <property name="margin-bottom">60</property>
         <child>
-          <object class="GtkBox">
+          <object class="GtkButton">
             <property name="visible">True</property>
-            <property name="margin">6</property>
-            <property name="spacing">6</property>
+            <signal name="clicked" handler="on_scrolldown_button_clicked" swapped="no"/>
+            <style>
+              <class name="osd"/>
+              <class name="round-button"/>
+            </style>
             <child>
-              <object class="GtkRevealer" id="message_tool_revealer">
+              <object class="GtkImage">
                 <property name="visible">True</property>
-                <property name="transition-type">slide-left</property>
-                <property name="reveal-child">True</property>
-                <child>
-                  <object class="GtkBox">
-                    <property name="visible">True</property>
-                    <property name="spacing">6</property>
-                    <child>
-                      <object class="GtkButton">
-                        <property name="visible">True</property>
-                        <property name="can-focus">True</property>
-                        <property name="receives-default">True</property>
-                        <child>
-                          <object class="GtkImage">
-                            <property name="visible">True</property>
-                            <property name="icon-name">mail-attachment-symbolic</property>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkButton">
-                        <property name="visible">True</property>
-                        <property name="can-focus">True</property>
-                        <property name="receives-default">True</property>
-                        <child>
-                          <object class="GtkImage">
-                            <property name="visible">True</property>
-                            <property name="icon-name">audio-input-microphone-symbolic</property>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child>
-              <object class="GtkEntry" id="message_entry">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="hexpand">True</property>
-                <property name="enable-emoji-completion">True</property>
-                <property name="show-emoji-icon">True</property>
-                <property name="placeholder-text" translatable="yes">Write a message…</property>
-                <signal name="changed" handler="on_message_entry_changed" swapped="no"/>
-              </object>
-            </child>
-            <child>
-              <object class="GtkRevealer" id="send_message_revealer">
-                <property name="visible">True</property>
-                <property name="transition-type">slide-left</property>
-                <child>
-                  <object class="GtkButton">
-                    <property name="visible">True</property>
-                    <property name="can-focus">True</property>
-                    <property name="receives-default">True</property>
-                    <child>
-                      <object class="GtkImage">
-                        <property name="visible">True</property>
-                        <property name="icon-name">send-symbolic</property>
-                      </object>
-                    </child>
-                    <style>
-                      <class name="suggested-action"/>
-                    </style>
-                  </object>
-                </child>
+                <property name="icon-name">go-down-symbolic</property>
               </object>
             </child>
           </object>

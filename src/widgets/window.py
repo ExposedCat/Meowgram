@@ -52,6 +52,8 @@ class MeowgramWindow(Handy.ApplicationWindow):
     messages_view = Gtk.Template.Child()
     empty_view = Gtk.Template.Child()
 
+    scrolldown_button_revealer = Gtk.Template.Child()
+
     contact_name_mem = None
 
     def __init__(self, **kwargs):
@@ -134,9 +136,16 @@ class MeowgramWindow(Handy.ApplicationWindow):
         self.set_default_size(*size)
 
     @Gtk.Template.Callback()
+    def on_scrolldown_button_clicked(self, button):
+        self.scroll_to_bottom_messages()
+
+    @Gtk.Template.Callback()
     def on_messages_adjustment_changed(self, adjustment):
         if not adjustment.get_value():
             print("you have reached the top of messages")
+
+        is_up = adjustment.get_value() != adjustment.get_upper() - adjustment.get_page_size()
+        self.scrolldown_button_revealer.set_reveal_child(is_up)
 
     @Gtk.Template.Callback()
     def on_contacts_activated(self, listbox, row):
