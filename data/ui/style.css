@@ -5,6 +5,7 @@
 .message-in {
   border: 1px solid alpha(@theme_fg_color, 0.1);
   background-color: @theme_bg_color;
+  margin-right: 108px;
 }
 
 .message-in selection {
@@ -15,6 +16,7 @@
 .message-out {
   border: 1px solid alpha(@theme_selected_bg_color, 0.2);
   background-color: alpha(@theme_selected_bg_color, 0.2);
+  margin-left: 108px;
 }
 
 .message-out selection {
@@ -51,7 +53,7 @@ row:selected .message-out {
 }
 
 .message-box {
-  background-color: @theme_bg_color;
+  background-color: none;
   box-shadow: none;
 }
 
@@ -59,6 +61,14 @@ row:selected .message-out {
 .message-box row:hover {
   background-color: transparent;
   box-shadow: none;
+}
+
+.message-view viewport {
+  background-color: @text_view_bg;
+}
+
+.contacts-view {
+  background-color: @theme_bg_color;
 }
 
 

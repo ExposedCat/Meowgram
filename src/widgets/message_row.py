@@ -102,7 +102,6 @@ class MessageRow(Gtk.Grid):
         self.message_label.set_halign(Gtk.Align.END)
         self.message_label.set_xalign(1)
         self.message_label.set_justify(Gtk.Justification.RIGHT)
-        self.message_bubble.set_margin_start(108)
         self.message_bubble.get_style_context().add_class('message-out')
 
     def set_message_in(self):
@@ -112,7 +111,6 @@ class MessageRow(Gtk.Grid):
         self.message_label.set_halign(Gtk.Align.START)
         self.message_label.set_xalign(0)
         self.message_label.set_justify(Gtk.Justification.LEFT)
-        self.message_bubble.set_margin_end(108)
         self.message_bubble.get_style_context().add_class('message-in')
 
     def set_as_action_message(self):
