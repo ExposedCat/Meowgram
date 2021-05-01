@@ -37,6 +37,7 @@ class MessageRow(Gtk.Grid):
 
     avatar = Gtk.Template.Child()
     message_label = Gtk.Template.Child()
+    reply_label = Gtk.Template.Child()
 
     def __init__(self, message, **kwargs):
         super().__init__(**kwargs)
@@ -62,6 +63,8 @@ class MessageRow(Gtk.Grid):
             self.set_message_out()
         else:
             self.set_message_in()
+
+        self.set_reply_message()
 
         self.message_label.set_label(self.get_message())
         self.sender_label.set_label(self.get_message_sender())
@@ -102,6 +105,11 @@ class MessageRow(Gtk.Grid):
         except AttributeError:
             contact_name = getattr(message_sender, 'title')
         return contact_name
+
+    def set_reply_message(self):
+        if self.message.reply_to:
+            self.reply_label.set_visible(True)
+            self.reply_label.set_label(f"The message has id of {self.message.reply_to_msg_id}")
 
     def set_message_out(self):
         self.sender_label.set_visible(False)

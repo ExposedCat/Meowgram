@@ -29,6 +29,18 @@
         <property name="orientation">vertical</property>
         <property name="spacing">6</property>
         <child>
+          <object class="GtkLabel" id="reply_label">
+            <property name="label" translatable="yes">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</property>
+            <property name="wrap">True</property>
+            <property name="wrap-mode">word-char</property>
+            <property name="hexpand">False</property>
+            <property name="xalign">0</property>
+            <style>
+              <class name="message-mention"/>
+            </style>
+          </object>
+        </child>
+        <child>
           <object class="GtkLabel" id="message_label">
             <property name="visible">True</property>
             <property name="label" translatable="yes">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</property>
