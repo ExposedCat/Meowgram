@@ -126,4 +126,3 @@ class MessageRow(Gtk.Grid):
         self.set_halign(Gtk.Align.CENTER)
         self.message_label.set_justify(Gtk.Justification.CENTER)
         self.message_bubble.get_style_context().add_class('message-status')
-        self.message_bubble.get_style_context().add_class('dim-label')
