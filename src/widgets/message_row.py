@@ -49,6 +49,8 @@ class MessageRow(Gtk.Grid):
 
         # TODO also, hide the sender_label when it is the same as in the headerbar
 
+        # TODO add proper read status
+
     def update(self, message):
         self.message = message
 
