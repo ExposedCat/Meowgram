@@ -99,7 +99,7 @@ class MessageRow(Gtk.Grid):
         self.sender_label.set_visible(False)
         self.avatar.set_visible(False)
         self.set_halign(Gtk.Align.END)
-        # self.message_label.set_halign(Gtk.Align.END)
+        self.message_label.set_halign(Gtk.Align.END)
         self.message_label.set_justify(Gtk.Justification.RIGHT)
         self.message_bubble.set_margin_start(108)
         self.message_bubble.get_style_context().add_class('message-out')

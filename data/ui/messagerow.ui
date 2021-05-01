@@ -28,17 +28,13 @@
         <property name="orientation">vertical</property>
         <property name="spacing">6</property>
         <child>
-          <object class="GtkBox">
+          <object class="GtkLabel" id="message_label">
             <property name="visible">True</property>
-            <child>
-              <object class="GtkLabel" id="message_label">
-                <property name="visible">True</property>
-                <property name="label" translatable="yes">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</property>
-                <property name="wrap">True</property>
-                <property name="wrap-mode">word-char</property>
-                <property name="xalign">0</property>
-              </object>
-            </child>
+            <property name="label" translatable="yes">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</property>
+            <property name="wrap">True</property>
+            <property name="wrap-mode">word-char</property>
+            <property name="hexpand">False</property>
+            <property name="xalign">0</property>
           </object>
         </child>
         <child>
@@ -62,9 +58,10 @@
             </child>
             <child>
               <object class="GtkImage" id="read_status">
+                <property name="pixel-size">12</property>
                 <property name="icon-name">object-select-symbolic</property>
                 <style>
-                  <class name="dim-label"/>
+                  <class name="status"/>
                 </style>
               </object>
             </child>
