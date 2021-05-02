@@ -62,9 +62,6 @@
                   <class name="time-label"/>
                 </style>
               </object>
-              <packing>
-                <property name="pack-type">end</property>
-              </packing>
             </child>
             <child>
               <object class="GtkImage" id="read_status">
