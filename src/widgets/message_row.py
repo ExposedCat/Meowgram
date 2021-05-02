@@ -60,6 +60,7 @@ class MessageRow(Gtk.Grid):
             self.set_as_action_message()
         elif self.message.out:
             self.set_message_out()
+            self.set_is_read(True)
         else:
             self.set_message_in()
 
@@ -141,3 +142,10 @@ class MessageRow(Gtk.Grid):
             self.sender_label.set_visible(False)
             self.avatar.set_visible(False)
             self.set_margin_left(56)
+
+    def set_is_read(self, is_read):
+        self.read_status.set_visible(True)
+        if is_read:
+            self.read_status.set_from_icon_name("message-out-read-symbolic", 16)
+        else:
+            self.read_status.set_from_icon_name("message-out-unread-symbolic", 16)

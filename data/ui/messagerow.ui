@@ -69,7 +69,6 @@
             <child>
               <object class="GtkImage" id="read_status">
                 <property name="pixel-size">12</property>
-                <property name="icon-name">object-select-symbolic</property>
                 <style>
                   <class name="message-status"/>
                 </style>
