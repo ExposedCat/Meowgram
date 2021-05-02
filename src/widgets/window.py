@@ -69,7 +69,9 @@ class MeowgramWindow(Handy.ApplicationWindow):
         dialogs_manager.show_dialogs(self)
         self.update_view()
 
-        # TODO add button to scroll down
+        # TODO Use sourceview instead of GtkEntry
+
+        # TODO Seperate other widgets to separate files
 
     def scroll_to_bottom_messages(self):
         GLib.timeout_add(
