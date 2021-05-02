@@ -141,7 +141,3 @@ class MessageRow(Gtk.Grid):
             self.sender_label.set_visible(False)
             self.avatar.set_visible(False)
             self.set_margin_left(56)
-            self.set_margin_top(0)
-        else:
-            self.set_margin_top(12)
-        
