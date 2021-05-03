@@ -141,6 +141,8 @@ class MeowgramWindow(Handy.ApplicationWindow):
     def on_scrolldown_button_clicked(self, button):
         self.scroll_to_bottom_messages()
 
+        # TODO only show when scrolling down
+
     @Gtk.Template.Callback()
     def on_messages_adjustment_changed(self, adjustment):
         if not adjustment.get_value():
