@@ -9,4 +9,5 @@ class DialogsManager:
 
         window.update_contacts_listbox(dialogs)
 
+
 dialogs_manager = DialogsManager()

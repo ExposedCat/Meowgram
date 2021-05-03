@@ -16,7 +16,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import datetime
-import logging
 
 from gi.repository import Gtk
 from telethon.tl.types import UserStatusOffline, UserStatusRecently, UserStatusOnline
@@ -99,7 +98,7 @@ class ContactRow(Gtk.Box):
         days_difference = (today - last_message_time).days
 
         if days_difference < 1:
-           # TODO Make this work with military time
+            # TODO Make this work with military time
             format_string = '%I∶%M %p'  # 08:57 AM
         elif 1 <= days_difference < 7:
             format_string = '%a'  # Fri

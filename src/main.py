@@ -132,6 +132,7 @@ class Application(Gtk.Application):
         aio.stop_thread()
         self.quit()
 
+
 def main(version):
     app = Application(version)
     return app.run(sys.argv)

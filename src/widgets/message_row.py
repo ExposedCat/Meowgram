@@ -18,7 +18,6 @@
 import datetime
 
 from gi.repository import Gtk
-from telethon.tl.types import UserStatusOffline, UserStatusRecently, UserStatusOnline
 
 from meowgram.constants import Constants
 

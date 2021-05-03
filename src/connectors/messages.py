@@ -32,4 +32,5 @@ class MessagesManager:
             actual_id = chat_id.user_id
         return actual_id
 
+
 messages_manager = MessagesManager()
