@@ -9,7 +9,7 @@ on:
 jobs:
   flake8:
     name: "Linter"
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
@@ -28,7 +28,7 @@ jobs:
 
   mypy:
     name: "Static Type Checker"
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
