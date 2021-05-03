@@ -112,7 +112,6 @@ class MessageRow(Gtk.Grid):
             self.reply_label.set_label(f"The message has id of {self.message.reply_to_msg_id}")
 
     def set_forward_message(self):
-        print(self.message.fwd_from)
         if fwd_from := self.message.fwd_from:
             pass
             # TODO add here
