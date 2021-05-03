@@ -76,10 +76,9 @@ row:selected .message-out {
 }
 
 row .message-mention {
-  border-left: 3px solid @theme_selected_bg_color;
+  border-left: 2px solid @theme_selected_bg_color;
   color: @insensitive_fg_color;
   font-size: 0.99em;
-  padding: 6px;
   padding-right: 9px;
   padding-left: 6px;
 }

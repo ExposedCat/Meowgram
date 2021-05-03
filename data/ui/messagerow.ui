@@ -86,9 +86,11 @@
       <object class="GtkLabel" id="sender_label">
         <property name="halign">start</property>
         <property name="valign">end</property>
+        <property name="margin-top">6</property>
         <property name="margin-start">9</property>
         <property name="label" translatable="yes">Sender Name</property>
         <style>
+          <class name="bold-label"/>
           <class name="time-label"/>
         </style>
       </object>
