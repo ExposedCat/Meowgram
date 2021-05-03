@@ -140,7 +140,7 @@ class MessageRow(Gtk.Grid):
         if is_group:
             self.sender_label.set_visible(False)
             self.avatar.set_visible(False)
-            self.set_margin_left(56)
+            self.set_margin_left(47)
 
     def set_is_read(self, is_read):
         self.read_status.set_visible(True)
