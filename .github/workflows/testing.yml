@@ -21,6 +21,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt update -y
+          pip install git+https://github.com/PyCQA/pyflakes.git --user --upgrade
           sudo apt -y install flake8
       - name: Lint with flake8
         run: |
