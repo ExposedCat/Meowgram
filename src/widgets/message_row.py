@@ -63,11 +63,12 @@ class MessageRow(Gtk.Grid):
         else:
             self.set_message_in()
 
-        self.set_reply_message()
-
         self.message_label.set_label(self.get_message())
         self.sender_label.set_label(self.get_message_sender())
         self.time_label.set_label(self.get_message_time())
+
+        self.set_reply_message()
+        self.set_forward_message()
 
     def get_message(self):
         if message := self.message.message:
@@ -109,6 +110,12 @@ class MessageRow(Gtk.Grid):
         if self.message.reply_to:
             self.reply_label.set_visible(True)
             self.reply_label.set_label(f"The message has id of {self.message.reply_to_msg_id}")
+
+    def set_forward_message(self):
+        print(self.message.fwd_from)
+        if fwd_from := self.message.fwd_from:
+            pass
+            # TODO add here
 
     def set_message_out(self):
         self.sender_label.set_visible(False)
