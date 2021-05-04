@@ -179,5 +179,9 @@ class MeowgramWindow(Handy.ApplicationWindow):
         self.send_message_revealer.set_reveal_child(is_there_text)
 
     @Gtk.Template.Callback()
+    def on_send_message_clicked(self, button):
+        print("Message sent - test")
+
+    @Gtk.Template.Callback()
     def on_destroy(self, window, event):
         self.save_window_size()
