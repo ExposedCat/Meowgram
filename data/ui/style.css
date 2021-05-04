@@ -1,10 +1,15 @@
-/**
- * FORKED FROM GSCONNECT and CHATTY
- */
+/* Message Row */
+
+.message-bubble {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  border-radius: 9px;
+  padding: 6px 9px 6px 9px;
+}
 
 .message-in {
   border: 1px solid alpha(@theme_fg_color, 0.1);
-  background-color: @theme_bg_color;
+  background-color: alpha(@theme_bg_color, 0.9);
+  margin-right: 24px;
 }
 
 .message-in selection {
@@ -15,6 +20,7 @@
 .message-out {
   border: 1px solid alpha(@theme_selected_bg_color, 0.2);
   background-color: alpha(@theme_selected_bg_color, 0.2);
+  margin-left: 72px;
 }
 
 .message-out selection {
@@ -22,46 +28,85 @@
   color: @theme_selected_bg_color;
 }
 
-.message_bubble {
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
-  color: @theme_fg_color;
-  border-radius: 9px;
-  padding: 6px 9px 6px 9px;
-}
-
 .message-in *:link,
 .message-out *:link {
   color: @theme_fg_color;
 }
 
-
-
-
-.header-dropdown {
-    margin-top: 0;
-    margin-bottom: 0;
-    border-radius: 0;
-    border-top-style: none;
-    border-bottom-style: none;
-    font-weight: 700;
+.message-status {
+  color: @theme_selected_bg_color;
 }
 
-.bold-label {
-  font-weight: bold;
+row:selected .message-status {
+  color: white;
 }
 
-.time-label {
+.message-action {
+  box-shadow: none;
+  border-radius: 0;
   font-size: 12px;
+  color: @insensitive_fg_color;
 }
 
-.dark-bg {
+
+
+/* Messages Listbox */
+
+row:active .message-in,
+row:selected .message-in,
+row:active .message-out,
+row:selected .message-out {
+  color: @theme_fg_color;
+  /* transition: 200ms ease-in-out; */
+}
+
+.message-box row{
+  margin: 1px;
+}
+
+.message-box{
+  background: @theme_base_color;
+}
+
+.message-box row:active,
+.message-box row:selected,
+.message-box row:hover {
+  border-radius: 9px;
+  background: alpha(@theme_fg_color, 0.1);
+}
+
+row .message-mention {
+  border-left: 2px solid @theme_selected_bg_color;
+  color: @insensitive_fg_color;
+  font-size: 0.99em;
+  padding-right: 9px;
+  padding-left: 6px;
+}
+
+
+
+/* Meowgram Window */
+
+.message-view viewport {
   background-color: @theme_base_color;
 }
 
+.contacts-view {
+  background-color: @theme_bg_color;
+}
+
+.header-dropdown {
+  margin-top: 0;
+  margin-bottom: 0;
+  border-radius: 0;
+  border-top-style: none;
+  border-bottom-style: none;
+  font-weight: 700;
+}
 
 
 
-
+/* Contact Row */
 
 .unread-badge {
   background-color: @theme_selected_bg_color;
@@ -73,12 +118,45 @@
   padding: 2px 5px;
 }
 
+row:selected .unread-badge {
+  background-color: white;
+  color: @theme_selected_bg_color;
+}
+
 .muted-badge {
   background-color: #bfbfbf;
   color: @theme_bg_color;
 }
 
-row:selected .unread-badge {
-  background-color: white;
+.online-status {
   color: @theme_selected_bg_color;
+  -gtk-icon-shadow: 0 1px alpha(black, 0.3);
+}
+
+
+
+/* General Classes */
+
+.bold-label {
+  font-weight: bold;
+}
+
+.time-label {
+  font-size: 12px;
+}
+
+.dark-bg {
+  background-color: @theme_bg_color;
+}
+
+.round-button {
+  border-radius: 9999px;
+  padding: 12px;
+  -gtk-outline-radius: 9999px;
+  min-width: 18px;
+  min-height: 18px;
+}
+
+.small-icon {
+  padding: 3px;
 }

@@ -50,11 +50,12 @@ class MeowgramClient:
             return 0
 
     async def get_dialogs(self):
-        try:
-            dialogs = await self.client.get_dialogs(limit=50)
-            return dialogs
-        except Exception as error:
-            print(f"Error {error}")
+        dialogs = await self.client.get_dialogs(limit=50)
+        return dialogs
+
+    async def get_messages(self, chat_id):
+        messages = await self.client.get_messages(chat_id, limit=20)
+        return messages
 
     def save_session(self):
         session_manager.add_session(self.client.session.save())

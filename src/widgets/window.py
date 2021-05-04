@@ -15,11 +15,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from gi.repository import Gtk, Handy, GObject
+import logging
 
-from meowgram.constants import Constants
+from gi.repository import Gtk, Handy, GObject, GLib, Gio
 
+from meowgram.widgets.contact_row import ContactRow
+from meowgram.widgets.message_row import MessageRow
 from meowgram.connectors.dialogs import dialogs_manager
+from meowgram.connectors.messages import messages_manager
+from meowgram.constants import Constants
 
 
 @Gtk.Template(resource_path=f"{Constants.RESOURCEID}/ui/window.ui")
@@ -31,21 +35,26 @@ class MeowgramWindow(Handy.ApplicationWindow):
 
     main_leaflet = Gtk.Template.Child()
     contacts_listbox = Gtk.Template.Child()
-    message_box = Gtk.Template.Child()
+    messages_listbox = Gtk.Template.Child()
 
     back_button = Gtk.Template.Child()
-    menu_button = Gtk.Template.Child()
-    submenu_button = Gtk.Template.Child()
-
     search_button = Gtk.Template.Child()
     search_revealer = Gtk.Template.Child()
+    sidebar_button = Gtk.Template.Child()
+    channel_flap = Gtk.Template.Child()
 
     send_message_revealer = Gtk.Template.Child()
     message_tool_revealer = Gtk.Template.Child()
     message_entry = Gtk.Template.Child()
 
-    channel_flap = Gtk.Template.Child()
-    sidebar_button = Gtk.Template.Child()
+    messages_adjustment = Gtk.Template.Child()
+
+    messages_view = Gtk.Template.Child()
+    empty_view = Gtk.Template.Child()
+
+    scrolldown_button_revealer = Gtk.Template.Child()
+
+    contact_name_mem = None
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -55,22 +64,113 @@ class MeowgramWindow(Handy.ApplicationWindow):
         self.search_button.bind_property('active', self.search_revealer, 'reveal-child')
         self.sidebar_button.bind_property('active', self.channel_flap, 'reveal-flap',
                                           GObject.BindingFlags.BIDIRECTIONAL)
-        self.popover_init()
 
+        self.load_window_size()
         dialogs_manager.show_dialogs(self)
+        self.update_view()
 
-        # TODO save last selected contact instead of selecting the first one
-        self.contacts_listbox.select_row(self.contacts_listbox.get_children()[0])
+        # TODO Use sourceview instead of GtkEntry
+
+        # TODO Seperate other widgets to separate files
+
+    def scroll_to_bottom_messages(self):
+        GLib.timeout_add(
+            50, lambda: self.messages_adjustment.set_value(
+                self.messages_adjustment.get_upper()
+            )
+        )
+        # TODO animate this
+
+    def update_view(self):
+        if self.contacts_listbox.get_selected_row():
+            self.channel_flap.set_content(self.messages_view)
+            self.sidebar_button.set_visible(True)
+        else:
+            self.channel_flap.set_content(self.empty_view)
+            self.sidebar_button.set_visible(False)
+
+    def update_headerbar(self, contact):
+        try:
+            contact_name = contact.get_contact_name()
+            if not (subtitle := contact.get_room_members_count()):
+                # TODO include here also the number of onlined members
+                subtitle = contact.get_last_active()
+            if contact.get_is_bot():
+                subtitle = "bot"
+        except AttributeError:
+            contact_name = subtitle = ""
+
+        try:
+            if contact.chat_id.user_id == 777000:
+                subtitle = "service notifications"
+        except AttributeError:
+            pass
+
+        self.messages_headerbar.set_title(contact_name)
+        self.messages_headerbar.set_subtitle(subtitle)
+
+    def update_contacts_listbox(self, dialogs):
+        for dialog in dialogs:
+            self.contacts_listbox.insert(ContactRow(dialog), -1)
+
+    def update_messages_listbox(self, messages):
+        current_messages = self.messages_listbox.get_children()
+        for message in current_messages:
+            self.messages_listbox.remove(message)
+
+        for message in reversed(messages):
+            contact_name = message.sender.username
+            message_row = MessageRow(message)
+            message_row.set_as_group(self.contact_name_mem == contact_name)
+            self.contact_name_mem = contact_name
+            self.messages_listbox.insert(message_row, -1)
+
+    def save_window_size(self):
+        settings = Gio.Settings(Constants.APPID)
+        size = self.get_size()
+
+        settings.set_value('window-size', GLib.Variant('ai', [*size]))
+
+    def load_window_size(self):
+        settings = Gio.Settings(Constants.APPID)
+        size = settings.get_value('window-size')
+
+        self.set_default_size(*size)
+
+    @Gtk.Template.Callback()
+    def on_scrolldown_button_clicked(self, button):
+        self.scroll_to_bottom_messages()
+
+        # TODO only show when scrolling down
+
+    @Gtk.Template.Callback()
+    def on_messages_adjustment_changed(self, adjustment):
+        if not adjustment.get_value():
+            print("you have reached the top of messages")
+
+        is_up = adjustment.get_value() != adjustment.get_upper() - adjustment.get_page_size()
+        self.scrolldown_button_revealer.set_reveal_child(is_up)
 
     @Gtk.Template.Callback()
     def on_contacts_activated(self, listbox, row):
         self.main_leaflet.set_visible_child_name('messages_pane')
-        self.messages_headerbar.set_title(row.get_child().get_contact_name())
-        self.messages_headerbar.set_subtitle(row.get_child().get_room_members_count())
+
+        try:
+            contact = row.get_child()
+            self.update_headerbar(contact)
+            messages_manager.show_messages(self, contact.chat_id)
+            self.scroll_to_bottom_messages()
+        except AttributeError as error:
+            logging.debug(error)
+            # This means that there is no selected row, so don't show messages
+
+        self.update_view()
 
     @Gtk.Template.Callback()
     def on_back_button_clicked(self, button):
+        self.contacts_listbox.unselect_all()
         self.main_leaflet.set_visible_child_name('contacts_pane')
+        self.update_headerbar(None)
 
     @Gtk.Template.Callback()
     def on_message_entry_changed(self, entry):
@@ -78,13 +178,10 @@ class MeowgramWindow(Handy.ApplicationWindow):
         self.message_tool_revealer.set_reveal_child(not is_there_text)
         self.send_message_revealer.set_reveal_child(is_there_text)
 
-    def popover_init(self):
-        builder = Gtk.Builder()
-        builder.add_from_resource(f"{Constants.RESOURCEID}/ui/menus.ui")
-        menu_model = builder.get_object('primary_menu')
-        popover = Gtk.Popover.new_from_model(self.menu_button, menu_model)
-        self.menu_button.set_popover(popover)
+    @Gtk.Template.Callback()
+    def on_send_message_clicked(self, button):
+        print("Message sent - test")
 
-        submenu_model = builder.get_object('submenu')
-        popover = Gtk.Popover.new_from_model(self.submenu_button, submenu_model)
-        self.submenu_button.set_popover(popover)
+    @Gtk.Template.Callback()
+    def on_destroy(self, window, event):
+        self.save_window_size()

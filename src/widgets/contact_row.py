@@ -16,9 +16,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import datetime
-import logging
 
 from gi.repository import Gtk
+from telethon.tl.types import UserStatusOffline, UserStatusRecently, UserStatusOnline
 
 from meowgram.constants import Constants
 
@@ -27,16 +27,19 @@ from meowgram.constants import Constants
 class ContactRow(Gtk.Box):
     __gtype_name__ = 'ContactRow'
 
+    chat_id = None
     avatar = Gtk.Template.Child()
 
     contact_name_label = Gtk.Template.Child()
     last_message_label = Gtk.Template.Child()
     time_label = Gtk.Template.Child()
 
-    read_status = Gtk.Template.Child()
+    unread_label = Gtk.Template.Child()
+    mention_status = Gtk.Template.Child()
     pin_status = Gtk.Template.Child()
     mute_status = Gtk.Template.Child()
-    unread_label = Gtk.Template.Child()
+    read_status = Gtk.Template.Child()
+    online_status = Gtk.Template.Child()
 
     def __init__(self, dialog_data, **kwargs):
         super().__init__(**kwargs)
@@ -44,72 +47,94 @@ class ContactRow(Gtk.Box):
         self.contact_name_label.bind_property('label', self.avatar, 'text')
         self.update(dialog_data)
 
+        # TODO show contact picture
+        # TODO add indicator if a message was read
+
     def update(self, dialog_data):
         self.dialog_data = dialog_data
+        self.chat_id = self.dialog_data.message.peer_id
 
         self.set_message_status()
         self.set_unread_status()
         self.set_mute_status()
+        self.set_online_status()
 
         self.contact_name_label.set_text(self.get_contact_name())
         self.last_message_label.set_text(self.get_last_message())
-        self.time_label.set_label(f" • {self.get_last_message_time()}")
+        self.time_label.set_label(self.get_last_message_time())
 
     def get_contact_name(self):
-        try:
-            contact_name = getattr(self.dialog_data, 'title', self.dialog_data.name)
-            return contact_name
-        except AttributeError as error:
-            logging.debug(error)
-            return ""
+        contact_name = getattr(self.dialog_data, 'title', self.dialog_data.name)
+        return contact_name
 
     def get_last_message(self):
-        try:
-            message = self.dialog_data.message
-            if message.message:
-                last_message = message.message.split('\n')[0].strip()
-            else:
-                # TODO add action text
-                last_message = "Action"
+        message = self.dialog_data.message
 
-            if message.media:
-                last_message = "🖼️ Photo"
+        if message.out:
+            sender_name = "You"
+        elif self.dialog_data.is_user:
+            sender_name = ""
+        else:
+            sender_name = getattr(
+                message.sender, 'post_author', getattr(message.sender, 'first_name', "")
+            )
 
-            if message.out:
-                sender_name = "You"
-            else:
-                sender_name = getattr(
-                    message.sender, 'post_author', getattr(message.sender, 'first_name', "")
-                )
+        if message.message:
+            last_message = message.message.replace("\n", " ")
+        elif message.action:
+            last_message = f"{sender_name} did something - {message.action}"
+            sender_name = ""
+        elif message.media:
+            last_message = "🖼️ Photo"
 
-            if self.dialog_data.is_user:
-                sender_name = ""
-
-            return f"{sender_name}{': ' if sender_name else ''}{last_message}"
-        except AttributeError as error:
-            logging.debug(error)
-            return ""
+        return f"{sender_name}{': ' if sender_name else ''}{last_message}"
 
     def get_last_message_time(self):
-        try:
-            last_message_time = self.dialog_data.message.date \
+        last_message_time = self.dialog_data.message.date \
+            .replace(tzinfo=datetime.timezone.utc) \
+            .astimezone()
+
+        today = datetime.datetime.now().astimezone()
+        days_difference = (today - last_message_time).days
+
+        if days_difference < 1:
+            # TODO Make this work with military time
+            format_string = '%I∶%M %p'  # 08:57 AM
+        elif 1 <= days_difference < 7:
+            format_string = '%a'  # Fri
+        elif days_difference >= 7:
+            format_string = '%b %d'  # Apr 08
+        return last_message_time.strftime(format_string)
+
+    def get_last_active(self):
+        contact_status = self.dialog_data.entity.status
+        if isinstance(contact_status, UserStatusOnline):
+            last_active = "online"
+        elif isinstance(contact_status, UserStatusOffline):
+            last_active = contact_status.was_online \
                 .replace(tzinfo=datetime.timezone.utc) \
                 .astimezone()
 
             today = datetime.datetime.now().astimezone()
-            days_difference = (today - last_message_time).days
+            days_difference = (today - last_active).days
 
             if days_difference < 1:
                 # TODO Make this work with military time
-                format_string = '%I∶%M %p'  # 08:57 AM
-            elif 1 <= days_difference < 7:
-                format_string = '%a'  # Fri
+                format_string = 'at %I∶%M %p'  # at 08:57 AM
+            elif 1 <= days_difference < 2:
+                format_string = 'yesterday at %I∶%M %p'  # yesterday at 08:57 AM
+            elif 2 <= days_difference < 7:
+                format_string = '%a at %I∶%M %p'  # Fri at 08:57 AM
             elif days_difference >= 7:
-                format_string = '%b %d'  # Apr 08
-            return last_message_time.strftime(format_string)
-        except AttributeError as error:
-            logging.debug(error)
-            return ""
+                format_string = '%b %d at %I∶%M %p'  # Apr 08 at 08:57 AM
+            last_active = last_active.strftime(f"last seen {format_string}")
+        elif isinstance(contact_status, UserStatusRecently):
+            last_active = "last seen recently"
+        else:
+            # TODO replace with something from UserStatus
+            last_active = "Unknown time"
+
+        return last_active
 
     def get_room_members_count(self):
         try:
@@ -117,27 +142,32 @@ class ContactRow(Gtk.Box):
         except AttributeError:
             return ""
 
-    def set_unread_status(self):
+    def get_is_bot(self):
         try:
-            is_pinned = self.dialog_data.pinned
-            unread_count = self.dialog_data.unread_count
-            self.unread_label.set_visible(unread_count)
-            self.unread_label.set_label(str(unread_count))
-            self.pin_status.set_visible(is_pinned)
+            return self.dialog_data.entity.bot
+        except AttributeError:
+            return False
 
-            if unread_count and is_pinned:
-                self.pin_status.set_visible(False)
-        except AttributeError as error:
-            logging.debug(error)
+    def set_unread_status(self):
+        if self.dialog_data.unread_mentions_count:
+            self.mention_status.set_visible(True)
+        elif unread_count := self.dialog_data.unread_count:
+            self.unread_label.set_visible(True)
+            self.unread_label.set_label(str(unread_count))
+        elif self.dialog_data.pinned:
+            self.pin_status.set_visible(True)
 
     def set_message_status(self):
-        try:
-            self.read_status.set_visible(self.dialog_data.message.out)
-        except AttributeError as error:
-            logging.debug(error)
+        self.read_status.set_visible(self.dialog_data.message.out)
 
     def set_mute_status(self):
+        if self.dialog_data.dialog.notify_settings.mute_until:
+            self.mute_status.set_visible(True)
+            self.unread_label.get_style_context().add_class('muted-badge')
+
+    def set_online_status(self):
         try:
-            self.mute_status.set_visible(self.dialog_data.dialog.notify_settings.mute_until)
-        except AttributeError as error:
-           logging.debug(error)
+            is_online = isinstance(self.dialog_data.entity.status, UserStatusOnline)
+            self.online_status.set_visible(is_online)
+        except AttributeError:
+            pass

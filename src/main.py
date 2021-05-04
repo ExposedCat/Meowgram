@@ -30,8 +30,10 @@ from meowgram.widgets.login_window import MeowgramLoginWindow
 from meowgram.constants import Constants
 
 from meowgram.connectors.login import login_manager
+from meowgram.backend.asyncio_separator import aio
 
 logging.basicConfig(level=logging.DEBUG)
+
 
 class Application(Gtk.Application):
     def __init__(self, version):
@@ -125,7 +127,9 @@ class Application(Gtk.Application):
         about.show()
 
     def on_quit(self, action, param):
+        print('exit')
         # TODO for some reason, this crashes :( IDK why
+        aio.stop_thread()
         self.quit()
 
 
