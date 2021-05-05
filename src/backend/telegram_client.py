@@ -67,3 +67,5 @@ class TelegramClient:
 
     def save_session(self):
         session_manager.add_session(self.client.session.save())
+
+client = TelegramClient()
