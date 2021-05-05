@@ -8,7 +8,7 @@ from meowgram.constants import Constants
 
 class LoginManager:
     def login(self, window, phone_number):
-        request = aio.run(client.login, (phone_number,))
+        request = aio.run(client.login, (phone_number, window))
         auth = request.result()
         if auth == 1:
             window.confirm_code_page.set_visible_child_name('via-tg')

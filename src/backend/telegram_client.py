@@ -1,5 +1,5 @@
 from meowgram.config import API_ID, API_HASH
-from telethon import TelegramClient, errors
+from telethon import TelegramClient as TelethonInstance, errors
 from telethon.sessions import StringSession
 
 from meowgram.utils.sessions import session_manager
@@ -21,7 +21,7 @@ class TelegramClient:
                     session = StringSession(phone_number)
                 else:
                     return
-            self.client = TelegramClient(session, API_ID, API_HASH)
+            self.client = TelethonInstance(session, API_ID, API_HASH)
             self.phone_number = phone_number
             await self.client.connect()
             if not await self.client.is_user_authorized():
