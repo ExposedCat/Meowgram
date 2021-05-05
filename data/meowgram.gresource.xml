@@ -2,7 +2,6 @@
 <gresources>
   <gresource prefix="/com/github/ExposedCat/Meowgram">
     <file preprocess="xml-stripblanks">ui/window.ui</file>
-    <file preprocess="xml-stripblanks">ui/menus.ui</file>
     <file preprocess="xml-stripblanks">ui/contactrow.ui</file>
     <file preprocess="xml-stripblanks">ui/messagerow.ui</file>
 
@@ -13,6 +12,11 @@
     <file preprocess="xml-stripblanks">icons/scalable/status/phone-oldschool-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/status/toggle-sidebar-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/status/pin-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/status/send-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/status/chat-icon-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/status/circle-filled-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/status/message-out-unread-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/status/message-out-read-symbolic.svg</file>
 
     <file>ui/style.css</file>
   </gresource>
