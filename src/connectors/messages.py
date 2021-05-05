@@ -6,6 +6,10 @@ class MessagesManager:
 
     loaded_chat_id = []
     loaded_messages = []
+    
+    def send_message(self, chat, text):
+        request = aio.run(client.send_message, (chat, text))
+        return request.result()
 
     def show_messages(self, window, chat_id):
         print(chat_id)

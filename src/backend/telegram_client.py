@@ -5,11 +5,13 @@ from telethon.sessions import StringSession
 from meowgram.utils.sessions import session_manager
 
 
-class MeowgramClient:
+class TelegramClient:
     client = None
     phone_number = None
+    window = None
 
-    async def login(self, phone_number):  # 0 - error; 1 - need auth; 2 - already authorized
+    async def login(self, phone_number, window):  # 0 - error; 1 - need auth; 2 - already authorized
+        self.window = window
         try:
             session = StringSession()
             if not phone_number:
@@ -57,8 +59,11 @@ class MeowgramClient:
         messages = await self.client.get_messages(chat_id, limit=20)
         return messages
 
+    async def send_message(self, chat, text):
+        try:
+            await self.client.send_message(chat, text)
+        except Exception as error:
+            return 0
+
     def save_session(self):
         session_manager.add_session(self.client.session.save())
-
-
-client = MeowgramClient()
