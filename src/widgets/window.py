@@ -180,7 +180,10 @@ class MeowgramWindow(Handy.ApplicationWindow):
 
     @Gtk.Template.Callback()
     def on_send_message_clicked(self, button):
-        print("Message sent - test")
+        chat_id = self.contacts_listbox.get_selected_row().get_child().chat_id
+        message = self.message_entry.get_text()
+        result = messages_manager.send_message(chat_id, message)
+        print(result)
 
     @Gtk.Template.Callback()
     def on_destroy(self, window, event):
