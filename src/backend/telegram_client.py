@@ -6,11 +6,12 @@ from meowgram.utils.sessions import session_manager
 
 
 class TelegramClient:
-    client = None
+    # client = None
     phone_number = None
     window = None
 
-    async def login(self, phone_number, window):  # 0 - error; 1 - need auth; 2 - already authorized
+    # 0 - error; 1 - need auth; 2 - already authorized
+    async def login(self, phone_number, window):
         self.window = window
         try:
             session = StringSession()
@@ -33,7 +34,8 @@ class TelegramClient:
             print(f"Error {error}")
             return 0
 
-    async def auth_code(self, code):  # 0 - wrong code; 1 - need 2FA; 2 - all is ok
+    # 0 - wrong code; 1 - need 2FA; 2 - all is ok
+    async def auth_code(self, code):
         try:
             await self.client.sign_in(self.phone_number, code)
             self.save_session()
@@ -67,5 +69,6 @@ class TelegramClient:
 
     def save_session(self):
         session_manager.add_session(self.client.session.save())
+
 
 client = TelegramClient()

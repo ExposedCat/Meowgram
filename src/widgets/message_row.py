@@ -99,8 +99,8 @@ class MessageRow(Gtk.Grid):
 
     def set_forward_message(self):
         if fwd_from := self.message.fwd_from:
-            pass
             # TODO add here
+            pass
 
     def set_message_out(self):
         self.sender_label.set_visible(False)
