@@ -9,14 +9,12 @@
         <property name="orientation">vertical</property>
         <child>
           <object class="AdwHeaderBar">
-            <property name="title">Meowgram</property>
-            <property name="show-close-button">True</property>
             <child>
               <object class="GtkButton" id="prev_button">
                 <property name="visible">0</property>
                 <property name="use-underline">1</property>
                 <signal name="clicked" handler="on_prev_clicked" swapped="no"/>
-                <accelerator signal="clicked" modifiers="GDK_MOD1_MASK" key="Left"/>
+                <!-- <accelerator signal="clicked" modifiers="GDK_MOD1_MASK" key="Left"/> -->
                 <child>
                   <object class="GtkImage">
                     <property name="icon-name">go-previous-symbolic</property>
@@ -30,7 +28,7 @@
                 <property name="hexpand">True</property>
               </object>
             </child>
-            <child>
+            <child type="end">
               <object class="GtkButton" id="next_button">
                 <property name="label">_Next</property>
                 <property name="use-underline">1</property>
@@ -40,9 +38,6 @@
                   <class name="suggested-action"/>
                 </style>
               </object>
-              <packing>
-                <property name="pack-type">end</property>
-              </packing>
             </child>
           </object>
         </child>
