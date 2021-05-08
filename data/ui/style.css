@@ -95,15 +95,6 @@ row .message-mention {
   background-color: @theme_bg_color;
 }
 
-.header-dropdown {
-  margin-top: 0;
-  margin-bottom: 0;
-  border-radius: 0;
-  border-top-style: none;
-  border-bottom-style: none;
-  font-weight: 700;
-}
-
 
 
 /* Contact Row */

@@ -33,6 +33,9 @@ class MeowgramWindow(Adw.ApplicationWindow):
     messages_headerbar = Gtk.Template.Child()
 
     main_leaflet = Gtk.Template.Child()
+    contacts_pane = Gtk.Template.Child()
+    messages_pane = Gtk.Template.Child()
+
     contacts_listbox = Gtk.Template.Child()
     messages_listbox = Gtk.Template.Child()
 
@@ -104,17 +107,17 @@ class MeowgramWindow(Adw.ApplicationWindow):
         except AttributeError:
             pass
 
-        self.messages_headerbar.set_title(contact_name)
-        self.messages_headerbar.set_subtitle(subtitle)
+        # self.messages_headerbar.set_title(contact_name)
+        # self.messages_headerbar.set_subtitle(subtitle)
 
     def update_contacts_listbox(self, dialogs):
         for dialog in dialogs:
             self.contacts_listbox.insert(ContactRow(dialog), -1)
 
     def update_messages_listbox(self, messages):
-        current_messages = self.messages_listbox.get_children()
-        for message in current_messages:
-            self.messages_listbox.remove(message)
+        # current_messages = self.messages_listbox.get_children()
+        # for message in current_messages:
+        #     self.messages_listbox.remove(message)
 
         for message in reversed(messages):
             contact_name = message.sender.username
@@ -151,7 +154,7 @@ class MeowgramWindow(Adw.ApplicationWindow):
 
     @Gtk.Template.Callback()
     def on_contacts_activated(self, listbox, row):
-        self.main_leaflet.set_visible_child_name('messages_pane')
+        self.main_leaflet.set_visible_child(self.messages_pane)
 
         try:
             contact = row.get_child()
@@ -167,7 +170,7 @@ class MeowgramWindow(Adw.ApplicationWindow):
     @Gtk.Template.Callback()
     def on_back_button_clicked(self, button):
         self.contacts_listbox.unselect_all()
-        self.main_leaflet.set_visible_child_name('contacts_pane')
+        self.main_leaflet.set_visible_child(self.contacts_pane)
         self.update_headerbar(None)
 
     @Gtk.Template.Callback()

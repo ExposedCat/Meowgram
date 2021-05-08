@@ -146,11 +146,11 @@ class MessageRow(Gtk.Grid):
         if is_group:
             self.sender_label.set_visible(False)
             self.avatar.set_visible(False)
-            self.set_margin_left(47)
+            self.set_margin_start(47)
 
     def set_is_read(self, is_read):
         self.read_status.set_visible(True)
         if is_read:
-            self.read_status.set_from_icon_name("message-out-read-symbolic", 16)
+            self.read_status.set_from_icon_name("message-out-read-symbolic")
         else:
-            self.read_status.set_from_icon_name("message-out-unread-symbolic", 16)
+            self.read_status.set_from_icon_name("message-out-unread-symbolic")
