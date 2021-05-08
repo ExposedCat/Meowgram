@@ -19,7 +19,7 @@
 
 import re
 
-from gi.repository import Gtk, Handy
+from gi.repository import Gtk, Adw
 
 from meowgram.connectors.login import login_manager
 from meowgram.constants import Constants
@@ -31,7 +31,7 @@ PASSWORD = 2
 
 
 @Gtk.Template(resource_path=f"{Constants.RESOURCEID}/ui/loginwindow.ui")
-class MeowgramLoginWindow(Handy.Window):
+class MeowgramLoginWindow(Adw.Window):
     __gtype_name__ = 'MeowgramLoginWindow'
 
     next_button = Gtk.Template.Child()

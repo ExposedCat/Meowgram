@@ -19,10 +19,9 @@ import sys
 import logging
 
 import gi
-gi.require_version("Gtk", "3.0")
-gi.require_version("Handy", "1")
-gi.require_version("Gst", "1.0")
-from gi.repository import Gio, Gtk, Handy, Gdk, GLib
+gi.require_version("Gtk", "4.0")
+gi.require_version("Adw", "1")
+from gi.repository import Gio, Gtk, Adw, Gdk, GLib
 
 from meowgram.widgets.window import MeowgramWindow
 from meowgram.widgets.preferences_window import MeowgramPreferencesWindow
@@ -50,14 +49,14 @@ class Application(Gtk.Application):
 
         css_provider = Gtk.CssProvider()
         css_provider.load_from_resource(f"{Constants.RESOURCEID}/ui/style.css")
-        screen = Gdk.Screen.get_default()
-        Gtk.StyleContext.add_provider_for_screen(
-            screen, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
+        display = Gdk.Display.get_default()
+        Gtk.StyleContext.add_provider_for_display(
+            display, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
         )
 
         self.setup_actions()
 
-        Handy.init()
+        Adw.init()
 
     def do_activate(self):
         win = self.props.active_window

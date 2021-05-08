@@ -152,7 +152,6 @@ row:selected .unread-badge {
 .round-button {
   border-radius: 9999px;
   padding: 12px;
-  -gtk-outline-radius: 9999px;
   min-width: 18px;
   min-height: 18px;
 }
