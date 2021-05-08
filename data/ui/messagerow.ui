@@ -1,37 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk+" version="3.24"/>
-  <requires lib="libhandy" version="1.0"/>
+  <requires lib="gtk" version="4.0"/>
   <template class="MessageRow" parent="GtkGrid">
-    <property name="visible">True</property>
-    <property name="can-focus">False</property>
+    <property name="can-focus">0</property>
     <property name="row-spacing">3</property>
     <property name="column-spacing">12</property>
     <property name="margin-start">3</property>
     <property name="margin-end">3</property>
     <child>
-      <object class="HdyAvatar" id="avatar">
+      <object class="AdwAvatar" id="avatar">
         <property name="valign">start</property>
         <property name="text">Sender Name</property>
         <property name="show-initials">True</property>
         <property name="size">32</property>
+        <layout>
+          <property name="column">0</property>
+          <property name="row">1</property>
+        </layout>
       </object>
-      <packing>
-        <property name="left-attach">0</property>
-        <property name="top-attach">1</property>
-      </packing>
     </child>
     <child>
       <object class="GtkBox" id="message_bubble">
-        <property name="visible">True</property>
         <property name="orientation">vertical</property>
         <property name="spacing">6</property>
         <child>
           <object class="GtkLabel" id="reply_label">
+            <property name="visible">0</property>
             <property name="label" translatable="yes">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</property>
-            <property name="wrap">True</property>
+            <property name="wrap">1</property>
             <property name="wrap-mode">word-char</property>
-            <property name="hexpand">False</property>
+            <property name="hexpand">0</property>
             <property name="xalign">0</property>
             <style>
               <class name="message-mention"/>
@@ -40,21 +38,18 @@
         </child>
         <child>
           <object class="GtkLabel" id="message_label">
-            <property name="visible">True</property>
             <property name="label" translatable="yes">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</property>
-            <property name="wrap">True</property>
+            <property name="wrap">1</property>
             <property name="wrap-mode">word-char</property>
-            <property name="hexpand">False</property>
+            <property name="hexpand">0</property>
           </object>
         </child>
         <child>
           <object class="GtkBox" id="status_box">
-            <property name="visible">True</property>
             <property name="spacing">6</property>
             <property name="halign">end</property>
             <child>
               <object class="GtkLabel" id="time_label">
-                <property name="visible">True</property>
                 <property name="halign">end</property>
                 <property name="label" translatable="yes">22:05</property>
                 <style>
@@ -65,6 +60,7 @@
             </child>
             <child>
               <object class="GtkImage" id="read_status">
+                <property name="visible">0</property>
                 <property name="pixel-size">12</property>
                 <style>
                   <class name="message-status"/>
@@ -76,14 +72,15 @@
         <style>
           <class name="message-bubble"/>
         </style>
+        <layout>
+          <property name="column">1</property>
+          <property name="row">1</property>
+        </layout>
       </object>
-      <packing>
-        <property name="left-attach">1</property>
-        <property name="top-attach">1</property>
-      </packing>
     </child>
     <child>
       <object class="GtkLabel" id="sender_label">
+        <property name="visible">0</property>
         <property name="halign">start</property>
         <property name="valign">end</property>
         <property name="margin-top">6</property>
@@ -93,11 +90,11 @@
           <class name="bold-label"/>
           <class name="time-label"/>
         </style>
+        <layout>
+          <property name="column">1</property>
+          <property name="row">0</property>
+        </layout>
       </object>
-      <packing>
-        <property name="left-attach">1</property>
-        <property name="top-attach">0</property>
-      </packing>
     </child>
   </template>
 </interface>

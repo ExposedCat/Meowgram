@@ -1,34 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk+" version="3.20"/>
-  <requires lib="libhandy" version="1.0"/>
-  <template class="MeowgramWindow" parent="HdyApplicationWindow">
-    <signal name="delete-event" handler="on_destroy" swapped="no"/>
+  <requires lib="gtk" version="4.0"/>
+  <template class="MeowgramWindow" parent="AdwApplicationWindow">
+    <!-- <signal name="delete-event" handler="on_destroy" swapped="no"/> -->
     <child>
-      <object class="HdyLeaflet" id="main_leaflet">
-        <property name="visible">True</property>
+      <object class="AdwLeaflet" id="main_leaflet">
         <property name="transition-type">over</property>
         <child>
           <object class="GtkBox">
-            <property name="visible">True</property>
             <property name="orientation">vertical</property>
-            <property name="hexpand">False</property>
+            <property name="hexpand">0</property>
             <child>
-              <object class="HdyHeaderBar" id="headerbar1">
-                <property name="visible">True</property>
-                <property name="show-close-button">True</property>
+              <object class="AdwHeaderBar" id="headerbar1">
                 <child type="title">
                   <object class="GtkMenuButton">
-                    <property name="visible">True</property>
-                    <property name="can-focus">True</property>
-                    <property name="receives-default">True</property>
+                    <property name="receives-default">1</property>
                     <property name="popover">popover1</property>
                     <child>
                       <object class="GtkBox">
-                        <property name="visible">True</property>
                         <child>
                           <object class="GtkLabel">
-                            <property name="visible">True</property>
                             <property name="label" translatable="yes">All Chats</property>
                             <style>
                               <class name="title"/>
@@ -37,7 +28,6 @@
                         </child>
                         <child>
                           <object class="GtkImage">
-                            <property name="visible">True</property>
                             <property name="icon-name">pan-down-symbolic</property>
                           </object>
                         </child>
@@ -49,104 +39,77 @@
                     </style>
                   </object>
                 </child>
-                <child>
+                <child type="end">
                   <object class="GtkMenuButton" id="menu_button">
-                    <property name="visible">True</property>
-                    <property name="can-focus">True</property>
-                    <property name="receives-default">True</property>
+                    <property name="receives-default">1</property>
                     <property name="menu-model">primary_menu</property>
                     <child>
                       <object class="GtkImage">
-                        <property name="visible">True</property>
                         <property name="icon-name">open-menu-symbolic</property>
                       </object>
                     </child>
                   </object>
-                  <packing>
-                    <property name="pack-type">end</property>
-                  </packing>
                 </child>
                 <child>
                   <object class="GtkMenuButton">
-                    <property name="visible">True</property>
-                    <property name="can-focus">True</property>
-                    <property name="receives-default">True</property>
+                    <property name="receives-default">1</property>
                     <property name="popover">accounts_menu</property>
                     <child>
-                      <object class="HdyAvatar">
-                        <property name="visible">True</property>
+                      <object class="AdwAvatar">
                         <property name="size">18</property>
                       </object>
                     </child>
                   </object>
                 </child>
-                <child>
+                <child type="end">
                   <object class="GtkToggleButton" id="search_button">
-                    <property name="visible">True</property>
-                    <property name="can-focus">True</property>
-                    <property name="receives-default">True</property>
+                    <property name="receives-default">1</property>
                     <child>
                       <object class="GtkImage">
-                        <property name="visible">True</property>
                         <property name="icon-name">system-search-symbolic</property>
                       </object>
                     </child>
                   </object>
-                  <packing>
-                    <property name="pack-type">end</property>
-                  </packing>
                 </child>
               </object>
             </child>
             <child>
               <object class="GtkRevealer" id="search_revealer">
-                <property name="visible">True</property>
-                <child>
+                <property name="child">
                   <object class="GtkSearchBar">
-                    <property name="visible">True</property>
-                    <property name="search-mode-enabled">True</property>
-                    <child>
+                    <property name="search-mode-enabled">1</property>
+                    <property name="child">
                       <object class="GtkEntry">
-                        <property name="visible">True</property>
-                        <property name="can-focus">True</property>
                         <property name="max-width-chars">30</property>
                         <property name="primary-icon-name">system-search-symbolic</property>
                         <property name="placeholder-text" translatable="yes">Search</property>
                       </object>
-                    </child>
+                    </property>
                   </object>
-                </child>
+                </property>
               </object>
             </child>
             <child>
               <object class="GtkScrolledWindow">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="vexpand">True</property>
-                <child>
+                <property name="vexpand">1</property>
+                <property name="child">
                   <object class="GtkViewport">
-                    <property name="visible">True</property>
-                    <child>
+                    <property name="child">
                       <object class="GtkListBox" id="contacts_listbox">
-                        <property name="visible">True</property>
                         <signal name="row-selected" handler="on_contacts_activated" swapped="no"/>
                         <style>
                           <class name="contacts-view"/>
                         </style>
                       </object>
-                    </child>
+                    </property>
                   </object>
-                </child>
+                </property>
               </object>
             </child>
           </object>
-          <packing>
-            <property name="name">contacts_pane</property>
-          </packing>
         </child>
         <child>
           <object class="GtkSeparator">
-            <property name="visible">True</property>
             <style>
               <class name="sidebar"/>
             </style>
@@ -154,38 +117,28 @@
         </child>
         <child>
           <object class="GtkBox" id="messages_pane">
-            <property name="visible">True</property>
-            <property name="hexpand">True</property>
+            <property name="hexpand">1</property>
             <property name="orientation">vertical</property>
             <child>
-              <object class="HdyHeaderBar" id="messages_headerbar">
-                <property name="visible">True</property>
-                <property name="show-close-button">True</property>
-                <child>
+              <object class="AdwHeaderBar" id="messages_headerbar">
+                <child type="end">
                   <object class="GtkMenuButton" id="submenu_button">
-                    <property name="visible">True</property>
-                    <property name="can-focus">True</property>
-                    <property name="receives-default">True</property>
+                    <property name="receives-default">1</property>
                     <property name="menu-model">submenu</property>
                     <child>
                       <object class="GtkImage">
-                        <property name="visible">True</property>
                         <property name="icon-name">view-more-symbolic</property>
                       </object>
                     </child>
                   </object>
-                  <packing>
-                    <property name="pack-type">end</property>
-                  </packing>
                 </child>
                 <child>
                   <object class="GtkButton" id="back_button">
-                    <property name="can-focus">True</property>
-                    <property name="receives-default">True</property>
+                    <property name="visible">0</property>
+                    <property name="receives-default">1</property>
                     <signal name="clicked" handler="on_back_button_clicked" swapped="no"/>
                     <child>
                       <object class="GtkImage">
-                        <property name="visible">True</property>
                         <property name="icon-name">go-previous-symbolic</property>
                       </object>
                     </child>
@@ -193,25 +146,18 @@
                 </child>
                 <child>
                   <object class="GtkToggleButton" id="sidebar_button">
-                    <property name="visible">True</property>
-                    <property name="can-focus">True</property>
-                    <property name="receives-default">True</property>
-                    <child>
+                    <property name="receives-default">1</property>
+                    <child type="end">
                       <object class="GtkImage">
-                        <property name="visible">True</property>
                         <property name="icon-name">toggle-sidebar-symbolic</property>
                       </object>
                     </child>
                   </object>
-                  <packing>
-                    <property name="pack-type">end</property>
-                  </packing>
                 </child>
               </object>
             </child>
             <child>
-              <object class="HdyFlap" id="channel_flap">
-                <property name="visible">True</property>
+              <object class="AdwFlap" id="channel_flap">
                 <property name="flap-position">end</property>
                 <property name="fold-policy">always</property>
                 <property name="locked">True</property>
@@ -221,38 +167,28 @@
               </object>
             </child>
           </object>
-          <packing>
-            <property name="name">messages_pane</property>
-          </packing>
         </child>
       </object>
     </child>
   </template>
   <object class="GtkOverlay" id="messages_view">
-    <property name="visible">True</property>
-    <child>
+    <property name="child">
       <object class="GtkBox">
-        <property name="visible">True</property>
         <property name="orientation">vertical</property>
         <child>
           <object class="GtkScrolledWindow">
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="vexpand">True</property>
+            <property name="vexpand">1</property>
             <property name="vadjustment">messages_adjustment</property>
             <style>
               <class name="message-view"/>
             </style>
-            <child>
+            <property name="child">
               <object class="GtkViewport">
-                <property name="visible">True</property>
                 <child>
-                  <object class="HdyClamp">
-                    <property name="visible">True</property>
+                  <object class="AdwClamp">
                     <property name="maximum-size">700</property>
                     <child>
                       <object class="GtkListBox" id="messages_listbox">
-                        <property name="visible">True</property>
                         <property name="valign">end</property>
                         <property name="margin-bottom">3</property>
                         <style>
@@ -263,43 +199,38 @@
                   </object>
                 </child>
               </object>
-            </child>
+            </property>
           </object>
         </child>
         <child>
           <object class="GtkSeparator">
-            <property name="visible">True</property>
             <style>
               <class name="sidebar"/>
             </style>
           </object>
         </child>
         <child>
-          <object class="HdyClamp">
-            <property name="visible">True</property>
+          <object class="AdwClamp">
             <property name="maximum-size">700</property>
             <child>
               <object class="GtkBox">
-                <property name="visible">True</property>
-                <property name="margin">6</property>
+                <property name="margin-start">6</property>
+                <property name="margin-end">6</property>
+                <property name="margin-top">6</property>
+                <property name="margin-bottom">6</property>
                 <property name="spacing">6</property>
                 <child>
                   <object class="GtkRevealer" id="message_tool_revealer">
-                    <property name="visible">True</property>
                     <property name="transition-type">slide-left</property>
-                    <property name="reveal-child">True</property>
-                    <child>
+                    <property name="reveal-child">1</property>
+                    <property name="child">
                       <object class="GtkBox">
-                        <property name="visible">True</property>
                         <property name="spacing">6</property>
                         <child>
                           <object class="GtkButton">
-                            <property name="visible">True</property>
-                            <property name="can-focus">True</property>
-                            <property name="receives-default">True</property>
+                            <property name="receives-default">1</property>
                             <child>
                               <object class="GtkImage">
-                                <property name="visible">True</property>
                                 <property name="icon-name">mail-attachment-symbolic</property>
                               </object>
                             </child>
@@ -307,28 +238,23 @@
                         </child>
                         <child>
                           <object class="GtkButton">
-                            <property name="visible">True</property>
-                            <property name="can-focus">True</property>
-                            <property name="receives-default">True</property>
+                            <property name="receives-default">1</property>
                             <child>
                               <object class="GtkImage">
-                                <property name="visible">True</property>
                                 <property name="icon-name">audio-input-microphone-symbolic</property>
                               </object>
                             </child>
                           </object>
                         </child>
                       </object>
-                    </child>
+                    </property>
                   </object>
                 </child>
                 <child>
                   <object class="GtkEntry" id="message_entry">
-                    <property name="visible">True</property>
-                    <property name="can-focus">True</property>
-                    <property name="hexpand">True</property>
-                    <property name="enable-emoji-completion">True</property>
-                    <property name="show-emoji-icon">True</property>
+                    <property name="hexpand">1</property>
+                    <property name="enable-emoji-completion">1</property>
+                    <property name="show-emoji-icon">1</property>
                     <property name="placeholder-text" translatable="yes">Write a message…</property>
                     <signal name="changed" handler="on_message_entry_changed" swapped="no"/>
                     <signal name="activate" handler="on_send_message_clicked" swapped="no"/>
@@ -336,9 +262,8 @@
                 </child>
                 <child>
                   <object class="GtkRevealer" id="send_message_revealer">
-                    <property name="visible">True</property>
                     <property name="transition-type">slide-left</property>
-                    <child>
+                    <property name="child">
                       <object class="GtkButton">
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -346,7 +271,6 @@
                         <signal name="clicked" handler="on_send_message_clicked" swapped="no"/>
                         <child>
                           <object class="GtkImage">
-                            <property name="visible">True</property>
                             <property name="icon-name">send-symbolic</property>
                           </object>
                         </child>
@@ -354,7 +278,7 @@
                           <class name="suggested-action"/>
                         </style>
                       </object>
-                    </child>
+                    </property>
                   </object>
                 </child>
               </object>
@@ -362,18 +286,16 @@
           </object>
         </child>
       </object>
-    </child>
+    </property>
     <child type="overlay">
       <object class="GtkRevealer" id="scrolldown_button_revealer">
-        <property name="visible">True</property>
         <property name="transition-type">crossfade</property>
         <property name="halign">end</property>
         <property name="valign">end</property>
-        <property name="margin-right">18</property>
+        <property name="margin-end">18</property>
         <property name="margin-bottom">60</property>
-        <child>
+        <property name="child">
           <object class="GtkButton">
-            <property name="visible">True</property>
             <signal name="clicked" handler="on_scrolldown_button_clicked" swapped="no"/>
             <style>
               <class name="osd"/>
@@ -381,17 +303,15 @@
             </style>
             <child>
               <object class="GtkImage">
-                <property name="visible">True</property>
                 <property name="icon-name">go-down-symbolic</property>
               </object>
             </child>
           </object>
-        </child>
+        </property>
       </object>
     </child>
   </object>
-  <object class="HdyStatusPage" id="empty_view">
-    <property name="visible">True</property>
+  <object class="AdwStatusPage" id="empty_view">
     <property name="hexpand">True</property>
     <property name="vexpand">True</property>
     <property name="icon-name">chat-icon-symbolic</property>
@@ -402,12 +322,10 @@
     </style>
   </object>
   <object class="GtkBox" id="channel_sidebar">
-    <property name="visible">True</property>
     <property name="orientation">vertical</property>
     <property name="spacing">6</property>
     <child>
-      <object class="HdyAvatar">
-        <property name="visible">True</property>
+      <object class="AdwAvatar">
         <property name="margin-start">24</property>
         <property name="margin-end">24</property>
         <property name="margin-top">24</property>
@@ -416,7 +334,6 @@
     </child>
     <child>
       <object class="GtkLabel">
-        <property name="visible">True</property>
         <property name="margin-top">6</property>
         <property name="label" translatable="yes">GNOME Ru</property>
         <style>
@@ -426,7 +343,6 @@
     </child>
     <child>
       <object class="GtkLabel">
-        <property name="visible">True</property>
         <style>
           <class name="dim-label"/>
         </style>
@@ -436,33 +352,33 @@
       <class name="dark-bg"/>
     </style>
   </object>
-  <object class="GtkPopover" id="popover1">
-  </object>
+  <object class="GtkPopover" id="popover1"/>
   <object class="GtkPopover" id="accounts_menu">
     <property name="name">accounts_menu</property>
-    <child>
+    <property name="child">
       <object class="GtkBox">
-        <property name="visible">True</property>
-        <property name="margin">6</property>
+        <property name="margin-start">6</property>
+        <property name="margin-end">6</property>
+        <property name="margin-top">6</property>
+        <property name="margin-bottom">6</property>
         <property name="orientation">vertical</property>
         <child>
           <object class="GtkBox">
-            <property name="visible">True</property>
             <child>
               <object class="GtkBox">
-                <property name="visible">True</property>
-                <property name="margin">6</property>
+                <property name="margin-start">6</property>
+                <property name="margin-end">6</property>
+                <property name="margin-top">6</property>
+                <property name="margin-bottom">6</property>
                 <property name="orientation">vertical</property>
                 <child>
                   <object class="GtkLabel">
                     <property name="name">account_name_label</property>
-                    <property name="visible">True</property>
                     <property name="label" translatable="yes">Account name</property>
                   </object>
                 </child>
                 <child>
                   <object class="GtkLabel">
-                    <property name="visible">True</property>
                     <property name="label" translatable="yes">+380123456789</property>
                     <style>
                       <class name="dim-label"/>
@@ -473,36 +389,17 @@
             </child>
             <child>
               <object class="GtkImage">
-                <property name="visible">True</property>
-                <property name="margin">10</property>
+                <property name="margin-start">10</property>
+                <property name="margin-end">10</property>
+                <property name="margin-top">10</property>
+                <property name="margin-bottom">10</property>
                 <property name="icon-name">object-select-symbolic</property>
               </object>
             </child>
           </object>
         </child>
-        <child>
-          <object class="GtkModelButton">
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="receives-default">True</property>
-            <property name="text" translatable="yes">Account Settings</property>
-          </object>
-        </child>
-        <child>
-          <object class="GtkSeparator">
-            <property name="visible">True</property>
-          </object>
-        </child>
-        <child>
-          <object class="GtkModelButton">
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="receives-default">True</property>
-            <property name="text" translatable="yes">New Account</property>
-          </object>
-        </child>
       </object>
-    </child>
+    </property>
   </object>
   <menu id="primary_menu">
     <section>
@@ -572,14 +469,7 @@
       </item>
     </section>
   </menu>
-  <object class="HdyHeaderGroup" id="headerbar_group">
-    <headerbars>
-      <headerbar name="headerbar1"/>
-      <headerbar name="messages_headerbar"/>
-    </headerbars>
-  </object>
   <object class="GtkSeparator" id="separator">
-    <property name="visible">True</property>
     <style>
       <class name="sidebar"/>
     </style>

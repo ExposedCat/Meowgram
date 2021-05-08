@@ -17,7 +17,7 @@
 
 import logging
 
-from gi.repository import Gtk, Handy, GObject, GLib, Gio
+from gi.repository import Gtk, Adw, GObject, GLib, Gio
 
 from meowgram.widgets.contact_row import ContactRow
 from meowgram.widgets.message_row import MessageRow
@@ -27,10 +27,9 @@ from meowgram.constants import Constants
 
 
 @Gtk.Template(resource_path=f"{Constants.RESOURCEID}/ui/window.ui")
-class MeowgramWindow(Handy.ApplicationWindow):
+class MeowgramWindow(Adw.ApplicationWindow):
     __gtype_name__ = 'MeowgramWindow'
 
-    headerbar_group = Gtk.Template.Child()
     messages_headerbar = Gtk.Template.Child()
 
     main_leaflet = Gtk.Template.Child()
@@ -60,7 +59,6 @@ class MeowgramWindow(Handy.ApplicationWindow):
         super().__init__(**kwargs)
 
         self.main_leaflet.bind_property('folded', self.back_button, 'visible')
-        self.main_leaflet.bind_property('folded', self.headerbar_group, 'decorate-all')
         self.search_button.bind_property('active', self.search_revealer, 'reveal-child')
         self.sidebar_button.bind_property('active', self.channel_flap, 'reveal-flap',
                                           GObject.BindingFlags.BIDIRECTIONAL)
