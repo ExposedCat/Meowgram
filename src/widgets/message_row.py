@@ -120,18 +120,12 @@ class MessageRow(Gtk.Grid):
         self.sender_label.set_visible(False)
         self.avatar.set_visible(False)
         self.set_halign(Gtk.Align.END)
-        self.message_label.set_halign(Gtk.Align.END)
-        self.message_label.set_xalign(1)
-        self.message_label.set_justify(Gtk.Justification.RIGHT)
         self.message_bubble.get_style_context().add_class('message-out')
 
     def set_message_in(self):
         self.sender_label.set_visible(True)
         self.avatar.set_visible(True)
         self.set_halign(Gtk.Align.START)
-        self.message_label.set_halign(Gtk.Align.START)
-        self.message_label.set_xalign(0)
-        self.message_label.set_justify(Gtk.Justification.LEFT)
         self.message_bubble.get_style_context().add_class('message-in')
 
     def set_as_action_message(self):
