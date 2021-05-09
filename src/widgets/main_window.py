@@ -1,4 +1,4 @@
-# window.py
+# main_window.py
 #
 # Copyright 2021 SeaDve
 #
@@ -64,7 +64,7 @@ class MainWindow(Adw.ApplicationWindow):
 
     scrolldown_button_revealer = Gtk.Template.Child()
 
-    contact_name_mem = None
+    dialog_name_mem = None
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -95,26 +95,27 @@ class MainWindow(Adw.ApplicationWindow):
             self.channel_flap.set_content(self.empty_view)
             self.sidebar_button.set_visible(False)
 
-    def update_headerbar(self, contact):
+    def update_headerbar(self, dialog):
         try:
-            contact_name = contact.get_contact_name()
-            if not (subtitle := contact.get_room_members_count()):
-                subtitle = contact.get_last_active()
-            if contact.get_is_bot():
+            dialog_name = dialog.contact_name
+            if not (subtitle := dialog.get_room_members_count()):
+                subtitle = dialog.get_last_active()
+            if dialog.get_is_bot():
                 subtitle = "bot"
-        except AttributeError:
-            contact_name = subtitle = ""
+        except AttributeError as e:
+            print(e)
+            dialog_name = subtitle = ""
 
         try:
-            if contact.chat_id.user_id == 777000:
+            if dialog.chat_id.user_id == 777000:
                 subtitle = "service notifications"
-        except AttributeError:
-            pass
+        except AttributeError as e:
+            print(e)
 
-        print(contact_name)
+        print(dialog_name)
         print(subtitle)
 
-        # self.messages_headerbar.set_title(contact_name)
+        # self.messages_headerbar.set_title(dialog_name)
         # self.messages_headerbar.set_subtitle(subtitle)
 
     def update_dialogs_listbox(self, dialogs):
@@ -127,10 +128,10 @@ class MainWindow(Adw.ApplicationWindow):
         #     self.messages_listbox.remove(message)
 
         for message in reversed(messages):
-            contact_name = message.sender.username
+            dialog_name = message.sender.username
             message_row = MessageRow(message)
-            message_row.set_as_group(self.contact_name_mem == contact_name)
-            self.contact_name_mem = contact_name
+            message_row.set_as_group(self.dialog_name_mem == dialog_name)
+            self.dialog_name_mem = dialog_name
             self.messages_listbox.insert(message_row, -1)
 
     def save_window_size(self):
@@ -165,9 +166,9 @@ class MainWindow(Adw.ApplicationWindow):
         self.main_leaflet.set_visible_child(self.messages_pane)
 
         try:
-            contact = row.get_child()
-            self.update_headerbar(contact)
-            messages_manager.show_messages(self, contact.chat_id)
+            dialog = row.get_child()
+            self.update_headerbar(dialog)
+            messages_manager.show_messages(self, dialog.chat_id)
             self.scroll_to_bottom_messages()
         except AttributeError as error:
             logging.debug(error)

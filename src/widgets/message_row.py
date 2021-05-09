@@ -1,4 +1,4 @@
-# messagerow.py
+# message_row.py
 #
 # Copyright 2021 SeaDve
 #

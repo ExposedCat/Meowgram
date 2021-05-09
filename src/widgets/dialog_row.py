@@ -183,7 +183,7 @@ class DialogRow(Gtk.Box):
         if isinstance(contact_status, UserStatusOnline):
             last_active = "online"
         elif isinstance(contact_status, UserStatusOffline):
-            last_active = Fuzzify.dialog_last_active(contact_status)
+            last_active = Fuzzify.dialog_last_active(contact_status.was_online)
         elif isinstance(contact_status, UserStatusRecently):
             last_active = "last seen recently"
         else:
