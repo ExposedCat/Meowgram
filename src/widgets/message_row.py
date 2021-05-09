@@ -19,6 +19,7 @@ import datetime
 
 from gi.repository import Gtk
 
+from meowgram.utils.fuzzify import Fuzzify
 from meowgram.constants import Constants
 
 
@@ -81,21 +82,7 @@ class MessageRow(Gtk.Grid):
         return message
 
     def get_message_time(self):
-        last_message_time = self.message.date \
-            .replace(tzinfo=datetime.timezone.utc) \
-            .astimezone()
-
-        today = datetime.datetime.now().astimezone()
-        days_difference = (today - last_message_time).days
-
-        if days_difference < 1:
-            # TODO Make this work with military time
-            format_string = '%I∶%M %p'  # 08:57 AM
-        elif 1 <= days_difference < 7:
-            format_string = '%a at %I∶%M %p'  # Fri at 08:57 AM
-        elif days_difference >= 7:
-            format_string = '%b %d at %I∶%M %p'  # Apr 08 at 08:57 AM
-        return last_message_time.strftime(format_string)
+        return Fuzzify.message_time_sent(self.message.date)
 
     def get_message_sender(self):
         message_sender = self.message.sender
