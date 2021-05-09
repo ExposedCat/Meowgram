@@ -25,6 +25,7 @@ from meowgram.constants import Constants
 
 # TODO show contact picture
 # TODO add indicator if a message was read
+# TODO In get last active, fix unknown time
 
 
 @Gtk.Template(resource_path=f"{Constants.RESOURCEID}/ui/dialog_row.ui")
@@ -185,7 +186,6 @@ class DialogRow(Gtk.Box):
         elif isinstance(contact_status, UserStatusRecently):
             last_active = "last seen recently"
         else:
-            # TODO replace with something from UserStatus
             last_active = "Unknown time"
 
         return last_active
