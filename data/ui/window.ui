@@ -9,12 +9,11 @@
         <child>
           <object class="GtkBox" id="contacts_pane">
             <property name="orientation">vertical</property>
-            <property name="hexpand">0</property>
             <child>
               <object class="AdwHeaderBar" id="headerbar1">
                 <child>
                   <object class="GtkMenuButton">
-                    <property name="receives-default">1</property>
+                    <property name="receives-default">True</property>
                     <property name="popover">accounts_menu</property>
                     <!-- <child> -->
                     <!--   <object class="AdwAvatar"> -->
@@ -29,14 +28,14 @@
                 </child>
                 <child type="end">
                   <object class="GtkMenuButton" id="menu_button">
-                    <property name="receives-default">1</property>
+                    <property name="receives-default">True</property>
                     <property name="menu-model">primary_menu</property>
                     <property name="icon-name">open-menu-symbolic</property>
                   </object>
                 </child>
                 <child type="end">
                   <object class="GtkToggleButton" id="search_button">
-                    <property name="receives-default">1</property>
+                    <property name="receives-default">True</property>
                     <child>
                       <object class="GtkImage">
                         <property name="icon-name">system-search-symbolic</property>
@@ -50,7 +49,7 @@
               <object class="GtkRevealer" id="search_revealer">
                 <property name="child">
                   <object class="GtkSearchBar">
-                    <property name="search-mode-enabled">1</property>
+                    <property name="search-mode-enabled">True</property>
                     <property name="child">
                       <object class="GtkEntry">
                         <property name="max-width-chars">30</property>
@@ -64,7 +63,7 @@
             </child>
             <child>
               <object class="GtkScrolledWindow">
-                <property name="vexpand">1</property>
+                <property name="vexpand">True</property>
                 <property name="child">
                   <object class="GtkViewport">
                     <property name="child">
@@ -91,13 +90,13 @@
         </child>
         <child>
           <object class="GtkBox" id="messages_pane">
-            <property name="hexpand">1</property>
+            <property name="hexpand">True</property>
             <property name="orientation">vertical</property>
             <child>
               <object class="AdwHeaderBar" id="messages_headerbar">
                 <child type="end">
                   <object class="GtkMenuButton" id="submenu_button">
-                    <property name="receives-default">1</property>
+                    <property name="receives-default">True</property>
                     <property name="menu-model">submenu</property>
                     <property name="icon-name">view-more-symbolic</property>
                   </object>
@@ -105,7 +104,7 @@
                 <child>
                   <object class="GtkButton" id="back_button">
                     <property name="visible">0</property>
-                    <property name="receives-default">1</property>
+                    <property name="receives-default">True</property>
                     <signal name="clicked" handler="on_back_button_clicked" swapped="no"/>
                     <child>
                       <object class="GtkImage">
@@ -116,7 +115,7 @@
                 </child>
                 <child type="end">
                   <object class="GtkToggleButton" id="sidebar_button">
-                    <property name="receives-default">1</property>
+                    <property name="receives-default">True</property>
                     <child>
                       <object class="GtkImage">
                         <property name="icon-name">toggle-sidebar-symbolic</property>
@@ -194,13 +193,13 @@
                 <child>
                   <object class="GtkRevealer" id="message_tool_revealer">
                     <property name="transition-type">slide-left</property>
-                    <property name="reveal-child">1</property>
+                    <property name="reveal-child">True</property>
                     <property name="child">
                       <object class="GtkBox">
                         <property name="spacing">6</property>
                         <child>
                           <object class="GtkButton">
-                            <property name="receives-default">1</property>
+                            <property name="receives-default">True</property>
                             <child>
                               <object class="GtkImage">
                                 <property name="icon-name">mail-attachment-symbolic</property>
@@ -210,7 +209,7 @@
                         </child>
                         <child>
                           <object class="GtkButton">
-                            <property name="receives-default">1</property>
+                            <property name="receives-default">True</property>
                             <child>
                               <object class="GtkImage">
                                 <property name="icon-name">audio-input-microphone-symbolic</property>
@@ -224,9 +223,9 @@
                 </child>
                 <child>
                   <object class="GtkEntry" id="message_entry">
-                    <property name="hexpand">1</property>
-                    <property name="enable-emoji-completion">1</property>
-                    <property name="show-emoji-icon">1</property>
+                    <property name="hexpand">True</property>
+                    <property name="enable-emoji-completion">True</property>
+                    <property name="show-emoji-icon">True</property>
                     <property name="placeholder-text" translatable="yes">Write a message…</property>
                     <signal name="changed" handler="on_message_entry_changed" swapped="no"/>
                     <signal name="activate" handler="on_send_message_clicked" swapped="no"/>
