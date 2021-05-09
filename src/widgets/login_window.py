@@ -29,10 +29,13 @@ PHONE_NUMBER = 0
 CONFIRM_CODE = 1
 PASSWORD = 2
 
+# TODO add welcome page
+# TODO handle errors
 
-@Gtk.Template(resource_path=f"{Constants.PATHID}/ui/loginwindow.ui")
-class MeowgramLoginWindow(Adw.Window):
-    __gtype_name__ = 'MeowgramLoginWindow'
+
+@Gtk.Template(resource_path=f"{Constants.PATHID}/ui/login_window.ui")
+class LoginWindow(Adw.Window):
+    __gtype_name__ = 'LoginWindow'
 
     next_button = Gtk.Template.Child()
     prev_button = Gtk.Template.Child()

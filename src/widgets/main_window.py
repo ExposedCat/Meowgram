@@ -25,10 +25,17 @@ from meowgram.connectors.dialogs import dialogs_manager
 from meowgram.connectors.messages import messages_manager
 from meowgram.constants import Constants
 
+# TODO Use sourceview instead of GtkEntry
+# TODO Seperate other widgets to separate files
+# TODO fix this workaround to not select any on start
+# TODO animate scrolldown
+# TODO only show scrolldown button when scrolling down
+# TODO include in headerbar also the number of onlined members
 
-@Gtk.Template(resource_path=f"{Constants.PATHID}/ui/window.ui")
-class MeowgramWindow(Adw.ApplicationWindow):
-    __gtype_name__ = 'MeowgramWindow'
+
+@Gtk.Template(resource_path=f"{Constants.PATHID}/ui/main_window.ui")
+class MainWindow(Adw.ApplicationWindow):
+    __gtype_name__ = 'MainWindow'
 
     messages_headerbar = Gtk.Template.Child()
 
@@ -70,19 +77,12 @@ class MeowgramWindow(Adw.ApplicationWindow):
         dialogs_manager.show_dialogs(self)
         self.update_view()
 
-        # TODO Use sourceview instead of GtkEntry
-
-        # TODO Seperate other widgets to separate files
-
-        # TODO fix this workaround to not select any on start
-
     def scroll_to_bottom_messages(self):
         GLib.timeout_add(
             50, lambda: self.messages_adjustment.set_value(
                 self.messages_adjustment.get_upper()
             )
         )
-        # TODO animate this
 
     def update_view(self):
         if self.contacts_listbox.get_selected_row():
@@ -96,7 +96,6 @@ class MeowgramWindow(Adw.ApplicationWindow):
         try:
             contact_name = contact.get_contact_name()
             if not (subtitle := contact.get_room_members_count()):
-                # TODO include here also the number of onlined members
                 subtitle = contact.get_last_active()
             if contact.get_is_bot():
                 subtitle = "bot"
@@ -146,8 +145,6 @@ class MeowgramWindow(Adw.ApplicationWindow):
     @Gtk.Template.Callback()
     def on_scrolldown_button_clicked(self, button):
         self.scroll_to_bottom_messages()
-
-        # TODO only show when scrolling down
 
     @Gtk.Template.Callback()
     def on_messages_adjustment_changed(self, adjustment):
