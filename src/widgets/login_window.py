@@ -1,4 +1,4 @@
-# login.py
+# login_window.py
 #
 # Copyright 2021 Gleb Smirnov <glebsmirnov0708@gmail.com>
 #
