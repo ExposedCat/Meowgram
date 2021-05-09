@@ -45,8 +45,6 @@ class DialogRow(Gtk.Box):
     unread_label = Gtk.Template.Child()
     pin_status = Gtk.Template.Child()
 
-    chat_id = None
-
     def __init__(self, dialog_data):
         super().__init__()
 
@@ -57,45 +55,128 @@ class DialogRow(Gtk.Box):
         self.dialog_data = dialog_data
         self.chat_id = self.dialog_data.message.peer_id
 
-        self.set_message_status()
-        self.set_unread_status()
-        self.set_mute_status()
-        self.set_online_status()
+        self.contact_name = getattr(self.dialog_data, 'title', self.dialog_data.name)
+        self.last_message = self.dialog_data.message
+        self.last_message_time = self.dialog_data.message.date
+        self.muted_until = self.dialog_data.dialog.notify_settings.mute_until
+        self.unread_mentions_count = self.dialog_data.unread_mentions_count
+        self.unread_count = self.dialog_data.unread_count
+        self.is_pinned = self.dialog_data.pinned
+        self.is_from_self = self.dialog_data.message.out
+        self.is_user = self.dialog_data.is_user
+        self.is_online = self.get_is_online()
 
-        self.contact_name_label.set_text(self.get_contact_name())
-        self.last_message_label.set_text(self.get_last_message())
-        self.time_label.set_label(self.get_last_message_time())
+        self.set_contact_name(self.contact_name)
+        self.set_last_message(self.last_message, self.is_user)
+        self.set_last_message_time(self.last_message_time)
 
-    def get_contact_name(self):
-        contact_name = getattr(self.dialog_data, 'title', self.dialog_data.name)
-        return contact_name
+        self.set_message_status(self.is_from_self)
+        self.set_dialog_status(self.unread_mentions_count, self.unread_count, self.is_pinned)
+        self.set_mute_status(self.muted_until)
+        self.set_online_status(self.is_online)
 
-    def get_last_message(self):
-        message = self.dialog_data.message
+    def set_contact_name(self, contact_name):
+        """Sets the contact name of the dialog
 
-        if message.out:
+        Parameter:
+        contact_name (str): The title of the dialog
+        """
+
+        self.contact_name_label.set_text(contact_name)
+
+    def set_last_message(self, last_message, is_user):
+        """Sets the last message of the dialog
+
+        Parameters:
+        last_message (tl.patched.Message): The last message from the dialog
+        is_user (bool): If the dialog is a user
+        """
+
+        if last_message.out:
             sender_name = "You"
-        elif self.dialog_data.is_user:
+        elif is_user:
             sender_name = ""
         else:
             sender_name = getattr(
-                message.sender, 'post_author', getattr(message.sender, 'first_name', "")
+                last_message.sender, 'post_author', getattr(last_message.sender, 'first_name', "")
             )
 
-        if message.message:
-            last_message = message.message.replace("\n", " ")
-        elif message.action:
-            last_message = f"{sender_name} did something - {message.action}"
+        if last_message.message:
+            message_text = last_message.message.replace("\n", " ")
+        elif last_message.action:
+            message_text = f"{sender_name} did something - {message.action}"
             sender_name = ""
-        elif message.media:
-            last_message = "🖼️ Photo"
+        elif last_message.media:
+            message_text = "🖼️ Photo"
 
-        return f"{sender_name}{': ' if sender_name else ''}{last_message}"
+        self.last_message_label.set_text(message_text)
 
-    def get_last_message_time(self):
-        return Fuzzify.dialog_last_message(self.dialog_data.message.date)
+    def set_last_message_time(self, time):
+        """Sets the time sent of the last message
+
+        Parameter:
+        last_message (datetime.datetime): The last message from the dialog
+        """
+
+        fuzzified_time = Fuzzify.dialog_last_message(time)
+        self.time_label.set_text(fuzzified_time)
+
+    def set_dialog_status(self, unread_mentions_count, unread_count, is_pinned):
+        """Sets the status of the dialog
+
+        Parameters:
+        unread_mentions_count (int): The number of unread mentioned messages
+        unread_count (int): The number of messages unread in the dialog
+        is_pinned (bool): Whether the dialog is pinned
+        """
+
+        if unread_mentions_count:
+            self.mention_status.set_visible(True)
+        elif unread_count:
+            self.unread_label.set_visible(True)
+            self.unread_label.set_label(str(unread_count))
+        elif is_pinned:
+            self.pin_status.set_visible(True)
+
+    def set_message_status(self, is_from_self):
+        """Sets the status of your message sent to that dialog
+
+        Parameter:
+        is_from_self (bool): Whether the dialog is from self
+        """
+
+        self.read_status.set_visible(is_from_self)
+
+    def set_mute_status(self, muted_until):
+        """Sets the mute status of the dialog
+
+        Parameter:
+        muted_until (datetime.datetime): The date when the dialog will be unmuted
+        """
+
+        unread_label_style_context = self.unread_label.get_style_context()
+        if muted_until:
+            unread_label_style_context.add_class('muted-badge')
+        else:
+            unread_label_style_context.remove_class('muted-badge')
+        self.mute_status.set_visible(muted_until)
+
+    def set_online_status(self, is_online):
+        """Sets the online status of the dialog
+
+        Parameter:
+        is_online (bool): Whether the dialog is online
+        """
+
+        self.online_status.set_visible(is_online)
 
     def get_last_active(self):
+        """Returns the time when the dialog is last active
+
+        Returns:
+        str: The time when the dialog is last active
+        """
+
         contact_status = self.dialog_data.entity.status
         if isinstance(contact_status, UserStatusOnline):
             last_active = "online"
@@ -110,37 +191,37 @@ class DialogRow(Gtk.Box):
         return last_active
 
     def get_room_members_count(self):
+        """Returns the number of members in a dialog
+
+        Returns:
+        str: The "{number} members in the dialog"
+        """
+
         try:
             return f"{self.dialog_data.entity.participants_count} members"
         except AttributeError:
             return ""
 
     def get_is_bot(self):
+        """Returns if the dialog is a bot
+
+        Returns:
+        bool: If the dialog is a bot
+        """
+
         try:
             return self.dialog_data.entity.bot
         except AttributeError:
             return False
 
-    def set_unread_status(self):
-        if self.dialog_data.unread_mentions_count:
-            self.mention_status.set_visible(True)
-        elif unread_count := self.dialog_data.unread_count:
-            self.unread_label.set_visible(True)
-            self.unread_label.set_label(str(unread_count))
-        elif self.dialog_data.pinned:
-            self.pin_status.set_visible(True)
+    def get_is_online(self):
+        """Returns if the dialog is online
 
-    def set_message_status(self):
-        self.read_status.set_visible(self.dialog_data.message.out)
+        Returns:
+        bool: If the dialog is online
+        """
 
-    def set_mute_status(self):
-        if self.dialog_data.dialog.notify_settings.mute_until:
-            self.mute_status.set_visible(True)
-            self.unread_label.get_style_context().add_class('muted-badge')
-
-    def set_online_status(self):
         try:
-            is_online = isinstance(self.dialog_data.entity.status, UserStatusOnline)
-            self.online_status.set_visible(is_online)
+            return isinstance(self.dialog_data.entity.status, UserStatusOnline)
         except AttributeError:
-            pass
+            return False
