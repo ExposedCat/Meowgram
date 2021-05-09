@@ -102,15 +102,14 @@ class MainWindow(Adw.ApplicationWindow):
                 subtitle = dialog.get_last_active()
             if dialog.get_is_bot():
                 subtitle = "bot"
-        except AttributeError as e:
-            print(e)
+        except AttributeError:
             dialog_name = subtitle = ""
 
         try:
             if dialog.chat_id.user_id == 777000:
                 subtitle = "service notifications"
-        except AttributeError as e:
-            print(e)
+        except AttributeError:
+            pass
 
         print(dialog_name)
         print(subtitle)
