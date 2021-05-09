@@ -64,7 +64,7 @@ class MainWindow(Adw.ApplicationWindow):
 
     scrolldown_button_revealer = Gtk.Template.Child()
 
-    dialog_name_mem = None
+    contact_name_mem = None
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -97,7 +97,7 @@ class MainWindow(Adw.ApplicationWindow):
 
     def update_headerbar(self, dialog):
         try:
-            dialog_name = dialog.contact_name
+            dialog_name = dialog.dialog_name
             if not (subtitle := dialog.get_room_members_count()):
                 subtitle = dialog.get_last_active()
             if dialog.get_is_bot():
@@ -127,10 +127,10 @@ class MainWindow(Adw.ApplicationWindow):
         #     self.messages_listbox.remove(message)
 
         for message in reversed(messages):
-            dialog_name = message.sender.username
+            contact_name = message.sender.username
             message_row = MessageRow(message)
-            message_row.set_as_group(self.dialog_name_mem == dialog_name)
-            self.dialog_name_mem = dialog_name
+            message_row.set_as_group(self.contact_name_mem == contact_name)
+            self.contact_name_mem = contact_name
             self.messages_listbox.insert(message_row, -1)
 
     def save_window_size(self):

@@ -21,7 +21,7 @@ from telethon.tl.types import UserStatusOffline, UserStatusRecently, UserStatusO
 from meowgram.utils.fuzzify import Fuzzify
 from meowgram.constants import Constants
 
-# TODO show contact picture
+# TODO show dialog picture
 # TODO add indicator if a message was read
 # TODO In get last active, fix unknown time
 # TODO set_dialog_status doesn't work on second time
@@ -33,7 +33,7 @@ class DialogRow(Gtk.Box):
 
     avatar = Gtk.Template.Child()
 
-    contact_name_label = Gtk.Template.Child()
+    dialog_name_label = Gtk.Template.Child()
     last_message_label = Gtk.Template.Child()
     time_label = Gtk.Template.Child()
 
@@ -48,14 +48,14 @@ class DialogRow(Gtk.Box):
     def __init__(self, dialog_data):
         super().__init__()
 
-        self.contact_name_label.bind_property('label', self.avatar, 'text')
+        self.dialog_name_label.bind_property('label', self.avatar, 'text')
         self.update(dialog_data)
 
     def update(self, dialog_data):
         self.dialog_data = dialog_data
         self.chat_id = self.dialog_data.message.peer_id
 
-        self.contact_name = getattr(self.dialog_data, 'title', self.dialog_data.name)
+        self.dialog_name = getattr(self.dialog_data, 'title', self.dialog_data.name)
         self.last_message = self.dialog_data.message
         self.last_message_time = self.dialog_data.message.date
         self.muted_until = self.dialog_data.dialog.notify_settings.mute_until
@@ -66,7 +66,7 @@ class DialogRow(Gtk.Box):
         self.is_user = self.dialog_data.is_user
         self.is_online = self.get_is_online()
 
-        self.set_contact_name(self.contact_name)
+        self.set_dialog_name(self.dialog_name)
         self.set_last_message(self.last_message, self.is_user)
         self.set_last_message_time(self.last_message_time)
 
@@ -75,14 +75,14 @@ class DialogRow(Gtk.Box):
         self.set_mute_status(self.muted_until)
         self.set_online_status(self.is_online)
 
-    def set_contact_name(self, contact_name):
-        """Sets the contact name of the dialog
+    def set_dialog_name(self, dialog_name):
+        """Sets the dialog name of the dialog
 
         Parameter:
-        contact_name (str): The title of the dialog
+        dialog_name (str): The title of the dialog
         """
 
-        self.contact_name_label.set_text(contact_name)
+        self.dialog_name_label.set_text(dialog_name)
 
     def set_last_message(self, last_message, is_user):
         """Sets the last message of the dialog
@@ -179,12 +179,12 @@ class DialogRow(Gtk.Box):
         str: The time when the dialog is last active
         """
 
-        contact_status = self.dialog_data.entity.status
-        if isinstance(contact_status, UserStatusOnline):
+        dialog_status = self.dialog_data.entity.status
+        if isinstance(dialog_status, UserStatusOnline):
             last_active = "online"
-        elif isinstance(contact_status, UserStatusOffline):
-            last_active = Fuzzify.dialog_last_active(contact_status.was_online)
-        elif isinstance(contact_status, UserStatusRecently):
+        elif isinstance(dialog_status, UserStatusOffline):
+            last_active = Fuzzify.dialog_last_active(dialog_status.was_online)
+        elif isinstance(dialog_status, UserStatusRecently):
             last_active = "last seen recently"
         else:
             last_active = "Unknown time"
