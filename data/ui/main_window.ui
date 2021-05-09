@@ -7,10 +7,10 @@
       <object class="AdwLeaflet" id="main_leaflet">
         <property name="transition-type">over</property>
         <child>
-          <object class="GtkBox" id="contacts_pane">
+          <object class="GtkBox" id="dialogs_pane">
             <property name="orientation">vertical</property>
             <child>
-              <object class="AdwHeaderBar" id="headerbar1">
+              <object class="AdwHeaderBar" id="dialogs_headerbar">
                 <child>
                   <object class="GtkMenuButton">
                     <property name="receives-default">True</property>
@@ -67,10 +67,10 @@
                 <property name="child">
                   <object class="GtkViewport">
                     <property name="child">
-                      <object class="GtkListBox" id="contacts_listbox">
-                        <signal name="row-selected" handler="on_contacts_activated" swapped="no"/>
+                      <object class="GtkListBox" id="dialogs_listbox">
+                        <signal name="row-selected" handler="on_dialog_activated" swapped="no"/>
                         <style>
-                          <class name="contacts-view"/>
+                          <class name="dialogs-view"/>
                           <class name="navigation-sidebar"/>
                         </style>
                       </object>

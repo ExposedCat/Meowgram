@@ -7,7 +7,7 @@ class DialogsManager:
         request = aio.run(client.get_dialogs, ())
         dialogs = request.result()
 
-        window.update_contacts_listbox(dialogs)
+        window.update_dialogs_listbox(dialogs)
 
 
 dialogs_manager = DialogsManager()

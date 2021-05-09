@@ -1,4 +1,4 @@
-/* Contact Row */
+/* Dialog Row */
 
 .online-status {
   color: @theme_selected_bg_color;
@@ -99,7 +99,7 @@ row:selected .message-action{
   background-color: @theme_base_color;
 }
 
-.contacts-view {
+.dialogs-view {
   background-color: @theme_bg_color;
 }
 
