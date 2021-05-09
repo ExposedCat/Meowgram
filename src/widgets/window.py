@@ -19,7 +19,7 @@ import logging
 
 from gi.repository import Gtk, Adw, GObject, GLib, Gio
 
-from meowgram.widgets.contact_row import ContactRow
+from meowgram.widgets.dialog_row import DialogRow
 from meowgram.widgets.message_row import MessageRow
 from meowgram.connectors.dialogs import dialogs_manager
 from meowgram.connectors.messages import messages_manager
@@ -112,7 +112,7 @@ class MeowgramWindow(Adw.ApplicationWindow):
 
     def update_contacts_listbox(self, dialogs):
         for dialog in dialogs:
-            self.contacts_listbox.insert(ContactRow(dialog), -1)
+            self.contacts_listbox.insert(DialogRow(dialog), -1)
 
     def update_messages_listbox(self, messages):
         # current_messages = self.messages_listbox.get_children()
