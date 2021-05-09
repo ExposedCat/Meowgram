@@ -11,8 +11,8 @@
           <object class="AdwHeaderBar">
             <child>
               <object class="GtkButton" id="prev_button">
-                <property name="visible">0</property>
-                <property name="use-underline">1</property>
+                <property name="visible">False</property>
+                <property name="use-underline">True</property>
                 <signal name="clicked" handler="on_prev_clicked" swapped="no"/>
                 <!-- <accelerator signal="clicked" modifiers="GDK_MOD1_MASK" key="Left"/> -->
                 <child>
@@ -31,8 +31,8 @@
             <child type="end">
               <object class="GtkButton" id="next_button">
                 <property name="label">_Next</property>
-                <property name="use-underline">1</property>
-                <property name="sensitive">0</property>
+                <property name="use-underline">True</property>
+                <property name="sensitive">False</property>
                 <signal name="clicked" handler="on_next_clicked" swapped="no"/>
                 <style>
                   <class name="suggested-action"/>
@@ -43,7 +43,7 @@
         </child>
         <child>
           <object class="AdwCarousel" id="page_carousel">
-            <property name="vexpand">1</property>
+            <property name="vexpand">True</property>
             <property name="interactive">False</property>
             <signal name="page_changed" handler="clear_entries"/>
             <child>
@@ -54,7 +54,7 @@
                 <child>
                   <object class="GtkEntry" id="phone_number">
                     <property name="halign">center</property>
-                    <property name="has-focus">1</property>
+                    <property name="has-focus">True</property>
                     <property name="placeholder-text">Phone number</property>
                     <property name="primary-icon-name">phone-oldschool-symbolic</property>
                     <property name="input-purpose">phone</property>
@@ -78,14 +78,14 @@
                         <property name="title" translatable="yes">Check your Telegram for code</property>
                         <child>
                           <object class="GtkBox">
-                            <property name="hexpand">1</property>
+                            <property name="hexpand">True</property>
                             <property name="halign">center</property>
                             <property name="orientation">vertical</property>
                             <property name="spacing">24</property>
                             <child>
                               <object class="GtkLabel">
                                 <property name="label">&lt;a href=&quot;&quot;&gt;Send code via SMS instead&lt;/a&gt;</property>
-                                <property name="use-markup">1</property>
+                                <property name="use-markup">True</property>
                                 <signal name="activate-link" handler="switch_code_getting_method" swapped="no"/>
                               </object>
                             </child>
@@ -114,14 +114,14 @@
                         <property name="title" translatable="yes">Check your phone for SMS with code</property>
                         <child>
                           <object class="GtkBox">
-                            <property name="hexpand">1</property>
+                            <property name="hexpand">True</property>
                             <property name="halign">center</property>
                             <property name="orientation">vertical</property>
                             <property name="spacing">24</property>
                             <child>
                               <object class="GtkLabel">
                                 <property name="label">&lt;a href=&quot;&quot;&gt;Send code via Telegram instead&lt;/a&gt;</property>
-                                <property name="use-markup">1</property>
+                                <property name="use-markup">True</property>
                                 <signal name="activate-link" handler="switch_code_getting_method" swapped="no"/>
                               </object>
                             </child>
@@ -157,7 +157,7 @@
         <property name="placeholder-text">Password</property>
         <property name="primary-icon-name">dialog-password-symbolic</property>
         <property name="input-purpose">password</property>
-        <property name="visibility">0</property>
+        <property name="visibility">False</property>
         <signal name="changed" handler="on_text_changed" swapped="no"/>
         <signal name="activate" handler="on_next_clicked" swapped="no"/>
       </object>
