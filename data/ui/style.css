@@ -99,6 +99,12 @@ row .message-mention {
 
 /* Contact Row */
 
+.online-status {
+  color: @theme_selected_bg_color;
+  margin: 2px;
+  -gtk-icon-shadow: 0 1px alpha(black, 0.3);
+}
+
 .unread-badge {
   background-color: @theme_selected_bg_color;
   color: white;
@@ -109,19 +115,19 @@ row .message-mention {
   padding: 2px 5px;
 }
 
-row:selected .unread-badge {
-  background-color: white;
-  color: @theme_selected_bg_color;
-}
-
 .muted-badge {
-  background-color: #bfbfbf;
+  background-color: @insensitive_fg_color;
   color: @theme_bg_color;
 }
 
-.online-status {
+.read-status {
   color: @theme_selected_bg_color;
-  -gtk-icon-shadow: 0 1px alpha(black, 0.3);
+}
+
+.pin-status {
+  background-color: @insensitive_fg_color;
+  color: @theme_bg_color;
+  border-radius: 10px;
 }
 
 
