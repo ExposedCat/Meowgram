@@ -174,6 +174,9 @@ class MeowgramWindow(Adw.ApplicationWindow):
 
     @Gtk.Template.Callback()
     def on_back_button_clicked(self, button):
+        if selected_row := self.contacts_listbox.get_selected_row():
+            self.contacts_listbox.unselect_row(selected_row)
+
         self.contacts_listbox.unselect_all()
         self.main_leaflet.set_visible_child(self.contacts_pane)
         self.update_headerbar(None)
