@@ -37,13 +37,14 @@ from meowgram.constants import Constants
 class MainWindow(Adw.ApplicationWindow):
     __gtype_name__ = 'MainWindow'
 
+    dialogs_headerbar = Gtk.Template.Child()
     messages_headerbar = Gtk.Template.Child()
 
     main_leaflet = Gtk.Template.Child()
-    contacts_pane = Gtk.Template.Child()
+    dialogs_pane = Gtk.Template.Child()
     messages_pane = Gtk.Template.Child()
 
-    contacts_listbox = Gtk.Template.Child()
+    dialogs_listbox = Gtk.Template.Child()
     messages_listbox = Gtk.Template.Child()
 
     back_button = Gtk.Template.Child()
@@ -85,7 +86,7 @@ class MainWindow(Adw.ApplicationWindow):
         )
 
     def update_view(self):
-        if self.contacts_listbox.get_selected_row():
+        if self.dialogs_listbox.get_selected_row():
             self.channel_flap.set_content(self.messages_view)
             self.sidebar_button.set_visible(True)
         else:
@@ -111,9 +112,9 @@ class MainWindow(Adw.ApplicationWindow):
         # self.messages_headerbar.set_title(contact_name)
         # self.messages_headerbar.set_subtitle(subtitle)
 
-    def update_contacts_listbox(self, dialogs):
+    def update_dialogs_listbox(self, dialogs):
         for dialog in dialogs:
-            self.contacts_listbox.insert(DialogRow(dialog), -1)
+            self.dialogs_listbox.insert(DialogRow(dialog), -1)
 
     def update_messages_listbox(self, messages):
         # current_messages = self.messages_listbox.get_children()
@@ -155,7 +156,7 @@ class MainWindow(Adw.ApplicationWindow):
         self.scrolldown_button_revealer.set_reveal_child(is_up)
 
     @Gtk.Template.Callback()
-    def on_contacts_activated(self, listbox, row):
+    def on_dialog_activated(self, listbox, row):
         self.main_leaflet.set_visible_child(self.messages_pane)
 
         try:
@@ -171,11 +172,11 @@ class MainWindow(Adw.ApplicationWindow):
 
     @Gtk.Template.Callback()
     def on_back_button_clicked(self, button):
-        if selected_row := self.contacts_listbox.get_selected_row():
-            self.contacts_listbox.unselect_row(selected_row)
+        if selected_row := self.dialogs_listbox.get_selected_row():
+            self.dialogs_listbox.unselect_row(selected_row)
 
-        self.contacts_listbox.unselect_all()
-        self.main_leaflet.set_visible_child(self.contacts_pane)
+        self.dialogs_listbox.unselect_all()
+        self.main_leaflet.set_visible_child(self.dialogs_pane)
         self.update_headerbar(None)
 
     @Gtk.Template.Callback()
@@ -186,7 +187,7 @@ class MainWindow(Adw.ApplicationWindow):
 
     @Gtk.Template.Callback()
     def on_send_message_clicked(self, button):
-        chat_id = self.contacts_listbox.get_selected_row().get_child().chat_id
+        chat_id = self.dialogs_listbox.get_selected_row().get_child().chat_id
         message = self.message_entry.get_text()
         result = messages_manager.send_message(chat_id, message)
         print(result)

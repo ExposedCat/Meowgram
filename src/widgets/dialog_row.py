@@ -105,8 +105,8 @@ class DialogRow(Gtk.Box):
 
         if last_message.message:
             message_text = last_message.message.replace("\n", " ")
-        elif last_message.action:
-            message_text = f"{sender_name} did something - {message.action}"
+        elif action := last_message.action:
+            message_text = f"{sender_name} did something - {action}"
             sender_name = ""
         elif last_message.media:
             message_text = "🖼️ Photo"
