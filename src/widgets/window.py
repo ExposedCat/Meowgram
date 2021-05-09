@@ -26,7 +26,7 @@ from meowgram.connectors.messages import messages_manager
 from meowgram.constants import Constants
 
 
-@Gtk.Template(resource_path=f"{Constants.RESOURCEID}/ui/window.ui")
+@Gtk.Template(resource_path=f"{Constants.PATHID}/ui/window.ui")
 class MeowgramWindow(Adw.ApplicationWindow):
     __gtype_name__ = 'MeowgramWindow'
 

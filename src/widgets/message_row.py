@@ -23,7 +23,7 @@ from meowgram.utils.fuzzify import Fuzzify
 from meowgram.constants import Constants
 
 
-@Gtk.Template(resource_path=f"{Constants.RESOURCEID}/ui/message_row.ui")
+@Gtk.Template(resource_path=f"{Constants.PATHID}/ui/message_row.ui")
 class MessageRow(Gtk.Grid):
     __gtype_name__ = 'MessageRow'
 
