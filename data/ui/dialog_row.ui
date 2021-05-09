@@ -55,21 +55,28 @@
               </object>
             </child>
             <child>
-              <object class="GtkImage" id="read_status">
-                <property name="visible">False</property>
-                <property name="pixel-size">12</property>
-                <property name="icon-name">object-select-symbolic</property>
-                <style>
-                  <class name="read-status"/>
-                </style>
-              </object>
-            </child>
-            <child>
-              <object class="GtkLabel" id="time_label">
-                <style>
-                  <class name="dim-label"/>
-                  <class name="time-label"/>
-                </style>
+              <object class="GtkBox">
+                <property name="hexpand">True</property>
+                <property name="halign">end</property>
+                <property name="spacing">6</property>
+                <child>
+                  <object class="GtkImage" id="read_status">
+                    <property name="visible">False</property>
+                    <property name="pixel-size">12</property>
+                    <property name="icon-name">object-select-symbolic</property>
+                    <style>
+                      <class name="read-status"/>
+                    </style>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="time_label">
+                    <style>
+                      <class name="dim-label"/>
+                      <class name="time-label"/>
+                    </style>
+                  </object>
+                </child>
               </object>
             </child>
           </object>
@@ -87,36 +94,42 @@
               </object>
             </child>
             <child>
-              <object class="GtkImage" id="mention_status">
-                <property name="visible">False</property>
-                <property name="valign">center</property>
-                <property name="pixel-size">12</property>
-                <property name="icon-name">goa-panel-symbolic</property>
-                <style>
-                  <class name="unread-badge"/>
-                  <class name="small-icon"/>
-                </style>
-              </object>
-            </child>
-            <child>
-              <object class="GtkLabel" id="unread_label">
-                <property name="visible">False</property>
-                <property name="valign">center</property>
-                <style>
-                  <class name="unread-badge"/>
-                </style>
-              </object>
-            </child>
-            <child>
-              <object class="GtkImage" id="pin_status">
-                <property name="visible">False</property>
-                <property name="valign">center</property>
-                <property name="pixel-size">12</property>
-                <property name="icon-name">pin-symbolic</property>
-                <style>
-                  <class name="pin-status"/>
-                  <class name="small-icon"/>
-                </style>
+              <object class="GtkBox">
+                <property name="hexpand">True</property>
+                <property name="halign">end</property>
+                <child>
+                  <object class="GtkImage" id="mention_status">
+                    <property name="visible">False</property>
+                    <property name="valign">center</property>
+                    <property name="pixel-size">12</property>
+                    <property name="icon-name">goa-panel-symbolic</property>
+                    <style>
+                      <class name="unread-badge"/>
+                      <class name="small-icon"/>
+                    </style>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="unread_label">
+                    <property name="visible">False</property>
+                    <property name="valign">center</property>
+                    <style>
+                      <class name="unread-badge"/>
+                    </style>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkImage" id="pin_status">
+                    <property name="visible">False</property>
+                    <property name="valign">center</property>
+                    <property name="pixel-size">12</property>
+                    <property name="icon-name">pin-symbolic</property>
+                    <style>
+                      <class name="pin-status"/>
+                      <class name="small-icon"/>
+                    </style>
+                  </object>
+                </child>
               </object>
             </child>
           </object>
