@@ -23,6 +23,17 @@
                     <!-- </child> -->
                   </object>
                 </child>
+                <child type="title">
+                  <object class="GtkLabel">
+                  </object>
+                </child>
+                <child type="end">
+                  <object class="GtkMenuButton" id="menu_button">
+                    <property name="receives-default">1</property>
+                    <property name="menu-model">primary_menu</property>
+                    <property name="icon-name">open-menu-symbolic</property>
+                  </object>
+                </child>
                 <child type="end">
                   <object class="GtkToggleButton" id="search_button">
                     <property name="receives-default">1</property>
@@ -31,13 +42,6 @@
                         <property name="icon-name">system-search-symbolic</property>
                       </object>
                     </child>
-                  </object>
-                </child>
-                <child type="end">
-                  <object class="GtkMenuButton" id="menu_button">
-                    <property name="receives-default">1</property>
-                    <property name="menu-model">primary_menu</property>
-                    <property name="icon-name">open-menu-symbolic</property>
                   </object>
                 </child>
               </object>
