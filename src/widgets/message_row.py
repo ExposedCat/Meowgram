@@ -51,6 +51,7 @@ class MessageRow(Gtk.Grid):
 
     def update(self, message):
         self.message = message
+        self.message_text = self.message.message
 
         if self.message.action:
             self.set_as_action_message()
@@ -60,22 +61,31 @@ class MessageRow(Gtk.Grid):
         else:
             self.set_message_in()
 
-        self.message_label.set_label(self.get_message())
+
+        self.set_message_text(self.message_text)
+
         self.sender_label.set_label(self.get_message_sender())
         self.time_label.set_label(self.get_message_time())
 
         self.set_reply_message()
         self.set_forward_message()
 
-    def get_message(self):
-        if message := self.message.message:
-            message = self.message.message
+    def set_message_text(self, message_text):
+        """Sets the visible message
+
+        Parameters:
+        message_text (str): The last message from the dialog
+        """
+
+        if message_text:
+            pass
         elif self.message.action:
-            message = f"{self.get_message_sender()} did something - {self.message.action}"
+            message_text = f"{self.get_message_sender()} did something - {self.message.action}"
         else:
-            message = "<span style=\"italic\">Message type is not supported yet.</span>"
+            message_text = "<span style=\"italic\">Message type is not supported yet.</span>"
             self.message_label.set_use_markup("True")
-        return message
+
+        self.message_label.set_label(message_text)
 
     def get_message_time(self):
         return Fuzzify.message_time_sent(self.message.date)
