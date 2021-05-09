@@ -74,7 +74,6 @@ class MeowgramWindow(Adw.ApplicationWindow):
 
         # TODO Seperate other widgets to separate files
 
-        GLib.timeout_add(100, lambda: self.contacts_listbox.unselect_all())
         # TODO fix this workaround to not select any on start
 
     def scroll_to_bottom_messages(self):
