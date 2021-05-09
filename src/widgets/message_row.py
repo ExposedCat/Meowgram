@@ -15,8 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import datetime
-
 from gi.repository import Gtk
 
 from meowgram.utils.fuzzify import Fuzzify
@@ -60,7 +58,6 @@ class MessageRow(Gtk.Grid):
             self.set_is_read(True)
         else:
             self.set_message_in()
-
 
         self.set_message_text(self.message_text)
 
@@ -106,7 +103,7 @@ class MessageRow(Gtk.Grid):
 
     def set_forward_message(self):
         if fwd_from := self.message.fwd_from:
-            pass
+            print(fwd_from)
 
     def set_message_out(self):
         self.sender_label.set_visible(False)

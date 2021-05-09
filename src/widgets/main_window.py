@@ -111,6 +111,9 @@ class MainWindow(Adw.ApplicationWindow):
         except AttributeError:
             pass
 
+        print(contact_name)
+        print(subtitle)
+
         # self.messages_headerbar.set_title(contact_name)
         # self.messages_headerbar.set_subtitle(subtitle)
 
