@@ -31,22 +31,24 @@ from meowgram.constants import Constants
 class DialogRow(Gtk.Box):
     __gtype_name__ = 'DialogRow'
 
-    chat_id = None
     avatar = Gtk.Template.Child()
 
     contact_name_label = Gtk.Template.Child()
     last_message_label = Gtk.Template.Child()
     time_label = Gtk.Template.Child()
 
-    unread_label = Gtk.Template.Child()
-    mention_status = Gtk.Template.Child()
-    pin_status = Gtk.Template.Child()
+    online_status = Gtk.Template.Child()
     mute_status = Gtk.Template.Child()
     read_status = Gtk.Template.Child()
-    online_status = Gtk.Template.Child()
 
-    def __init__(self, dialog_data, **kwargs):
-        super().__init__(**kwargs)
+    mention_status = Gtk.Template.Child()
+    unread_label = Gtk.Template.Child()
+    pin_status = Gtk.Template.Child()
+
+    chat_id = None
+
+    def __init__(self, dialog_data):
+        super().__init__()
 
         self.contact_name_label.bind_property('label', self.avatar, 'text')
         self.update(dialog_data)
