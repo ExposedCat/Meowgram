@@ -18,10 +18,6 @@
             <property name="visible">False</property>
             <property name="halign">end</property>
             <property name="valign">end</property>
-            <property name="margin-start">2</property>
-            <property name="margin-end">2</property>
-            <property name="margin-top">2</property>
-            <property name="margin-bottom">2</property>
             <property name="pixel-size">12</property>
             <property name="icon-name">circle-filled-symbolic</property>
             <style>
@@ -34,16 +30,13 @@
     </child>
     <child>
       <object class="GtkBox">
-        <property name="hexpand">True</property>
         <property name="orientation">vertical</property>
         <property name="homogeneous">True</property>
         <child>
           <object class="GtkBox">
             <property name="spacing">6</property>
-            <property name="hexpand">True</property>
             <child>
               <object class="GtkLabel" id="contact_name_label">
-                <property name="halign">start</property>
                 <property name="ellipsize">end</property>
                 <property name="xalign">0</property>
                 <style>
@@ -54,8 +47,6 @@
             <child>
               <object class="GtkImage" id="mute_status">
                 <property name="visible">False</property>
-                <property name="halign">start</property>
-                <property name="valign">center</property>
                 <property name="pixel-size">12</property>
                 <property name="icon-name">notifications-disabled-symbolic</property>
                 <style>
@@ -63,21 +54,18 @@
                 </style>
               </object>
             </child>
-            <child type="end">
+            <child>
               <object class="GtkImage" id="read_status">
                 <property name="visible">False</property>
-                <property name="halign">end</property>
                 <property name="pixel-size">12</property>
                 <property name="icon-name">object-select-symbolic</property>
                 <style>
-                  <class name="message-status"/>
+                  <class name="read-status"/>
                 </style>
               </object>
             </child>
-            <child type="end">
+            <child>
               <object class="GtkLabel" id="time_label">
-                <property name="valign">center</property>
-                <property name="halign">end</property>
                 <style>
                   <class name="dim-label"/>
                   <class name="time-label"/>
@@ -91,16 +79,26 @@
             <property name="spacing">6</property>
             <child>
               <object class="GtkLabel" id="last_message_label">
-                <property name="halign">start</property>
                 <property name="ellipsize">end</property>
-                <property name="margin-end">6</property>
                 <property name="xalign">0</property>
                 <style>
                   <class name="dim-label"/>
                 </style>
               </object>
             </child>
-            <child type="end">
+            <child>
+              <object class="GtkImage" id="mention_status">
+                <property name="visible">False</property>
+                <property name="valign">center</property>
+                <property name="pixel-size">12</property>
+                <property name="icon-name">goa-panel-symbolic</property>
+                <style>
+                  <class name="unread-badge"/>
+                  <class name="small-icon"/>
+                </style>
+              </object>
+            </child>
+            <child>
               <object class="GtkLabel" id="unread_label">
                 <property name="visible">False</property>
                 <property name="valign">center</property>
@@ -112,26 +110,11 @@
             <child>
               <object class="GtkImage" id="pin_status">
                 <property name="visible">False</property>
-                <property name="halign">center</property>
                 <property name="valign">center</property>
                 <property name="pixel-size">12</property>
                 <property name="icon-name">pin-symbolic</property>
                 <style>
-                  <class name="unread-badge"/>
-                  <class name="muted-badge"/>
-                  <class name="small-icon"/>
-                </style>
-              </object>
-            </child>
-            <child>
-              <object class="GtkImage" id="mention_status">
-                <property name="visible">False</property>
-                <property name="halign">center</property>
-                <property name="valign">center</property>
-                <property name="pixel-size">12</property>
-                <property name="icon-name">goa-panel-symbolic</property>
-                <style>
-                  <class name="unread-badge"/>
+                  <class name="pin-status"/>
                   <class name="small-icon"/>
                 </style>
               </object>
