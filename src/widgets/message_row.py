@@ -22,35 +22,31 @@ from gi.repository import Gtk
 from meowgram.utils.fuzzify import Fuzzify
 from meowgram.constants import Constants
 
+# TODO Fix selection theming in messages listbox
+# TODO also, hide the sender_label when it is the same as in the headerbar
+# TODO add proper read status
+# TODO move avatar to most bottom part of message group
+
 
 @Gtk.Template(resource_path=f"{Constants.PATHID}/ui/message_row.ui")
 class MessageRow(Gtk.Grid):
     __gtype_name__ = 'MessageRow'
 
-    message_bubble = Gtk.Template.Child()
-
+    avatar = Gtk.Template.Child()
     read_status = Gtk.Template.Child()
 
     time_label = Gtk.Template.Child()
     sender_label = Gtk.Template.Child()
-
-    avatar = Gtk.Template.Child()
     message_label = Gtk.Template.Child()
     reply_label = Gtk.Template.Child()
+
+    message_bubble = Gtk.Template.Child()
 
     def __init__(self, message, **kwargs):
         super().__init__(**kwargs)
 
         self.sender_label.bind_property('label', self.avatar, 'text')
         self.update(message)
-
-        # TODO Fix selection theming in messages listbox
-
-        # TODO also, hide the sender_label when it is the same as in the headerbar
-
-        # TODO add proper read status
-
-        # TODO move avatar to most bottom part of message group
 
     def update(self, message):
         self.message = message
