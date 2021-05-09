@@ -28,6 +28,7 @@ from meowgram.constants import Constants
 # TODO In get last active, fix unknown time
 # TODO set_dialog_status doesn't work on second time
 
+
 @Gtk.Template(resource_path=f"{Constants.PATHID}/ui/dialog_row.ui")
 class DialogRow(Gtk.Box):
     __gtype_name__ = 'DialogRow'

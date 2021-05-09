@@ -26,6 +26,7 @@ from meowgram.constants import Constants
 # TODO also, hide the sender_label when it is the same as in the headerbar
 # TODO add proper read status
 # TODO move avatar to most bottom part of message group
+# TODO Implement message forward
 
 
 @Gtk.Template(resource_path=f"{Constants.PATHID}/ui/message_row.ui")
@@ -95,7 +96,6 @@ class MessageRow(Gtk.Grid):
 
     def set_forward_message(self):
         if fwd_from := self.message.fwd_from:
-            # TODO add here
             pass
 
     def set_message_out(self):

@@ -23,9 +23,9 @@ gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 from gi.repository import Gio, Gtk, Adw, Gdk, GLib
 
-from meowgram.widgets.window import MeowgramWindow
-from meowgram.widgets.preferences_window import MeowgramPreferencesWindow
-from meowgram.widgets.login_window import MeowgramLoginWindow
+from meowgram.widgets.main_window import MainWindow
+from meowgram.widgets.preferences_window import PreferencesWindow
+from meowgram.widgets.login_window import LoginWindow
 from meowgram.constants import Constants
 
 from meowgram.connectors.login import login_manager
@@ -63,9 +63,9 @@ class Application(Gtk.Application):
         if not win:
             auth = login_manager.login(None, None)
             if auth == 2:
-                win = MeowgramWindow(application=self)
+                win = MainWindow(application=self)
             else:
-                win = MeowgramLoginWindow(application=self)
+                win = LoginWindow(application=self)
         win.present()
 
     def setup_actions(self):
@@ -85,17 +85,17 @@ class Application(Gtk.Application):
 
     def show_main_window(self):
         self.props.active_window.close()
-        win = MeowgramWindow(application=self)
+        win = MainWindow(application=self)
         win.present()
 
     def show_preferences_window(self, action, param):
-        preferences = MeowgramPreferencesWindow()
+        preferences = PreferencesWindow()
         preferences.set_transient_for(self.props.active_window)
         preferences.show()
 
     def show_shortcuts_window(self, action, param):
         builder = Gtk.Builder()
-        builder.add_from_resource(f"{Constants.PATHID}/ui/shortcutswindow.ui")
+        builder.add_from_resource(f"{Constants.PATHID}/ui/shortcuts_window.ui")
         window = builder.get_object('shortcuts')
         window.set_transient_for(self.props.active_window)
         window.present()
