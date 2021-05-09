@@ -71,6 +71,8 @@ class MainWindow(Adw.ApplicationWindow):
 
         self.main_leaflet.bind_property('folded', self.back_button, 'visible')
         self.search_button.bind_property('active', self.search_revealer, 'reveal-child')
+        self.main_leaflet.bind_property('folded', self.dialogs_headerbar,
+                                        'show-end-title-buttons')
         self.sidebar_button.bind_property('active', self.channel_flap, 'reveal-flap',
                                           GObject.BindingFlags.BIDIRECTIONAL)
 

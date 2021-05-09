@@ -11,6 +11,7 @@
             <property name="orientation">vertical</property>
             <child>
               <object class="AdwHeaderBar" id="dialogs_headerbar">
+                <property name="show-end-title-buttons">False</property>
                 <child>
                   <object class="GtkMenuButton">
                     <property name="receives-default">True</property>
