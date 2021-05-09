@@ -46,7 +46,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkBox" id="status_box">
+          <object class="GtkBox">
             <property name="spacing">6</property>
             <property name="halign">end</property>
             <child>
