@@ -65,6 +65,7 @@ class TelegramClient:
         try:
             await self.client.send_message(chat, text)
         except Exception as error:
+            print(f"Error {error}")
             return 0
 
     def save_session(self):
