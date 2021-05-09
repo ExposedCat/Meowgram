@@ -9,10 +9,12 @@ class Fuzzify:
     def _convert_to_utc(date):
         return date.replace(tzinfo=datetime.timezone.utc).astimezone()
 
+    @staticmethod
     def _get_difference_from_now(date):
         today = datetime.datetime.now().astimezone()
         return (today - date).days
 
+    @staticmethod
     def dialog_last_message(date):
         date = Fuzzify._convert_to_utc(date)
         diff_from_now = Fuzzify._get_difference_from_now(date)
@@ -26,6 +28,7 @@ class Fuzzify:
 
         return date.strftime(format_string)
 
+    @staticmethod
     def message_time_sent(date):
         date = Fuzzify._convert_to_utc(date)
         diff_from_now = Fuzzify._get_difference_from_now(date)
@@ -39,6 +42,7 @@ class Fuzzify:
 
         return date.strftime(format_string)
 
+    @staticmethod
     def dialog_last_active(date):
         date = Fuzzify._convert_to_utc(date)
         diff_from_now = Fuzzify._get_difference_from_now(date)
