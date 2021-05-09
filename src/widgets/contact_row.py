@@ -20,6 +20,7 @@ import datetime
 from gi.repository import Gtk
 from telethon.tl.types import UserStatusOffline, UserStatusRecently, UserStatusOnline
 
+from meowgram.utils.fuzzify import Fuzzify
 from meowgram.constants import Constants
 
 
@@ -90,44 +91,14 @@ class ContactRow(Gtk.Box):
         return f"{sender_name}{': ' if sender_name else ''}{last_message}"
 
     def get_last_message_time(self):
-        last_message_time = self.dialog_data.message.date \
-            .replace(tzinfo=datetime.timezone.utc) \
-            .astimezone()
-
-        today = datetime.datetime.now().astimezone()
-        days_difference = (today - last_message_time).days
-
-        if days_difference < 1:
-            # TODO Make this work with military time
-            format_string = '%I∶%M %p'  # 08:57 AM
-        elif 1 <= days_difference < 7:
-            format_string = '%a'  # Fri
-        elif days_difference >= 7:
-            format_string = '%b %d'  # Apr 08
-        return last_message_time.strftime(format_string)
+        return Fuzzify.dialog_last_message(self.dialog_data.message.date)
 
     def get_last_active(self):
         contact_status = self.dialog_data.entity.status
         if isinstance(contact_status, UserStatusOnline):
             last_active = "online"
         elif isinstance(contact_status, UserStatusOffline):
-            last_active = contact_status.was_online \
-                .replace(tzinfo=datetime.timezone.utc) \
-                .astimezone()
-
-            today = datetime.datetime.now().astimezone()
-            days_difference = (today - last_active).days
-
-            if days_difference < 1:
-                # TODO Make this work with military time
-                format_string = 'at %I∶%M %p'  # at 08:57 AM
-            elif 1 <= days_difference < 2:
-                format_string = 'yesterday at %I∶%M %p'  # yesterday at 08:57 AM
-            elif 2 <= days_difference < 7:
-                format_string = '%a at %I∶%M %p'  # Fri at 08:57 AM
-            elif days_difference >= 7:
-                format_string = '%b %d at %I∶%M %p'  # Apr 08 at 08:57 AM
-            last_active = last_active.strftime(f"last seen {format_string}")
+            last_active = Fuzzify.dialog_last_active(contact_status)
         elif isinstance(contact_status, UserStatusRecently):
             last_active = "last seen recently"
         else:
