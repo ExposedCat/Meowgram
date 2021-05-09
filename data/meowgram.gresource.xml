@@ -3,7 +3,7 @@
   <gresource prefix="/com/github/ExposedCat/Meowgram">
     <file preprocess="xml-stripblanks">ui/window.ui</file>
     <file preprocess="xml-stripblanks">ui/dialog_row.ui</file>
-    <file preprocess="xml-stripblanks">ui/messagerow.ui</file>
+    <file preprocess="xml-stripblanks">ui/message_row.ui</file>
 
     <file preprocess="xml-stripblanks">ui/loginwindow.ui</file>
     <file preprocess="xml-stripblanks">ui/shortcutswindow.ui</file>
