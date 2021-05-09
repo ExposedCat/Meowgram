@@ -128,7 +128,10 @@ class MeowgramWindow(Adw.ApplicationWindow):
 
     def save_window_size(self):
         settings = Gio.Settings(Constants.APPID)
-        size = self.get_size()
+        size = (
+            self.get_size(Gtk.Orientation.HORIZONTAL),
+            self.get_size(Gtk.Orientation.VERTICAL)
+        )
 
         settings.set_value('window-size', GLib.Variant('ai', [*size]))
 
@@ -187,5 +190,5 @@ class MeowgramWindow(Adw.ApplicationWindow):
         print(result)
 
     @Gtk.Template.Callback()
-    def on_destroy(self, window, event):
+    def on_window_closed(self, window):
         self.save_window_size()
