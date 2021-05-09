@@ -194,7 +194,7 @@ class DialogRow(Gtk.Box):
         """Returns the number of members in a dialog
 
         Returns:
-        str: The "{number} members in the dialog"
+        str: The "{number} members" in the dialog
         """
 
         try:

@@ -31,7 +31,7 @@ from meowgram.constants import Constants
 from meowgram.connectors.login import login_manager
 from meowgram.backend.asyncio_separator import aio
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.WARNING)
 
 
 class Application(Gtk.Application):
