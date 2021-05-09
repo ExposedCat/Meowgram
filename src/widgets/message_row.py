@@ -23,13 +23,12 @@ from meowgram.utils.fuzzify import Fuzzify
 from meowgram.constants import Constants
 
 
-@Gtk.Template(resource_path=f"{Constants.RESOURCEID}/ui/messagerow.ui")
+@Gtk.Template(resource_path=f"{Constants.RESOURCEID}/ui/message_row.ui")
 class MessageRow(Gtk.Grid):
     __gtype_name__ = 'MessageRow'
 
     message_bubble = Gtk.Template.Child()
 
-    status_box = Gtk.Template.Child()
     read_status = Gtk.Template.Child()
 
     time_label = Gtk.Template.Child()
