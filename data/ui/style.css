@@ -90,6 +90,10 @@ row:selected .message-action{
   padding: 1px;
 }
 
+.messages-listbox {
+  background-color: @theme_base_color;
+}
+
 
 
 /* Meowgram Window */
