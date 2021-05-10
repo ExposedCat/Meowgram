@@ -19,6 +19,7 @@
 
 .small-icon {
   padding: 3px;
+  border-radius: 10px;
 }
 
 
@@ -61,10 +62,9 @@
   color: @theme_selected_bg_color;
 }
 
-.pin-status {
-  background-color: @insensitive_fg_color;
-  color: @theme_bg_color;
-  border-radius: 10px;
+.mention-status {
+  background-color: @theme_selected_bg_color;
+  color: white;
 }
 
 
