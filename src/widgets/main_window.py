@@ -183,6 +183,7 @@ class MainWindow(Adw.ApplicationWindow):
         self.dialogs_listbox.unselect_all()
         self.main_leaflet.set_visible_child(self.dialogs_pane)
         self.update_headerbar(None)
+        self.sidebar_button.set_active(False)
 
     @Gtk.Template.Callback()
     def on_message_entry_changed(self, entry):

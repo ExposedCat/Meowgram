@@ -25,7 +25,7 @@
 
 /* Main Window */
 
-.message-view viewport {
+.messages-view {
   background-color: @theme_base_color;
 }
 
@@ -122,12 +122,12 @@ row:selected .message-action{
 
 /* Messages Listbox */
 
+.messages-listbox {
+  background-color: transparent;
+}
+
 .messages-listbox row {
   box-shadow: none;
   background: none;
   padding: 2px;
-}
-
-.messages-listbox {
-  background-color: @theme_base_color;
 }
