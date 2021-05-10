@@ -90,9 +90,11 @@
             "name": "libadwaita",
             "buildsystem": "meson",
             "config-opts": [
-                "-Dvapi=true",
+                "-Dgtk_doc=false",
+                "-Dtests=false",
                 "-Dexamples=false",
-                "-Dtests=false"
+                "-Dvapi=false",
+                "-Dglade_catalog=disabled"
             ],
             "sources": [
                 {
