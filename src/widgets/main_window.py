@@ -160,7 +160,7 @@ class MainWindow(Adw.ApplicationWindow):
         self.scrolldown_button_revealer.set_reveal_child(is_up)
 
     @Gtk.Template.Callback()
-    def on_dialog_activated(self, listbox, row):
+    def on_dialog_selected(self, listbox, row):
         self.main_leaflet.set_visible_child(self.messages_pane)
 
         try:
@@ -169,6 +169,7 @@ class MainWindow(Adw.ApplicationWindow):
             messages_manager.show_messages(self, dialog.chat_id)
             self.scroll_to_bottom_messages()
         except AttributeError as error:
+            self.update_headerbar(None)
             logging.debug(error)
             # This means that there is no selected row, so don't show messages
 
