@@ -97,12 +97,10 @@
               <object class="AdwHeaderBar" id="messages_headerbar">
                 <property name="title-widget">
                   <object class="GtkBox">
-                    <property name="homogeneous">True</property>
                     <property name="orientation">vertical</property>
                     <property name="valign">center</property>
                     <child>
                       <object class="GtkLabel" id="title_label">
-                        <property name="label" translatable="yes">GNOME Ru</property>
                         <style>
                           <class name="title"/>
                         </style>
@@ -110,7 +108,6 @@
                     </child>
                     <child>
                       <object class="GtkLabel" id="subtitle_label">
-                        <property name="label" translatable="yes">GNOME Ru</property>
                         <style>
                           <class name="subtitle"/>
                         </style>
