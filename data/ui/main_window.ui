@@ -123,7 +123,7 @@
                   </object>
                 </child>
                 <child type="end">
-                  <object class="GtkMenuButton" id="submenu_button">
+                  <object class="GtkMenuButton">
                     <property name="receives-default">True</property>
                     <property name="menu-model">submenu</property>
                     <property name="icon-name">view-more-symbolic</property>
@@ -331,7 +331,48 @@
       <class name="dark-bg"/>
     </style>
   </object>
+  <object class="GtkBox" id="account_info">
+    <property name="margin-start">6</property>
+    <property name="margin-end">6</property>
+    <property name="margin-top">6</property>
+    <property name="margin-bottom">6</property>
+    <property name="spacing">12</property>
+    <child>
+      <object class="AdwAvatar">
+        <property name="size">48</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkBox">
+        <property name="orientation">vertical</property>
+        <property name="homogeneous">True</property>
+        <child>
+          <object class="GtkLabel">
+            <property name="xalign">0</property>
+            <property name="label">My Beautiful Name</property>
+            <style>
+              <class name="bold-label"/>
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="xalign">0</property>
+            <property name="label">+23 235 123 4578</property>
+            <style>
+              <class name="dim-label"/>
+            </style>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
   <menu id="primary_menu">
+    <section>
+      <item>
+        <attribute name="custom">account-info</attribute>
+      </item>
+    </section>
     <section>
       <item>
         <attribute name="action">app.action</attribute>
