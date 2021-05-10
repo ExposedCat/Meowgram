@@ -19,12 +19,8 @@
                 <child>
                   <object class="GtkMenuButton">
                     <property name="receives-default">True</property>
-                    <property name="popover">accounts_menu</property>
-                    <!-- <child> -->
-                    <!--   <object class="AdwAvatar"> -->
-                    <!--     <property name="size">18</property> -->
-                    <!--   </object> -->
-                    <!-- </child> -->
+                    <property name="menu-model">new_menu</property>
+                    <property name="icon-name">list-add-symbolic</property>
                   </object>
                 </child>
                 <child type="end">
@@ -114,13 +110,6 @@
                     </child>
                   </object>
                 </property>
-                <child type="end">
-                  <object class="GtkMenuButton" id="submenu_button">
-                    <property name="receives-default">True</property>
-                    <property name="menu-model">submenu</property>
-                    <property name="icon-name">view-more-symbolic</property>
-                  </object>
-                </child>
                 <child>
                   <object class="GtkButton" id="back_button">
                     <property name="visible">False</property>
@@ -131,6 +120,13 @@
                         <property name="icon-name">go-previous-symbolic</property>
                       </object>
                     </child>
+                  </object>
+                </child>
+                <child type="end">
+                  <object class="GtkMenuButton" id="submenu_button">
+                    <property name="receives-default">True</property>
+                    <property name="menu-model">submenu</property>
+                    <property name="icon-name">view-more-symbolic</property>
                   </object>
                 </child>
                 <child type="end">
@@ -151,9 +147,7 @@
                 <property name="flap-position">end</property>
                 <property name="fold-policy">always</property>
                 <property name="locked">True</property>
-                <property name="reveal-flap">False</property>
                 <property name="flap">channel_sidebar</property>
-                <property name="separator">separator</property>
               </object>
             </child>
           </object>
@@ -170,11 +164,11 @@
             <property name="valign">fill</property>
             <property name="vexpand">True</property>
             <property name="vadjustment">messages_adjustment</property>
-            <style>
-              <class name="message-view"/>
-            </style>
             <property name="child">
               <object class="GtkViewport">
+                <style>
+                  <class name="messages-view"/>
+                </style>
                 <child>
                   <object class="AdwClamp">
                     <property name="maximum-size">700</property>
@@ -333,76 +327,11 @@
         </style>
       </object>
     </child>
-    <child>
-      <object class="GtkLabel">
-        <style>
-          <class name="dim-label"/>
-        </style>
-      </object>
-    </child>
     <style>
       <class name="dark-bg"/>
     </style>
   </object>
-  <object class="GtkPopover" id="accounts_menu">
-    <property name="name">accounts_menu</property>
-    <property name="child">
-      <object class="GtkBox">
-        <property name="margin-start">6</property>
-        <property name="margin-end">6</property>
-        <property name="margin-top">6</property>
-        <property name="margin-bottom">6</property>
-        <property name="orientation">vertical</property>
-        <child>
-          <object class="GtkBox">
-            <child>
-              <object class="GtkBox">
-                <property name="margin-start">6</property>
-                <property name="margin-end">6</property>
-                <property name="margin-top">6</property>
-                <property name="margin-bottom">6</property>
-                <property name="orientation">vertical</property>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="name">account_name_label</property>
-                    <property name="label" translatable="yes">Account name</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="label" translatable="yes">+380123456789</property>
-                    <style>
-                      <class name="dim-label"/>
-                    </style>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child>
-              <object class="GtkImage">
-                <property name="margin-start">10</property>
-                <property name="margin-end">10</property>
-                <property name="margin-top">10</property>
-                <property name="margin-bottom">10</property>
-                <property name="icon-name">object-select-symbolic</property>
-              </object>
-            </child>
-          </object>
-        </child>
-      </object>
-    </property>
-  </object>
   <menu id="primary_menu">
-    <section>
-      <item>
-        <attribute name="action">app.action</attribute>
-        <attribute name="label" translatable="yes">Create Group</attribute>
-      </item>
-      <item>
-        <attribute name="action">app.action</attribute>
-        <attribute name="label" translatable="yes">Create Channel</attribute>
-      </item>
-    </section>
     <section>
       <item>
         <attribute name="action">app.action</attribute>
@@ -411,6 +340,16 @@
       <item>
         <attribute name="action">app.action</attribute>
         <attribute name="label" translatable="yes">Calls</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="action">app.action</attribute>
+        <attribute name="label" translatable="yes">Account Settings</attribute>
+      </item>
+      <item>
+        <attribute name="action">app.action</attribute>
+        <attribute name="label" translatable="yes">Log Out</attribute>
       </item>
     </section>
     <section>
@@ -425,6 +364,22 @@
       <item>
         <attribute name="action">app.show-about</attribute>
         <attribute name="label" translatable="yes">About Meowgram</attribute>
+      </item>
+    </section>
+  </menu>
+  <menu id="new_menu">
+    <section>
+      <item>
+        <attribute name="action">app.action</attribute>
+        <attribute name="label" translatable="yes">Compose Message</attribute>
+      </item>
+      <item>
+        <attribute name="action">app.action</attribute>
+        <attribute name="label" translatable="yes">Create New Group</attribute>
+      </item>
+      <item>
+        <attribute name="action">app.action</attribute>
+        <attribute name="label" translatable="yes">Create New Channel</attribute>
       </item>
     </section>
   </menu>
@@ -460,11 +415,6 @@
       </item>
     </section>
   </menu>
-  <object class="GtkSeparator" id="separator">
-    <style>
-      <class name="sidebar"/>
-    </style>
-  </object>
   <object class="GtkAdjustment" id="messages_adjustment">
     <signal name="value-changed" handler="on_messages_adjustment_changed" swapped="no"/>
   </object>
