@@ -54,14 +54,8 @@ class MessageRow(Gtk.Box):
         self.sender = self.message.sender
         self.reply_message = self.message.reply_to
         self.fwd_from = self.message.fwd_from
-
-        if self.message.action:
-            self.set_as_action_message()
-        elif self.message.out:
-            self.set_message_out()
-            self.set_read(True)
-        else:
-            self.set_message_in()
+        self.is_out = self.message.out
+        self.action = self.message.action
 
         self.set_message_text(self.message_text)
         self.set_date_sent(self.date_sent)
@@ -69,6 +63,12 @@ class MessageRow(Gtk.Box):
 
         self.set_reply_message(self.reply_message)
         self.set_fwd_from(self.fwd_from)
+
+        if self.action:
+            self.set_action(True)
+        else:
+            self.set_out(self.is_out)
+            self.set_read(self.is_out)
 
     def _convert_user_to_str(self, user):
         """Converts a user object to a string
@@ -153,32 +153,46 @@ class MessageRow(Gtk.Box):
         is_read (tl.types.MessageFwdHeader): The message object where the message is from
         """
 
-        print(type(fwd_from))
-
         if fwd_from:
             print(fwd_from)
 
-    def set_message_out(self):
-        self.sender_label.set_visible(False)
-        self.avatar.set_visible(False)
-        self.set_halign(Gtk.Align.END)
-        self.message_bubble.get_style_context().add_class('message-out')
+    def set_out(self, is_out):
+        """Styles the message if it is from you or other
 
-    def set_message_in(self):
-        self.sender_label.set_visible(True)
-        self.avatar.set_visible(True)
-        self.set_halign(Gtk.Align.START)
-        self.message_bubble.get_style_context().add_class('message-in')
+        Parameter:
+        is_out (bool): Whether the message is from you
+        """
 
-    def set_as_action_message(self):
-        self.sender_label.set_visible(False)
-        self.avatar.set_visible(False)
-        self.time_label.set_visible(False)
+        self.sender_label.set_visible(not is_out)
+        self.avatar.set_visible(not is_out)
+        if is_out:
+            self.set_halign(Gtk.Align.END)
+            self.message_bubble.get_style_context().add_class('message-out')
+        else:
+            self.set_halign(Gtk.Align.START)
+            self.message_bubble.get_style_context().add_class('message-in')
+
+    def set_action(self, is_action):
+        """Styles the message if it shows an action
+
+        Parameter:
+        is_action (bool): If the message is an action
+        """
+
+        self.sender_label.set_visible(not is_action)
+        self.avatar.set_visible(not is_action)
+        self.time_label.set_visible(not is_action)
         self.set_halign(Gtk.Align.CENTER)
         self.message_label.set_justify(Gtk.Justification.CENTER)
         self.message_bubble.get_style_context().add_class('message-action')
 
     def set_as_group(self, is_group):
+        """Styles the message if it has the same sender as before
+
+        Parameter:
+        is_group (bool): If the message is suppose to be shown as a group
+        """
+
         if is_group:
             self.sender_label.set_visible(False)
             self.avatar.set_visible(False)
