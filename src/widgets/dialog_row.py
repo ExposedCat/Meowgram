@@ -45,30 +45,30 @@ class DialogRow(Gtk.Box):
     unread_label = Gtk.Template.Child()
     pin_status = Gtk.Template.Child()
 
-    def __init__(self, dialog_data):
+    def __init__(self, dialog):
         super().__init__()
 
         self.dialog_name_label.bind_property('label', self.avatar, 'text')
-        self.update(dialog_data)
+        self.update(dialog)
 
-    def update(self, dialog_data):
-        self.dialog_data = dialog_data
-        self.chat_id = self.dialog_data.message.peer_id
+    def update(self, dialog):
+        self.dialog = dialog
+        self.chat_id = self.dialog.message.peer_id
 
-        self.dialog_name = getattr(self.dialog_data, 'title', self.dialog_data.name)
-        self.last_message = self.dialog_data.message
-        self.last_message_time = self.dialog_data.message.date
-        self.muted_until = self.dialog_data.dialog.notify_settings.mute_until
-        self.unread_mentions_count = self.dialog_data.unread_mentions_count
-        self.unread_count = self.dialog_data.unread_count
-        self.is_pinned = self.dialog_data.pinned
-        self.is_from_self = self.dialog_data.message.out
-        self.is_user = self.dialog_data.is_user
+        self.dialog_name = getattr(self.dialog, 'title', self.dialog.name)
+        self.last_message = self.dialog.message
+        self.last_message_date = self.dialog.message.date
+        self.muted_until = self.dialog.dialog.notify_settings.mute_until
+        self.unread_mentions_count = self.dialog.unread_mentions_count
+        self.unread_count = self.dialog.unread_count
+        self.is_pinned = self.dialog.pinned
+        self.is_from_self = self.dialog.message.out
+        self.is_user = self.dialog.is_user
         self.is_online = self.get_is_online()
 
         self.set_dialog_name(self.dialog_name)
         self.set_last_message(self.last_message, self.is_user)
-        self.set_last_message_time(self.last_message_time)
+        self.set_last_message_date(self.last_message_date)
 
         self.set_message_status(self.is_from_self)
         self.set_dialog_status(self.unread_mentions_count, self.unread_count, self.is_pinned)
@@ -113,11 +113,11 @@ class DialogRow(Gtk.Box):
             f"{sender_name}{': ' if sender_name else ''}{message_text}"
         )
 
-    def set_last_message_time(self, time):
+    def set_last_message_date(self, time):
         """Sets the time sent of the last message
 
         Parameter:
-        last_message (datetime.datetime): The last message from the dialog
+        time (datetime.datetime): The last message from the dialog
         """
 
         fuzzified_time = Fuzzify.dialog_last_message(time)
@@ -179,7 +179,7 @@ class DialogRow(Gtk.Box):
         str: The time when the dialog is last active
         """
 
-        dialog_status = self.dialog_data.entity.status
+        dialog_status = self.dialog.entity.status
         if isinstance(dialog_status, UserStatusOnline):
             last_active = "online"
         elif isinstance(dialog_status, UserStatusOffline):
@@ -199,7 +199,7 @@ class DialogRow(Gtk.Box):
         """
 
         try:
-            return f"{self.dialog_data.entity.participants_count} members"
+            return f"{self.dialog.entity.participants_count} members"
         except AttributeError:
             return ""
 
@@ -211,7 +211,7 @@ class DialogRow(Gtk.Box):
         """
 
         try:
-            return self.dialog_data.entity.bot
+            return self.dialog.entity.bot
         except AttributeError:
             return False
 
@@ -223,6 +223,6 @@ class DialogRow(Gtk.Box):
         """
 
         try:
-            return isinstance(self.dialog_data.entity.status, UserStatusOnline)
+            return isinstance(self.dialog.entity.status, UserStatusOnline)
         except AttributeError:
             return False

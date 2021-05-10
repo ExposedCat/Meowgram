@@ -24,7 +24,7 @@ from meowgram.constants import Constants
 # TODO also, hide the sender_label when it is the same as in the headerbar
 # TODO add proper read status
 # TODO move avatar to most bottom part of message group
-# TODO Implement message forward
+# TODO Implement fwd_from
 
 
 @Gtk.Template(resource_path=f"{Constants.PATHID}/ui/message_row.ui")
@@ -50,22 +50,41 @@ class MessageRow(Gtk.Box):
     def update(self, message):
         self.message = message
         self.message_text = self.message.message
+        self.date_sent = self.message.date
+        self.sender = self.message.sender
+        self.reply_message = self.message.reply_to
+        self.fwd_from = self.message.fwd_from
 
         if self.message.action:
             self.set_as_action_message()
         elif self.message.out:
             self.set_message_out()
-            self.set_is_read(True)
+            self.set_read(True)
         else:
             self.set_message_in()
 
         self.set_message_text(self.message_text)
+        self.set_date_sent(self.date_sent)
+        self.set_message_sender(self.sender)
 
-        self.sender_label.set_label(self.get_message_sender())
-        self.time_label.set_label(self.get_message_time())
+        self.set_reply_message(self.reply_message)
+        self.set_fwd_from(self.fwd_from)
 
-        self.set_reply_message()
-        self.set_forward_message()
+    def _convert_user_to_str(self, user):
+        """Converts a user object to a string
+
+        Parameter:
+        user (tl.types.User): The user object who sent the message
+
+        Returns:
+        str: The full name of user in string
+        """
+
+        try:
+            user_fullname = (f"{user.first_name} {str(user.last_name or '')}")
+        except AttributeError:
+            user_fullname = user.title
+        return user_fullname
 
     def set_message_text(self, message_text):
         """Sets the visible message
@@ -77,32 +96,66 @@ class MessageRow(Gtk.Box):
         if message_text:
             pass
         elif self.message.action:
-            message_text = f"{self.get_message_sender()} did something - {self.message.action}"
+            message_text = (f"{self._convert_user_to_str(self.sender)} "
+                            f"did something - {self.message.action}")
         else:
             message_text = "<span style=\"italic\">Message type is not supported yet.</span>"
             self.message_label.set_use_markup("True")
 
         self.message_label.set_label(message_text)
 
-    def get_message_time(self):
-        return Fuzzify.message_time_sent(self.message.date)
+    def set_message_sender(self, sender):
+        """Sets the sender of the message
 
-    def get_message_sender(self):
-        message_sender = self.message.sender
-        try:
-            contact_name = (f"{getattr(message_sender, 'first_name')} "
-                            f"{str(message_sender.last_name or '')}")
-        except AttributeError:
-            contact_name = getattr(message_sender, 'title')
-        return contact_name
+        Parameter:
+        sender (str): The user who sent the message
+        """
 
-    def set_reply_message(self):
-        if self.message.reply_to:
-            self.reply_label.set_visible(True)
-            self.reply_label.set_label(f"The message has id of {self.message.reply_to_msg_id}")
+        stringified_sender = self._convert_user_to_str(sender)
+        self.sender_label.set_label(stringified_sender)
 
-    def set_forward_message(self):
-        if fwd_from := self.message.fwd_from:
+    def set_date_sent(self, date):
+        """Sets the time sent of the message
+
+        Parameter:
+        date (datetime.datetime): The time the message was sent
+        """
+
+        fuzzified_date = Fuzzify.message_time_sent(date)
+        self.time_label.set_label(fuzzified_date)
+
+    def set_read(self, is_read):
+        """Shows if the message is already read by other
+
+        Parameter:
+        is_read (bool): If your message is already read by other
+        """
+
+        self.read_status.set_visible(True)
+        icon_name = 'read' if is_read else 'unread'
+        self.read_status.set_from_icon_name(f'message-out-{icon_name}-symbolic')
+
+    def set_reply_message(self, reply_message):
+        """Shows or hide the message in which self is replied to
+
+        Parameter:
+        is_read (tl.types.MessageReplyHeader): The message in which it is replied to
+        """
+
+        self.reply_label.set_visible(reply_message)
+        if reply_message:
+            self.reply_label.set_label(f"The message has id of {reply_message.reply_to_msg_id}")
+
+    def set_fwd_from(self, fwd_from):
+        """Shows the sender of the forwarded message
+
+        Parameter:
+        is_read (tl.types.MessageFwdHeader): The message object where the message is from
+        """
+
+        print(type(fwd_from))
+
+        if fwd_from:
             print(fwd_from)
 
     def set_message_out(self):
@@ -130,10 +183,3 @@ class MessageRow(Gtk.Box):
             self.sender_label.set_visible(False)
             self.avatar.set_visible(False)
             self.set_margin_start(38)
-
-    def set_is_read(self, is_read):
-        self.read_status.set_visible(True)
-        if is_read:
-            self.read_status.set_from_icon_name("message-out-read-symbolic")
-        else:
-            self.read_status.set_from_icon_name("message-out-unread-symbolic")
