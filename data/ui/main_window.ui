@@ -433,7 +433,7 @@
     <section>
       <item>
         <attribute name="action">app.action</attribute>
-        <attribute name="label" translatable="yes">Group Details</attribute>
+        <attribute name="label" translatable="yes">Mute Notifications</attribute>
       </item>
       <item>
         <attribute name="action">app.action</attribute>
