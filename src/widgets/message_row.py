@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import bleach
 from gi.repository import Gtk
 
 from meowgram.utils.fuzzify import Fuzzify
@@ -94,13 +95,13 @@ class MessageRow(Gtk.Box):
         """
 
         if message_text:
-            pass
+            message_text = bleach.linkify(message_text, parse_email=True, callbacks=None)
+
         elif self.message.action:
             message_text = (f"{self._convert_user_to_str(self.sender)} "
                             f"did something - {self.message.action}")
         else:
             message_text = "<span style=\"italic\">Message type is not supported yet.</span>"
-            self.message_label.set_use_markup("True")
 
         self.message_label.set_label(message_text)
 
