@@ -28,7 +28,7 @@ from meowgram.constants import Constants
 
 
 @Gtk.Template(resource_path=f"{Constants.PATHID}/ui/message_row.ui")
-class MessageRow(Gtk.Grid):
+class MessageRow(Gtk.Box):
     __gtype_name__ = 'MessageRow'
 
     avatar = Gtk.Template.Child()
@@ -129,7 +129,7 @@ class MessageRow(Gtk.Grid):
         if is_group:
             self.sender_label.set_visible(False)
             self.avatar.set_visible(False)
-            self.set_margin_start(44)
+            self.set_margin_start(38)
 
     def set_is_read(self, is_read):
         self.read_status.set_visible(True)
