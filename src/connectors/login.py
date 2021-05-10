@@ -21,7 +21,7 @@ class LoginManager:
         request = aio.run(client.auth_code, (code,))
         result = request.result()
         if result == 1:
-            window.page_carousel.add(window.password_page)
+            window.page_carousel.append(window.password_page)
             window.page_carousel.scroll_to(window.password_page)
             window.password.grab_focus()
         elif result == 2:
