@@ -39,6 +39,8 @@ class MainWindow(Adw.ApplicationWindow):
 
     dialogs_headerbar = Gtk.Template.Child()
     messages_headerbar = Gtk.Template.Child()
+    title_label = Gtk.Template.Child()
+    subtitle_label = Gtk.Template.Child()
 
     main_leaflet = Gtk.Template.Child()
     dialogs_pane = Gtk.Template.Child()
@@ -111,11 +113,8 @@ class MainWindow(Adw.ApplicationWindow):
         except AttributeError:
             pass
 
-        print(dialog_name)
-        print(subtitle)
-
-        # self.messages_headerbar.set_title(dialog_name)
-        # self.messages_headerbar.set_subtitle(subtitle)
+        self.title_label.set_text(dialog_name)
+        self.subtitle_label.set_text(subtitle)
 
     def update_dialogs_listbox(self, dialogs):
         for dialog in dialogs:
