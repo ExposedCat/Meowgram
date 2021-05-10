@@ -66,11 +66,15 @@ class MainWindow(Adw.ApplicationWindow):
 
     scrolldown_button_revealer = Gtk.Template.Child()
 
+    menu_button = Gtk.Template.Child()
+    account_info = Gtk.Template.Child()
+
     contact_name_mem = None
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
+        self.menu_button.get_popover().add_child(self.account_info, "account-info")
         self.main_leaflet.bind_property('folded', self.back_button, 'visible')
         self.search_button.bind_property('active', self.search_revealer, 'reveal-child')
         self.main_leaflet.bind_property('folded', self.dialogs_headerbar,
