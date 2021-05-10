@@ -69,7 +69,7 @@
                   <object class="GtkViewport">
                     <property name="child">
                       <object class="GtkListBox" id="dialogs_listbox">
-                        <signal name="row-selected" handler="on_dialog_activated" swapped="no"/>
+                        <signal name="row-selected" handler="on_dialog_selected" swapped="no"/>
                         <style>
                           <class name="dialogs-view"/>
                           <class name="navigation-sidebar"/>
