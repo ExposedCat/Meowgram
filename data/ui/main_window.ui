@@ -12,6 +12,10 @@
             <child>
               <object class="AdwHeaderBar" id="dialogs_headerbar">
                 <property name="show-end-title-buttons">False</property>
+                <property name="title-widget">
+                  <object class="GtkLabel">
+                  </object>
+                </property>
                 <child>
                   <object class="GtkMenuButton">
                     <property name="receives-default">True</property>
@@ -21,10 +25,6 @@
                     <!--     <property name="size">18</property> -->
                     <!--   </object> -->
                     <!-- </child> -->
-                  </object>
-                </child>
-                <child type="title">
-                  <object class="GtkLabel">
                   </object>
                 </child>
                 <child type="end">
@@ -95,6 +95,29 @@
             <property name="orientation">vertical</property>
             <child>
               <object class="AdwHeaderBar" id="messages_headerbar">
+                <property name="title-widget">
+                  <object class="GtkBox">
+                    <property name="homogeneous">True</property>
+                    <property name="orientation">vertical</property>
+                    <property name="valign">center</property>
+                    <child>
+                      <object class="GtkLabel" id="title_label">
+                        <property name="label" translatable="yes">GNOME Ru</property>
+                        <style>
+                          <class name="title"/>
+                        </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="subtitle_label">
+                        <property name="label" translatable="yes">GNOME Ru</property>
+                        <style>
+                          <class name="subtitle"/>
+                        </style>
+                      </object>
+                    </child>
+                  </object>
+                </property>
                 <child type="end">
                   <object class="GtkMenuButton" id="submenu_button">
                     <property name="receives-default">True</property>
