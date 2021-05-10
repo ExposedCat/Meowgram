@@ -52,9 +52,8 @@
                   <object class="GtkSearchBar">
                     <property name="search-mode-enabled">True</property>
                     <property name="child">
-                      <object class="GtkEntry">
+                      <object class="GtkSearchEntry">
                         <property name="max-width-chars">30</property>
-                        <property name="primary-icon-name">system-search-symbolic</property>
                         <property name="placeholder-text" translatable="yes">Search</property>
                       </object>
                     </property>
