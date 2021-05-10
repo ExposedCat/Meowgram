@@ -1,30 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk" version="4.0"/>
-  <template class="MessageRow" parent="GtkGrid">
-    <property name="row-spacing">3</property>
-    <property name="column-spacing">12</property>
+  <template class="MessageRow" parent="GtkBox">
+    <property name="spacing">6</property>
     <child>
       <object class="AdwAvatar" id="avatar">
         <property name="valign">start</property>
         <property name="show-initials">True</property>
         <property name="size">32</property>
-        <layout>
-          <property name="column">0</property>
-          <property name="row">1</property>
-        </layout>
       </object>
     </child>
     <child>
       <object class="GtkBox" id="message_bubble">
         <property name="orientation">vertical</property>
         <property name="spacing">6</property>
+        <style>
+          <class name="message-bubble"/>
+        </style>
+        <child>
+          <object class="GtkLabel" id="sender_label">
+            <property name="visible">False</property>
+            <property name="halign">start</property>
+            <style>
+              <class name="bold-label"/>
+              <class name="time-label"/>
+            </style>
+          </object>
+        </child>
         <child>
           <object class="GtkLabel" id="reply_label">
             <property name="visible">False</property>
+            <property name="xalign">0</property>
             <property name="wrap">True</property>
             <property name="wrap-mode">word-char</property>
-            <property name="xalign">0</property>
             <style>
               <class name="message-mention"/>
             </style>
@@ -62,29 +70,6 @@
             </child>
           </object>
         </child>
-        <style>
-          <class name="message-bubble"/>
-        </style>
-        <layout>
-          <property name="column">1</property>
-          <property name="row">1</property>
-        </layout>
-      </object>
-    </child>
-    <child>
-      <object class="GtkLabel" id="sender_label">
-        <property name="visible">False</property>
-        <property name="halign">start</property>
-        <property name="margin-start">9</property>
-        <property name="margin-top">2</property>
-        <style>
-          <class name="bold-label"/>
-          <class name="time-label"/>
-        </style>
-        <layout>
-          <property name="column">1</property>
-          <property name="row">0</property>
-        </layout>
       </object>
     </child>
   </template>

@@ -1,3 +1,40 @@
+.bold-label {
+  font-weight: bold;
+}
+
+.time-label {
+  font-size: 12px;
+}
+
+.dark-bg {
+  background-color: @theme_bg_color;
+}
+
+.round-button {
+  border-radius: 9999px;
+  padding: 12px;
+  min-width: 18px;
+  min-height: 18px;
+}
+
+.small-icon {
+  padding: 3px;
+}
+
+
+
+/* Main Window */
+
+.message-view viewport {
+  background-color: @theme_base_color;
+}
+
+.dialogs-view {
+  background-color: @theme_bg_color;
+}
+
+
+
 /* Dialog Row */
 
 .online-status {
@@ -88,48 +125,9 @@ row:selected .message-action{
 .messages-listbox row {
   box-shadow: none;
   background: none;
-  padding: 1px;
+  padding: 2px;
 }
 
 .messages-listbox {
   background-color: @theme_base_color;
-}
-
-
-
-/* Meowgram Window */
-
-.message-view viewport {
-  background-color: @theme_base_color;
-}
-
-.dialogs-view {
-  background-color: @theme_bg_color;
-}
-
-
-
-/* General Classes */
-
-.bold-label {
-  font-weight: bold;
-}
-
-.time-label {
-  font-size: 12px;
-}
-
-.dark-bg {
-  background-color: @theme_bg_color;
-}
-
-.round-button {
-  border-radius: 9999px;
-  padding: 12px;
-  min-width: 18px;
-  min-height: 18px;
-}
-
-.small-icon {
-  padding: 3px;
 }

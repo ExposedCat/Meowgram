@@ -26,10 +26,9 @@ from gi.repository import Gio, Gtk, Adw, Gdk, GLib
 from meowgram.widgets.main_window import MainWindow
 from meowgram.widgets.preferences_window import PreferencesWindow
 from meowgram.widgets.login_window import LoginWindow
-from meowgram.constants import Constants
-
 from meowgram.connectors.login import login_manager
 from meowgram.backend.asyncio_separator import aio
+from meowgram.constants import Constants
 
 logging.basicConfig(level=logging.DEBUG)
 
