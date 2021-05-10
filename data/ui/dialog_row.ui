@@ -83,7 +83,11 @@
         </child>
         <child>
           <object class="GtkBox">
-            <property name="spacing">6</property>
+            <child>
+              <object class="GtkLabel" id="message_sender_label">
+                <property name="xalign">0</property>
+              </object>
+            </child>
             <child>
               <object class="GtkLabel" id="last_message_label">
                 <property name="ellipsize">end</property>
@@ -97,6 +101,7 @@
               <object class="GtkBox">
                 <property name="hexpand">True</property>
                 <property name="halign">end</property>
+                <property name="margin-start">6</property>
                 <child>
                   <object class="GtkImage" id="mention_status">
                     <property name="visible">False</property>

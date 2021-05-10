@@ -35,6 +35,7 @@ class DialogRow(Gtk.Box):
 
     dialog_name_label = Gtk.Template.Child()
     last_message_label = Gtk.Template.Child()
+    message_sender_label = Gtk.Template.Child()
     time_label = Gtk.Template.Child()
 
     online_status = Gtk.Template.Child()
@@ -109,9 +110,8 @@ class DialogRow(Gtk.Box):
         elif last_message.media:
             message_text = "🖼️ Photo"
 
-        self.last_message_label.set_text(
-            f"{sender_name}{': ' if sender_name else ''}{message_text}"
-        )
+        self.last_message_label.set_text(message_text)
+        self.message_sender_label.set_text(f"{sender_name}{': ' if sender_name else ''}")
 
     def set_last_message_date(self, time):
         """Sets the time sent of the last message
