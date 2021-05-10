@@ -26,11 +26,12 @@ from meowgram.connectors.messages import messages_manager
 from meowgram.constants import Constants
 
 # TODO Use sourceview instead of GtkEntry
-# TODO Seperate other widgets to separate files
+# TODO Seperate other widgets to separate files (scrolledwindow)
 # TODO fix this workaround to not select any on start
 # TODO animate scrolldown
 # TODO only show scrolldown button when scrolling down
 # TODO include in headerbar also the number of onlined members
+# TODO add support for chat folders
 
 
 @Gtk.Template(resource_path=f"{Constants.PATHID}/ui/main_window.ui")
