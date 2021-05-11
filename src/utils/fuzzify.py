@@ -1,5 +1,9 @@
 import datetime
 
+HOUR_MIN = "%I∶%M %p"
+WEEK_DAY = "%a"
+MONTH_DAY = "%b %d"
+
 
 class Fuzzify:
 
@@ -20,11 +24,11 @@ class Fuzzify:
         diff_from_now = Fuzzify._get_difference_from_now(date)
 
         if diff_from_now < 1:
-            format_string = "%I∶%M %p"  # 08:57 AM
+            format_string = HOUR_MIN  # 08:57 AM
         elif 1 <= diff_from_now < 7:
-            format_string = "%a"  # Fri
+            format_string = WEEK_DAY  # Fri
         elif diff_from_now >= 7:
-            format_string = "%b %d"  # Apr 08
+            format_string = MONTH_DAY  # Apr 08
 
         return date.strftime(format_string)
 
@@ -34,11 +38,11 @@ class Fuzzify:
         diff_from_now = Fuzzify._get_difference_from_now(date)
 
         if diff_from_now < 1:
-            format_string = "%I∶%M %p"  # 08:57 AM
+            format_string = HOUR_MIN  # 08:57 AM
         elif 1 <= diff_from_now < 7:
-            format_string = "%a at %I∶%M %p"  # Fri at 08:57 AM
+            format_string = f"{WEEK_DAY} at {HOUR_MIN}"  # Fri at 08:57 AM
         elif diff_from_now >= 7:
-            format_string = "%b %d at %I∶%M %p"  # Apr 08 at 08:57 AM
+            format_string = f"{MONTH_DAY} at {HOUR_MIN}"  # Apr 08 at 08:57 AM
 
         return date.strftime(format_string)
 
@@ -48,12 +52,12 @@ class Fuzzify:
         diff_from_now = Fuzzify._get_difference_from_now(date)
 
         if diff_from_now < 1:
-            format_string = "at %I∶%M %p"  # at 08:57 AM
+            format_string = f"at {HOUR_MIN}"  # at 08:57 AM
         elif 1 <= diff_from_now < 2:
-            format_string = "yesterday at %I∶%M %p"  # yesterday at 08:57 AM
+            format_string = f"yesterday at {HOUR_MIN}"  # yesterday at 08:57 AM
         elif 2 <= diff_from_now < 7:
-            format_string = "%a at %I∶%M %p"  # Fri at 08:57 AM
+            format_string = f"{WEEK_DAY} at {HOUR_MIN}"  # Fri at 08:57 AM
         elif diff_from_now >= 7:
-            format_string = "%b %d at %I∶%M %p"  # Apr 08 at 08:57 AM
+            format_string = f"{MONTH_DAY} at {HOUR_MIN}"  # Apr 08 at 08:57 AM
 
         return date.strftime(f"last seen {format_string}")
