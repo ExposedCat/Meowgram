@@ -25,6 +25,7 @@ from meowgram.constants import Constants
 # TODO add indicator if a message was read
 # TODO In get last active, fix unknown time
 # TODO set_dialog_status doesn't work on second time
+# TODO Don't just show "Photo" if it is actually a time
 
 
 @Gtk.Template(resource_path=f"{Constants.PATHID}/ui/dialog_row.ui")

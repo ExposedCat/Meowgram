@@ -32,6 +32,7 @@ from meowgram.constants import Constants
 # TODO only show scrolldown button when scrolling down
 # TODO include in headerbar also the number of onlined members
 # TODO add support for chat folders
+# TODO Implement entry mention
 
 
 @Gtk.Template(resource_path=f"{Constants.PATHID}/ui/main_window.ui")
