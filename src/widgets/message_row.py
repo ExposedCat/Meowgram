@@ -42,8 +42,8 @@ class MessageRow(Gtk.Box):
 
     message_bubble = Gtk.Template.Child()
 
-    def __init__(self, message, **kwargs):
-        super().__init__(**kwargs)
+    def __init__(self, message):
+        super().__init__()
 
         self.sender_label.bind_property('label', self.avatar, 'text')
         self.update(message)
