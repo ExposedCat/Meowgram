@@ -1,7 +1,9 @@
-from meowgram.config import API_ID, API_HASH
+import logging
+
 from telethon import TelegramClient as TelethonInstance, errors
 from telethon.sessions import StringSession
 
+from meowgram.config import API_ID, API_HASH
 from meowgram.utils.sessions import session_manager
 
 
@@ -31,7 +33,7 @@ class TelegramClient:
             else:
                 return 2
         except Exception as error:
-            print(f"Error {error}")
+            logging.error(error)
             return 0
 
     # 0 - wrong code; 1 - need 2FA; 2 - all is ok
@@ -65,7 +67,7 @@ class TelegramClient:
         try:
             await self.client.send_message(chat, text)
         except Exception as error:
-            print(f"Error {error}")
+            logging.error(error)
             return 0
 
     def save_session(self):

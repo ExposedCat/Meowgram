@@ -33,7 +33,7 @@ PASSWORD = 2
 # TODO handle errors
 
 
-@Gtk.Template(resource_path=f"{Constants.PATHID}/ui/login_window.ui")
+@Gtk.Template(resource_path=f'{Constants.PATHID}/ui/login_window.ui')
 class LoginWindow(Adw.Window):
     __gtype_name__ = 'LoginWindow'
 

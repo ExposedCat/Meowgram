@@ -47,7 +47,7 @@ class Application(Gtk.Application):
         Gtk.Application.do_startup(self)
 
         css_provider = Gtk.CssProvider()
-        css_provider.load_from_resource(f"{Constants.PATHID}/ui/style.css")
+        css_provider.load_from_resource(f'{Constants.PATHID}/ui/style.css')
         display = Gdk.Display.get_default()
         Gtk.StyleContext.add_provider_for_display(
             display, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
@@ -94,7 +94,7 @@ class Application(Gtk.Application):
 
     def show_shortcuts_window(self, action, param):
         builder = Gtk.Builder()
-        builder.add_from_resource(f"{Constants.PATHID}/ui/shortcuts_window.ui")
+        builder.add_from_resource(f'{Constants.PATHID}/ui/shortcuts_window.ui')
         window = builder.get_object('shortcuts')
         window.set_transient_for(self.props.active_window)
         window.present()
@@ -125,7 +125,7 @@ class Application(Gtk.Application):
         about.show()
 
     def on_quit(self, action, param):
-        print('exit')
+        print("exit")
         # TODO for some reason, this crashes :( IDK why
         aio.stop_thread()
         self.quit()

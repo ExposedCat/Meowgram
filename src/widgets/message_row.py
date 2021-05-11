@@ -28,7 +28,7 @@ from meowgram.constants import Constants
 # TODO Implement fwd_from
 
 
-@Gtk.Template(resource_path=f"{Constants.PATHID}/ui/message_row.ui")
+@Gtk.Template(resource_path=f'{Constants.PATHID}/ui/message_row.ui')
 class MessageRow(Gtk.Box):
     __gtype_name__ = 'MessageRow'
 

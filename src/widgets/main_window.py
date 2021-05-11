@@ -35,7 +35,7 @@ from meowgram.constants import Constants
 # TODO Implement entry mention
 
 
-@Gtk.Template(resource_path=f"{Constants.PATHID}/ui/main_window.ui")
+@Gtk.Template(resource_path=f'{Constants.PATHID}/ui/main_window.ui')
 class MainWindow(Adw.ApplicationWindow):
     __gtype_name__ = 'MainWindow'
 

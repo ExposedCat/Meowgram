@@ -2,7 +2,6 @@ from gi.repository import Gio
 
 from meowgram.backend.telegram_client import client
 from meowgram.backend.asyncio_separator import aio
-
 from meowgram.constants import Constants
 
 
