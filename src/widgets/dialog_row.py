@@ -24,7 +24,7 @@ from meowgram.constants import Constants
 # TODO show dialog picture
 # TODO add indicator if a message was read
 # TODO In get last active, fix unknown time
-# TODO Don't just show "Photo" if it is actually a time
+# TODO Don't just show "Photo" if it is actually a file
 
 
 @Gtk.Template(resource_path=f'{Constants.PATHID}/ui/dialog_row.ui')
