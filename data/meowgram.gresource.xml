@@ -9,6 +9,8 @@
     <file preprocess="xml-stripblanks">ui/shortcuts_window.ui</file>
     <file preprocess="xml-stripblanks">ui/preferences_window.ui</file>
 
+    <file preprocess="xml-stripblanks">ui/context_menus.ui</file>
+
     <file preprocess="xml-stripblanks">icons/scalable/status/phone-oldschool-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/status/toggle-sidebar-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/status/pin-symbolic.svg</file>

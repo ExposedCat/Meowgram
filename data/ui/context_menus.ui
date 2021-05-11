@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <menu id="dialog_menu">
+    <section>
+      <item>
+        <attribute name="action">app.action</attribute>
+        <attribute name="label" translatable="yes">Pin</attribute>
+      </item>
+      <item>
+        <attribute name="action">app.action</attribute>
+        <attribute name="label" translatable="yes">Mute Notifications</attribute>
+      </item>
+      <item>
+        <attribute name="action">app.action</attribute>
+        <attribute name="label" translatable="yes">Delete</attribute>
+      </item>
+    </section>
+  </menu>
+  <menu id="message_menu">
+    <section>
+      <item>
+        <attribute name="action">app.action</attribute>
+        <attribute name="label" translatable="yes">Reply</attribute>
+      </item>
+      <item>
+        <attribute name="action">app.action</attribute>
+        <attribute name="label" translatable="yes">Copy Text</attribute>
+      </item>
+      <item>
+        <attribute name="action">app.action</attribute>
+        <attribute name="label" translatable="yes">Copy Message Link</attribute>
+      </item>
+      <item>
+        <attribute name="action">app.action</attribute>
+        <attribute name="label" translatable="yes">Forward Message</attribute>
+      </item>
+    </section>
+  </menu>
+</interface>
