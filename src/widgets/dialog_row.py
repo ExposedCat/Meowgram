@@ -24,7 +24,6 @@ from meowgram.constants import Constants
 # TODO show dialog picture
 # TODO add indicator if a message was read
 # TODO In get last active, fix unknown time
-# TODO set_dialog_status doesn't work on second time
 # TODO Don't just show "Photo" if it is actually a time
 
 
@@ -133,13 +132,10 @@ class DialogRow(Gtk.Box):
         is_pinned (bool): Whether the dialog is pinned
         """
 
-        if unread_mentions_count:
-            self.mention_status.set_visible(True)
-        elif unread_count:
-            self.unread_label.set_visible(True)
-            self.unread_label.set_label(str(unread_count))
-        elif is_pinned:
-            self.pin_status.set_visible(True)
+        self.mention_status.set_visible(unread_mentions_count)
+        self.unread_label.set_visible(unread_count > 1)
+        self.unread_label.set_label(str(unread_count))
+        self.pin_status.set_visible(is_pinned and not(unread_mentions_count or unread_count))
 
     def set_message_status(self, is_from_self):
         """Sets the status of your message sent to that dialog
