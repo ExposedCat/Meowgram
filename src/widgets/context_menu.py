@@ -24,7 +24,7 @@ class ContextMenu(Gtk.PopoverMenu):
         super().__init__()
 
         builder = Gtk.Builder()
-        builder.add_from_resource(f'/com/github/ExposedCat/Meowgram/ui/context_menus.ui')
+        builder.add_from_resource('/com/github/ExposedCat/Meowgram/ui/context_menus.ui')
         menu_model = builder.get_object(f'{menu_type}_menu')
         self.set_menu_model(menu_model)
 
