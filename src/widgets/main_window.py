@@ -43,8 +43,6 @@ class MainWindow(Adw.ApplicationWindow):
     subtitle_label = Gtk.Template.Child()
 
     main_leaflet = Gtk.Template.Child()
-    dialogs_pane = Gtk.Template.Child()
-    messages_pane = Gtk.Template.Child()
 
     dialogs_listbox = Gtk.Template.Child()
     messages_listbox = Gtk.Template.Child()
@@ -156,7 +154,7 @@ class MainWindow(Adw.ApplicationWindow):
 
     @Gtk.Template.Callback()
     def on_dialog_selected(self, listbox, row):
-        self.main_leaflet.set_visible_child(self.messages_pane)
+        self.main_leaflet.set_visible_child_name("messages-pane")
 
         try:
             dialog = row.get_child()
@@ -176,7 +174,7 @@ class MainWindow(Adw.ApplicationWindow):
             self.dialogs_listbox.unselect_row(selected_row)
 
         self.dialogs_listbox.unselect_all()
-        self.main_leaflet.set_visible_child(self.dialogs_pane)
+        self.main_leaflet.set_visible_child_name("dialogs-pane")
         self.update_headerbar(None)
         self.sidebar_button.set_active(False)
 

@@ -7,76 +7,81 @@
       <object class="AdwLeaflet" id="main_leaflet">
         <property name="transition-type">over</property>
         <child>
-          <object class="GtkBox" id="dialogs_pane">
-            <property name="orientation">vertical</property>
-            <child>
-              <object class="AdwHeaderBar">
-                <property name="show-end-title-buttons" bind-source="main_leaflet" bind-property="folded" bind-flags="sync-create"/>
-                <property name="show-start-title-buttons" bind-source="main_leaflet" bind-property="folded" bind-flags="sync-create"/>
-                <property name="title-widget">
-                  <object class="GtkLabel">
-                  </object>
-                </property>
+          <object class="AdwLeafletPage">
+            <property name="name">dialogs-pane</property>
+            <property name="child">
+              <object class="GtkBox">
+                <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkMenuButton">
-                    <property name="receives-default">True</property>
-                    <property name="menu-model">new_menu</property>
-                    <property name="icon-name">list-add-symbolic</property>
-                  </object>
-                </child>
-                <child type="end">
-                  <object class="GtkMenuButton" id="menu_button">
-                    <property name="receives-default">True</property>
-                    <property name="menu-model">primary_menu</property>
-                    <property name="icon-name">open-menu-symbolic</property>
-                  </object>
-                </child>
-                <child type="end">
-                  <object class="GtkToggleButton" id="search_button">
-                    <property name="receives-default">True</property>
+                  <object class="AdwHeaderBar">
+                    <property name="show-end-title-buttons" bind-source="main_leaflet" bind-property="folded" bind-flags="sync-create"/>
+                    <property name="show-start-title-buttons" bind-source="main_leaflet" bind-property="folded" bind-flags="sync-create"/>
+                    <property name="title-widget">
+                      <object class="GtkLabel">
+                      </object>
+                    </property>
                     <child>
-                      <object class="GtkImage">
-                        <property name="icon-name">system-search-symbolic</property>
+                      <object class="GtkMenuButton">
+                        <property name="receives-default">True</property>
+                        <property name="menu-model">new_menu</property>
+                        <property name="icon-name">list-add-symbolic</property>
+                      </object>
+                    </child>
+                    <child type="end">
+                      <object class="GtkMenuButton" id="menu_button">
+                        <property name="receives-default">True</property>
+                        <property name="menu-model">primary_menu</property>
+                        <property name="icon-name">open-menu-symbolic</property>
+                      </object>
+                    </child>
+                    <child type="end">
+                      <object class="GtkToggleButton" id="search_button">
+                        <property name="receives-default">True</property>
+                        <child>
+                          <object class="GtkImage">
+                            <property name="icon-name">system-search-symbolic</property>
+                          </object>
+                        </child>
                       </object>
                     </child>
                   </object>
                 </child>
-              </object>
-            </child>
-            <child>
-              <object class="GtkRevealer">
-                <property name="reveal_child" bind-source="search_button" bind-property="active" bind-flags="sync-create"/>
-                <property name="child">
-                  <object class="GtkSearchBar">
-                    <property name="search-mode-enabled">True</property>
+                <child>
+                  <object class="GtkRevealer">
+                    <property name="reveal_child" bind-source="search_button" bind-property="active" bind-flags="sync-create"/>
                     <property name="child">
-                      <object class="GtkSearchEntry">
-                        <property name="max-width-chars">30</property>
-                        <property name="placeholder-text" translatable="yes">Search</property>
+                      <object class="GtkSearchBar">
+                        <property name="search-mode-enabled">True</property>
+                        <property name="child">
+                          <object class="GtkSearchEntry">
+                            <property name="max-width-chars">30</property>
+                            <property name="placeholder-text" translatable="yes">Search</property>
+                          </object>
+                        </property>
                       </object>
                     </property>
                   </object>
-                </property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkScrolledWindow">
-                <property name="vexpand">True</property>
-                <property name="child">
-                  <object class="GtkViewport">
+                </child>
+                <child>
+                  <object class="GtkScrolledWindow">
+                    <property name="vexpand">True</property>
                     <property name="child">
-                      <object class="GtkListBox" id="dialogs_listbox">
-                        <signal name="row-selected" handler="on_dialog_selected" swapped="no"/>
-                        <style>
-                          <class name="dialogs-view"/>
-                          <class name="navigation-sidebar"/>
-                        </style>
+                      <object class="GtkViewport">
+                        <property name="child">
+                          <object class="GtkListBox" id="dialogs_listbox">
+                            <signal name="row-selected" handler="on_dialog_selected" swapped="no"/>
+                            <style>
+                              <class name="dialogs-view"/>
+                              <class name="navigation-sidebar"/>
+                            </style>
+                          </object>
+                        </property>
                       </object>
                     </property>
                   </object>
-                </property>
+                </child>
               </object>
-            </child>
+            </property>
           </object>
         </child>
         <child>
@@ -87,72 +92,77 @@
           </object>
         </child>
         <child>
-          <object class="GtkBox" id="messages_pane">
-            <property name="hexpand">True</property>
-            <property name="orientation">vertical</property>
-            <child>
-              <object class="AdwHeaderBar" id="messages_headerbar">
-                <property name="title-widget">
-                  <object class="GtkBox">
-                    <property name="orientation">vertical</property>
-                    <property name="valign">center</property>
-                    <child>
-                      <object class="GtkLabel" id="title_label">
-                        <style>
-                          <class name="title"/>
-                        </style>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="subtitle_label">
-                        <style>
-                          <class name="subtitle"/>
-                        </style>
-                      </object>
-                    </child>
-                  </object>
-                </property>
+          <object class="AdwLeafletPage">
+            <property name="name">messages-pane</property>
+            <property name="child">
+              <object class="GtkBox">
+                <property name="hexpand">True</property>
+                <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkButton">
-                    <property name="visible" bind-source="main_leaflet" bind-property="folded" bind-flags="sync-create"/>
-                    <property name="receives-default">True</property>
-                    <signal name="clicked" handler="on_back_button_clicked" swapped="no"/>
+                  <object class="AdwHeaderBar" id="messages_headerbar">
+                    <property name="title-widget">
+                      <object class="GtkBox">
+                        <property name="orientation">vertical</property>
+                        <property name="valign">center</property>
+                        <child>
+                          <object class="GtkLabel" id="title_label">
+                            <style>
+                              <class name="title"/>
+                            </style>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="subtitle_label">
+                            <style>
+                              <class name="subtitle"/>
+                            </style>
+                          </object>
+                        </child>
+                      </object>
+                    </property>
                     <child>
-                      <object class="GtkImage">
-                        <property name="icon-name">go-previous-symbolic</property>
+                      <object class="GtkButton">
+                        <property name="visible" bind-source="main_leaflet" bind-property="folded" bind-flags="sync-create"/>
+                        <property name="receives-default">True</property>
+                        <signal name="clicked" handler="on_back_button_clicked" swapped="no"/>
+                        <child>
+                          <object class="GtkImage">
+                            <property name="icon-name">go-previous-symbolic</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child type="end">
+                      <object class="GtkMenuButton">
+                        <property name="receives-default">True</property>
+                        <property name="menu-model">submenu</property>
+                        <property name="icon-name">view-more-symbolic</property>
+                      </object>
+                    </child>
+                    <child type="end">
+                      <object class="GtkToggleButton" id="sidebar_button">
+                        <property name="receives-default">True</property>
+                        <child>
+                          <object class="GtkImage">
+                            <property name="icon-name">toggle-sidebar-symbolic</property>
+                          </object>
+                        </child>
                       </object>
                     </child>
                   </object>
                 </child>
-                <child type="end">
-                  <object class="GtkMenuButton">
-                    <property name="receives-default">True</property>
-                    <property name="menu-model">submenu</property>
-                    <property name="icon-name">view-more-symbolic</property>
-                  </object>
-                </child>
-                <child type="end">
-                  <object class="GtkToggleButton" id="sidebar_button">
-                    <property name="receives-default">True</property>
-                    <child>
-                      <object class="GtkImage">
-                        <property name="icon-name">toggle-sidebar-symbolic</property>
-                      </object>
-                    </child>
+                <child>
+                  <object class="AdwFlap" id="channel_flap">
+                    <property name="reveal-flap" bind-source="sidebar_button" bind-property="active" bind-flags="bidirectional"/>
+                    <property name="vexpand">True</property>
+                    <property name="flap-position">end</property>
+                    <property name="fold-policy">always</property>
+                    <property name="locked">True</property>
+                    <property name="flap">channel_sidebar</property>
                   </object>
                 </child>
               </object>
-            </child>
-            <child>
-              <object class="AdwFlap" id="channel_flap">
-                <property name="reveal-flap" bind-source="sidebar_button" bind-property="active" bind-flags="bidirectional"/>
-                <property name="vexpand">True</property>
-                <property name="flap-position">end</property>
-                <property name="fold-policy">always</property>
-                <property name="locked">True</property>
-                <property name="flap">channel_sidebar</property>
-              </object>
-            </child>
+            </property>
           </object>
         </child>
       </object>
