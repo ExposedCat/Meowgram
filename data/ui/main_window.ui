@@ -295,26 +295,19 @@
   <object class="GtkBox" id="channel_sidebar">
     <property name="orientation">vertical</property>
     <property name="spacing">6</property>
+    <style>
+      <class name="dark-bg"/>
+    </style>
     <child>
       <object class="AdwAvatar">
+        <property name="text" bind-source="title_label" bind-property="label" bind-flags="sync-create"/>
+        <property name="show-initials">True</property>
         <property name="margin-start">24</property>
         <property name="margin-end">24</property>
         <property name="margin-top">24</property>
         <property name="size">144</property>
       </object>
     </child>
-    <child>
-      <object class="GtkLabel">
-        <property name="margin-top">6</property>
-        <property name="label" translatable="yes">GNOME Ru</property>
-        <style>
-          <class name="bold-label"/>
-        </style>
-      </object>
-    </child>
-    <style>
-      <class name="dark-bg"/>
-    </style>
   </object>
   <object class="GtkBox" id="account_info">
     <property name="margin-start">12</property>
