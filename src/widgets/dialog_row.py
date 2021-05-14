@@ -222,3 +222,10 @@ class DialogRow(Gtk.Box):
             return isinstance(self.dialog.entity.status, UserStatusOnline)
         except AttributeError:
             return False
+
+    def get_int_id(self):
+        try:
+            return self.chat_id.channel_id
+        except AttributeError:
+            return self.chat_id.user_id
+

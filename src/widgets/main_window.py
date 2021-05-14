@@ -65,6 +65,7 @@ class MainWindow(Adw.ApplicationWindow):
     account_info = Gtk.Template.Child()
 
     contact_name_mem = None
+    dialogs_list = {}
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -111,7 +112,12 @@ class MainWindow(Adw.ApplicationWindow):
 
     def update_dialogs_listbox(self, dialogs):
         for dialog in dialogs:
-            self.dialogs_listbox.insert(DialogRow(dialog), -1)
+            row = DialogRow(dialog)
+            self.dialogs_list[row.get_int_id()] = row
+            self.dialogs_listbox.insert(row, -1)
+
+    def get_dialogs_listbox_row(self, chat_id):
+        return self.dialogs_list[chat_id]
 
     def update_messages_listbox(self, messages):
         # current_messages = self.messages_listbox.get_children()
