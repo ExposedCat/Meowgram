@@ -5,6 +5,7 @@
     <property name="spacing">6</property>
     <child>
       <object class="AdwAvatar" id="avatar">
+        <property name="text" bind-source="sender_label" bind-property="label" bind-flags="sync-create"/>
         <property name="valign">start</property>
         <property name="show-initials">True</property>
         <property name="size">32</property>

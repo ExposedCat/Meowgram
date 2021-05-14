@@ -9,6 +9,7 @@
       <object class="GtkOverlay">
         <child>
           <object class="AdwAvatar" id="avatar">
+            <property name="text" bind-source="dialog_name_label" bind-property="label" bind-flags="sync-create"/>
             <property name="show-initials">True</property>
             <property name="size">42</property>
           </object>

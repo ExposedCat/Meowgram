@@ -10,8 +10,9 @@
           <object class="GtkBox" id="dialogs_pane">
             <property name="orientation">vertical</property>
             <child>
-              <object class="AdwHeaderBar" id="dialogs_headerbar">
-                <property name="show-end-title-buttons">False</property>
+              <object class="AdwHeaderBar">
+                <property name="show-end-title-buttons" bind-source="main_leaflet" bind-property="folded" bind-flags="sync-create"/>
+                <property name="show-start-title-buttons" bind-source="main_leaflet" bind-property="folded" bind-flags="sync-create"/>
                 <property name="title-widget">
                   <object class="GtkLabel">
                   </object>
@@ -43,7 +44,8 @@
               </object>
             </child>
             <child>
-              <object class="GtkRevealer" id="search_revealer">
+              <object class="GtkRevealer">
+                <property name="reveal_child" bind-source="search_button" bind-property="active" bind-flags="sync-create"/>
                 <property name="child">
                   <object class="GtkSearchBar">
                     <property name="search-mode-enabled">True</property>
@@ -111,8 +113,8 @@
                   </object>
                 </property>
                 <child>
-                  <object class="GtkButton" id="back_button">
-                    <property name="visible">False</property>
+                  <object class="GtkButton">
+                    <property name="visible" bind-source="main_leaflet" bind-property="folded" bind-flags="sync-create"/>
                     <property name="receives-default">True</property>
                     <signal name="clicked" handler="on_back_button_clicked" swapped="no"/>
                     <child>
@@ -143,6 +145,7 @@
             </child>
             <child>
               <object class="AdwFlap" id="channel_flap">
+                <property name="reveal-flap" bind-source="sidebar_button" bind-property="active" bind-flags="bidirectional"/>
                 <property name="vexpand">True</property>
                 <property name="flap-position">end</property>
                 <property name="fold-policy">always</property>

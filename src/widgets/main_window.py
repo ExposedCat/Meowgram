@@ -39,8 +39,6 @@ from meowgram.constants import Constants
 class MainWindow(Adw.ApplicationWindow):
     __gtype_name__ = 'MainWindow'
 
-    dialogs_headerbar = Gtk.Template.Child()
-    messages_headerbar = Gtk.Template.Child()
     title_label = Gtk.Template.Child()
     subtitle_label = Gtk.Template.Child()
 
@@ -51,9 +49,6 @@ class MainWindow(Adw.ApplicationWindow):
     dialogs_listbox = Gtk.Template.Child()
     messages_listbox = Gtk.Template.Child()
 
-    back_button = Gtk.Template.Child()
-    search_button = Gtk.Template.Child()
-    search_revealer = Gtk.Template.Child()
     sidebar_button = Gtk.Template.Child()
     channel_flap = Gtk.Template.Child()
 
@@ -77,12 +72,6 @@ class MainWindow(Adw.ApplicationWindow):
         super().__init__(**kwargs)
 
         self.menu_button.get_popover().add_child(self.account_info, "account-info")
-        self.main_leaflet.bind_property('folded', self.back_button, 'visible')
-        self.search_button.bind_property('active', self.search_revealer, 'reveal-child')
-        self.main_leaflet.bind_property('folded', self.dialogs_headerbar,
-                                        'show-end-title-buttons')
-        self.sidebar_button.bind_property('active', self.channel_flap, 'reveal-flap',
-                                          GObject.BindingFlags.BIDIRECTIONAL)
 
         self.load_window_size()
         dialogs_manager.show_dialogs(self)

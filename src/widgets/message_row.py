@@ -45,7 +45,6 @@ class MessageRow(Gtk.Box):
     def __init__(self, message):
         super().__init__()
 
-        self.sender_label.bind_property('label', self.avatar, 'text')
         self.update(message)
 
     def update(self, message):

@@ -49,7 +49,6 @@ class DialogRow(Gtk.Box):
     def __init__(self, dialog):
         super().__init__()
 
-        self.dialog_name_label.bind_property('label', self.avatar, 'text')
         self.update(dialog)
 
     def update(self, dialog):
