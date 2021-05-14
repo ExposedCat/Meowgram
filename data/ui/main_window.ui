@@ -36,8 +36,8 @@
                     </child>
                     <child type="end">
                       <object class="GtkToggleButton" id="search_button">
-                        <property name="icon-name">system-search-symbolic</property>
                         <property name="receives-default">True</property>
+                        <property name="icon-name">system-search-symbolic</property>
                       </object>
                     </child>
                   </object>
