@@ -228,4 +228,3 @@ class DialogRow(Gtk.Box):
             return self.chat_id.channel_id
         except AttributeError:
             return self.chat_id.user_id
-

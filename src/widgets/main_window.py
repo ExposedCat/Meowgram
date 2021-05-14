@@ -17,7 +17,7 @@
 
 import logging
 
-from gi.repository import Gtk, Adw, GObject, GLib, Gio
+from gi.repository import Gtk, Adw, GLib, Gio
 
 from meowgram.widgets.dialog_row import DialogRow
 from meowgram.widgets.message_row import MessageRow
