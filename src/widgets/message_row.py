@@ -131,7 +131,7 @@ class MessageRow(Gtk.Box):
         is_read (bool): If your message is already read by other
         """
 
-        self.read_status.set_visible(True)
+        self.read_status.set_visible(self.is_out)
         icon_name = 'read' if is_read else 'unread'
         self.read_status.set_from_icon_name(f'message-out-{icon_name}-symbolic')
 
