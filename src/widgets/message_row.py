@@ -108,7 +108,7 @@ class MessageRow(Gtk.Box):
         """Sets the sender of the message
 
         Parameter:
-        sender (str): The user who sent the message
+        sender (tl.types.User): The user who sent the message
         """
 
         stringified_sender = self._convert_user_to_str(sender)
