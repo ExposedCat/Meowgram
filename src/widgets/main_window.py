@@ -113,7 +113,7 @@ class MainWindow(Adw.ApplicationWindow):
         for dialog in dialogs:
             row = DialogRow(dialog)
             self.dialogs_list[row.get_int_id()] = row
-            self.dialogs_listbox.insert(row, -1)
+            self.dialogs_listbox.append(row)
 
     def get_dialogs_listbox_row(self, chat_id):
         return self.dialogs_list[chat_id]
@@ -123,12 +123,13 @@ class MainWindow(Adw.ApplicationWindow):
         # for message in current_messages:
         #     self.messages_listbox.remove(message)
 
-        for message in reversed(messages):
+        for message, next_message in zip(messages, messages[1:]):
             contact_name = message.sender.username
             message_row = MessageRow(message)
-            message_row.set_as_group(self.contact_name_mem == contact_name)
+            message_row.set_grouping(self.contact_name_mem == contact_name)
+            message_row.setup_attr_visibility(not next_message.sender.username == contact_name)
             self.contact_name_mem = contact_name
-            self.messages_listbox.insert(message_row, -1)
+            self.messages_listbox.prepend(message_row)
 
     def save_window_size(self):
         settings = Gio.Settings(Constants.APPID)

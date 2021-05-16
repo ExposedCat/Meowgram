@@ -163,8 +163,6 @@ class MessageRow(Gtk.Box):
         is_out (bool): Whether the message is from you
         """
 
-        self.sender_label.set_visible(not is_out)
-        self.avatar.set_visible(not is_out)
         if is_out:
             self.set_halign(Gtk.Align.END)
             self.message_bubble.get_style_context().add_class('message-out')
@@ -179,21 +177,32 @@ class MessageRow(Gtk.Box):
         is_action (bool): If the message is an action
         """
 
-        self.sender_label.set_visible(not is_action)
-        self.avatar.set_visible(not is_action)
         self.time_label.set_visible(not is_action)
         self.set_halign(Gtk.Align.CENTER)
         self.message_label.set_justify(Gtk.Justification.CENTER)
         self.message_bubble.get_style_context().add_class('message-action')
 
-    def set_as_group(self, is_group):
+    def set_grouping(self, is_group):
         """Styles the message if it has the same sender as before
 
         Parameter:
         is_group (bool): If the message is suppose to be shown as a group
         """
 
+        self.is_group = is_group
         if is_group:
-            self.sender_label.set_visible(False)
-            self.avatar.set_visible(False)
             self.set_margin_start(38)
+        else:
+            self.set_margin_start(0)
+
+    def setup_attr_visibility(self, is_first):
+        """Setups the visibility of avatar and sender_label. This needs to be setup
+        after set_grouping as it needs is_group property.
+
+        Parameter:
+        is_first (bool): If the message is first in the group
+        """
+
+        neither_out_nor_action = not (self.is_out or self.action)
+        self.avatar.set_visible(not self.is_group and neither_out_nor_action)
+        self.sender_label.set_visible(is_first and neither_out_nor_action)

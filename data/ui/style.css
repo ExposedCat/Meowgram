@@ -6,6 +6,10 @@
   font-size: 12px;
 }
 
+.blue {
+  color: @theme_selected_bg_color;
+}
+
 .dark-bg {
   background-color: @theme_bg_color;
 }
@@ -56,10 +60,6 @@
 .muted-badge {
   background-color: @insensitive_fg_color;
   color: @theme_bg_color;
-}
-
-.read-status {
-  color: @theme_selected_bg_color;
 }
 
 .mention-status {

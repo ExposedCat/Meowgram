@@ -6,7 +6,7 @@
     <child>
       <object class="AdwAvatar" id="avatar">
         <property name="text" bind-source="sender_label" bind-property="label" bind-flags="sync-create"/>
-        <property name="valign">start</property>
+        <property name="valign">end</property>
         <property name="show-initials">True</property>
         <property name="size">32</property>
       </object>
@@ -25,6 +25,7 @@
             <style>
               <class name="bold-label"/>
               <class name="time-label"/>
+              <class name="blue"/>
             </style>
           </object>
         </child>
@@ -66,7 +67,7 @@
                 <property name="visible">False</property>
                 <property name="pixel-size">12</property>
                 <style>
-                  <class name="read-status"/>
+                  <class name="blue"/>
                 </style>
               </object>
             </child>
