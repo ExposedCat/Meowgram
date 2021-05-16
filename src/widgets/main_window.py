@@ -74,7 +74,6 @@ class MainWindow(Adw.ApplicationWindow):
 
         self.load_window_size()
         dialogs_manager.show_dialogs(self)
-        self.update_view()
 
     def scroll_to_bottom_messages(self):
         GLib.timeout_add(
