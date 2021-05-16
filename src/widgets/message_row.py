@@ -182,27 +182,19 @@ class MessageRow(Gtk.Box):
         self.message_label.set_justify(Gtk.Justification.CENTER)
         self.message_bubble.get_style_context().add_class('message-action')
 
-    def set_grouping(self, is_group):
-        """Styles the message if it has the same sender as before
+    def set_grouping(self, is_first, is_last):
+        """Styles the message if it is first or last in a group. This needs to be setup
+        after set_grouping as it needs action and is_out property.
 
         Parameter:
-        is_group (bool): If the message is suppose to be shown as a group
-        """
-
-        self.is_group = is_group
-        if is_group:
-            self.set_margin_start(38)
-        else:
-            self.set_margin_start(0)
-
-    def setup_attr_visibility(self, is_first):
-        """Setups the visibility of avatar and sender_label. This needs to be setup
-        after set_grouping as it needs is_group property.
-
-        Parameter:
-        is_first (bool): If the message is first in the group
+        is_first (bool): If the message is first in a group
+        is_last (bool): If the message is last in a group
         """
 
         neither_out_nor_action = not (self.is_out or self.action)
-        self.avatar.set_visible(not self.is_group and neither_out_nor_action)
         self.sender_label.set_visible(is_first and neither_out_nor_action)
+        self.avatar.set_visible(is_last and neither_out_nor_action)
+        if not is_last:
+            self.set_margin_start(38)
+        else:
+            self.set_margin_start(0)

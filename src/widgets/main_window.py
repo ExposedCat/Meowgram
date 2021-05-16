@@ -126,8 +126,10 @@ class MainWindow(Adw.ApplicationWindow):
         for message, next_message in zip(messages, messages[1:]):
             contact_name = message.sender.username
             message_row = MessageRow(message)
-            message_row.set_grouping(self.contact_name_mem == contact_name)
-            message_row.setup_attr_visibility(not next_message.sender.username == contact_name)
+            message_row.set_grouping(
+                not contact_name == next_message.sender.username,
+                not self.contact_name_mem == contact_name
+            )
             self.contact_name_mem = contact_name
             self.messages_listbox.prepend(message_row)
 
