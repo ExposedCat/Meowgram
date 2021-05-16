@@ -98,7 +98,7 @@ class DialogRow(Gtk.Box):
             sender_name = ""
         else:
             sender_name = getattr(
-                last_message.sender, 'post_author', getattr(last_message.sender, 'first_name', "")
+                last_message.sender, 'first_name', getattr(last_message.sender, 'post_author', "")
             )
 
         if last_message.message:
