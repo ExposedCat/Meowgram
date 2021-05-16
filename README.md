@@ -1,3 +1,5 @@
+# NOTE: Meowgram is still under heavy development. It is still NOT recommended to use under production. But will soon do :D
+
 <h1 align="center">
   <img src="data/logo/com.github.ExposedCat.Meowgram.svg" alt="Meowgram" width="192" height="192"/><br>
   Meowgram
