@@ -55,7 +55,7 @@ class DialogRow(Gtk.Box):
         self.dialog = dialog
         self.chat_id = self.dialog.message.peer_id
 
-        self.dialog_name = getattr(self.dialog, 'title', self.dialog.name)
+        self.dialog_name = self.dialog.name
         self.last_message = self.dialog.message
         self.last_message_date = self.dialog.message.date
         self.muted_until = self.dialog.dialog.notify_settings.mute_until
