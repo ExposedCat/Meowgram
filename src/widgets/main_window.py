@@ -37,10 +37,8 @@ from meowgram.constants import Constants
 class MainWindow(Adw.ApplicationWindow):
     __gtype_name__ = 'MainWindow'
 
-    title_label = Gtk.Template.Child()
-    subtitle_label = Gtk.Template.Child()
-
     main_leaflet = Gtk.Template.Child()
+    window_title = Gtk.Template.Child()
 
     dialogs_listbox = Gtk.Template.Child()
     messages_listbox = Gtk.Template.Child()
@@ -104,8 +102,8 @@ class MainWindow(Adw.ApplicationWindow):
         except AttributeError:
             pass
 
-        self.title_label.set_text(dialog_name)
-        self.subtitle_label.set_text(subtitle)
+        self.window_title.set_title(dialog_name)
+        self.window_title.set_subtitle(subtitle)
 
     def update_dialogs_listbox(self, dialogs):
         for dialog in dialogs:

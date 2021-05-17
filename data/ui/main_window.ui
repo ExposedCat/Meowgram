@@ -97,23 +97,7 @@
                 <child>
                   <object class="AdwHeaderBar" id="messages_headerbar">
                     <property name="title-widget">
-                      <object class="GtkBox">
-                        <property name="orientation">vertical</property>
-                        <property name="valign">center</property>
-                        <child>
-                          <object class="GtkLabel" id="title_label">
-                            <style>
-                              <class name="title"/>
-                            </style>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkLabel" id="subtitle_label">
-                            <style>
-                              <class name="subtitle"/>
-                            </style>
-                          </object>
-                        </child>
+                      <object class="AdwWindowTitle" id="window_title">
                       </object>
                     </property>
                     <child>
@@ -299,7 +283,7 @@
     </style>
     <child>
       <object class="AdwAvatar">
-        <property name="text" bind-source="title_label" bind-property="label" bind-flags="sync-create"/>
+        <property name="text" bind-source="window_title" bind-property="title" bind-flags="sync-create"/>
         <property name="show-initials">True</property>
         <property name="margin-start">24</property>
         <property name="margin-end">24</property>
