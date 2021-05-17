@@ -15,8 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import logging
-
 from gi.repository import Gtk, Adw, GLib, Gio
 
 from meowgram.widgets.dialog_row import DialogRow
@@ -166,13 +164,12 @@ class MainWindow(Adw.ApplicationWindow):
 
         try:
             dialog = row.get_child()
-            self.update_headerbar(dialog)
-            messages_manager.show_messages(self, dialog.chat_id)
-            self.scroll_to_bottom_messages()
-        except AttributeError as error:
+        except AttributeError:
             self.update_headerbar(None)
-            logging.debug(error)
-            # This means that there is no selected row, so don't show messages
+        else:
+            self.update_headerbar(dialog)
+            messages_manager.show_messages(self, dialog.get_int_id())
+            self.scroll_to_bottom_messages()
 
         self.update_view()
 

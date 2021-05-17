@@ -195,9 +195,13 @@ class DialogRow(Gtk.Box):
         """
 
         try:
-            return f"{self.dialog.entity.participants_count} members"
+            parti_count = self.dialog.entity.participants_count
         except AttributeError:
             return ""
+        else:
+            parti_type = "member" if self.dialog.is_group else "subscriber"
+            parti_type = f"{parti_type}{'s'[:parti_count^1]}"
+            return f"{parti_count} {parti_type}"
 
     def get_is_bot(self):
         """Returns if the dialog is a bot
@@ -224,7 +228,6 @@ class DialogRow(Gtk.Box):
             return False
 
     def get_int_id(self):
-        try:
-            return self.chat_id.channel_id
-        except AttributeError:
-            return self.chat_id.user_id
+        chat_id_dict = self.chat_id.__dict__.values()
+        chat_id = tuple(chat_id_dict)[0]
+        return chat_id
