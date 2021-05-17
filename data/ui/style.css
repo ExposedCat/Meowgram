@@ -2,10 +2,6 @@
   font-weight: bold;
 }
 
-.time-label {
-  font-size: 12px;
-}
-
 .blue {
   color: @theme_selected_bg_color;
 }
@@ -43,6 +39,7 @@
 /* Dialog Row */
 
 .online-status {
+  -gtk-icon-shadow: 0 1px alpha(black, 0.4);
   color: @theme_selected_bg_color;
   margin: 2px;
 }
@@ -110,7 +107,6 @@ row:selected .message-bubble{
 .message-action {
   box-shadow: none;
   border-radius: 0;
-  font-size: 12px;
   color: @insensitive_fg_color;
 }
 
@@ -121,7 +117,6 @@ row:selected .message-action{
 .message-mention {
   border-left: 2px solid @theme_selected_bg_color;
   color: @insensitive_fg_color;
-  font-size: 0.99em;
   padding-right: 9px;
   padding-left: 6px;
 }
