@@ -196,5 +196,7 @@ class MessageRow(Gtk.Box):
         self.avatar.set_visible(is_last and neither_out_nor_action)
         if not is_last:
             self.set_margin_start(38)
-        else:
-            self.set_margin_start(0)
+        if is_first:
+            self.message_bubble.get_style_context().add_class('first')
+        elif is_last:
+            self.message_bubble.get_style_context().add_class('last')

@@ -176,7 +176,6 @@
                     <child>
                       <object class="GtkListBox" id="messages_listbox">
                         <property name="valign">end</property>
-                        <property name="margin-bottom">3</property>
                         <style>
                           <class name="navigation-sidebar"/>
                           <class name="messages-listbox"/>

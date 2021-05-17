@@ -78,6 +78,14 @@
   transition: 150ms ease-in-out;
 }
 
+.message-bubble.first {
+  margin-top: 3px;
+}
+
+.message-bubble.last {
+  margin-bottom: 3px;
+}
+
 row:selected .message-bubble{
   border: 1px solid @theme_selected_bg_color;
 }
@@ -129,5 +137,5 @@ row:selected .message-action{
 .messages-listbox row {
   box-shadow: none;
   background: none;
-  padding: 2px;
+  padding: 1px;
 }
