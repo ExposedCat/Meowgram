@@ -132,7 +132,7 @@ class DialogRow(Gtk.Box):
         """
 
         self.mention_status.set_visible(unread_mentions_count)
-        self.unread_label.set_visible(unread_count > 1)
+        self.unread_label.set_visible(unread_count > 1 if unread_mentions_count else unread_count)
         self.unread_label.set_label(str(unread_count))
         self.pin_status.set_visible(is_pinned and not(unread_mentions_count or unread_count))
 
