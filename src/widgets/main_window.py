@@ -25,7 +25,7 @@ from meowgram.constants import Constants
 
 # TODO Use sourceview instead of GtkEntry
 # TODO Seperate other widgets to separate files (scrolledwindow)
-# TODO fix this workaround to not select any on start
+# TODO fix it so that there is no selected row on startup
 # TODO animate scrolldown
 # TODO only show scrolldown button when scrolling down
 # TODO include in headerbar also the number of onlined members
