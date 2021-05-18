@@ -25,7 +25,6 @@
             <style>
               <class name="bold-label"/>
               <class name="caption"/>
-              <class name="blue"/>
             </style>
           </object>
         </child>

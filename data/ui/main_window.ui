@@ -17,7 +17,14 @@
                     <property name="show-end-title-buttons" bind-source="main_leaflet" bind-property="folded" bind-flags="sync-create"/>
                     <property name="show-start-title-buttons" bind-source="main_leaflet" bind-property="folded" bind-flags="sync-create"/>
                     <property name="title-widget">
-                      <object class="GtkLabel">
+                      <object class="GtkMenuButton">
+                        <property name="menu-model">pm_menu</property>
+                        <property name="has-frame">False</property>
+                        <property name="label">All Chats</property>
+                        <style>
+                          <class name="flat"/>
+                          <class name="title"/>
+                        </style>
                       </object>
                     </property>
                     <child>
