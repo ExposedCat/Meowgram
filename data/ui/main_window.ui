@@ -8,7 +8,7 @@
         <property name="transition-type">over</property>
         <child>
           <object class="AdwLeafletPage">
-            <property name="name">dialogs-pane</property>
+            <property name="name">dialogs</property>
             <property name="child">
               <object class="GtkBox">
                 <property name="orientation">vertical</property>
@@ -96,7 +96,7 @@
         </child>
         <child>
           <object class="AdwLeafletPage">
-            <property name="name">messages-pane</property>
+            <property name="name">messages</property>
             <property name="child">
               <object class="GtkBox">
                 <property name="hexpand">True</property>
@@ -123,21 +123,21 @@
                       </object>
                     </child>
                     <child type="end">
-                      <object class="GtkToggleButton" id="sidebar_button">
+                      <object class="GtkToggleButton" id="channel_pane_button">
                         <property name="receives-default">True</property>
-                        <property name="icon-name">toggle-sidebar-symbolic</property>
+                        <property name="icon-name">toggle-pane-symbolic</property>
                       </object>
                     </child>
                   </object>
                 </child>
                 <child>
                   <object class="AdwFlap" id="channel_flap">
-                    <property name="reveal-flap" bind-source="sidebar_button" bind-property="active" bind-flags="bidirectional"/>
+                    <property name="reveal-flap" bind-source="channel_pane_button" bind-property="active" bind-flags="bidirectional"/>
                     <property name="vexpand">True</property>
                     <property name="flap-position">end</property>
                     <property name="fold-policy">always</property>
                     <property name="locked">True</property>
-                    <property name="flap">channel_sidebar</property>
+                    <property name="flap">channel_pane</property>
                   </object>
                 </child>
               </object>
@@ -282,7 +282,7 @@
       <class name="message-view"/>
     </style>
   </object>
-  <object class="GtkBox" id="channel_sidebar">
+  <object class="GtkBox" id="channel_pane">
     <property name="orientation">vertical</property>
     <property name="spacing">6</property>
     <style>

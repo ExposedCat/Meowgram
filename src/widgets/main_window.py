@@ -43,7 +43,7 @@ class MainWindow(Adw.ApplicationWindow):
     dialogs_listbox = Gtk.Template.Child()
     messages_listbox = Gtk.Template.Child()
 
-    sidebar_button = Gtk.Template.Child()
+    channel_pane_button = Gtk.Template.Child()
     channel_flap = Gtk.Template.Child()
 
     send_message_revealer = Gtk.Template.Child()
@@ -81,10 +81,10 @@ class MainWindow(Adw.ApplicationWindow):
     def update_view(self):
         if self.dialogs_listbox.get_selected_row():
             self.channel_flap.set_content(self.messages_view)
-            self.sidebar_button.set_visible(True)
+            self.channel_pane_button.set_visible(True)
         else:
             self.channel_flap.set_content(self.empty_view)
-            self.sidebar_button.set_visible(False)
+            self.channel_pane_button.set_visible(False)
 
     def update_headerbar(self, dialog):
         try:
@@ -158,7 +158,7 @@ class MainWindow(Adw.ApplicationWindow):
 
     @Gtk.Template.Callback()
     def on_dialog_selected(self, listbox, row):
-        self.main_leaflet.set_visible_child_name("messages-pane")
+        self.main_leaflet.set_visible_child_name("messages")
 
         try:
             dialog = row.get_child()
@@ -177,9 +177,9 @@ class MainWindow(Adw.ApplicationWindow):
             self.dialogs_listbox.unselect_row(selected_row)
 
         self.dialogs_listbox.unselect_all()
-        self.main_leaflet.set_visible_child_name("dialogs-pane")
+        self.main_leaflet.set_visible_child_name("dialogs")
         self.update_headerbar(None)
-        self.sidebar_button.set_active(False)
+        self.channel_pane_button.set_active(False)
 
     @Gtk.Template.Callback()
     def on_message_entry_changed(self, entry):
