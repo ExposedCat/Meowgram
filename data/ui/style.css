@@ -46,7 +46,7 @@
 /* Dialog Row */
 
 .online-status {
-  -gtk-icon-shadow: 0 1px alpha(black, 0.4);
+  -gtk-icon-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
   color: @theme_selected_bg_color;
   margin: 2px;
 }
