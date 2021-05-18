@@ -68,17 +68,22 @@ class LoginWindow(Adw.Window):
     def on_text_changed(self, entry):
         text = entry.get_text()
         can_click_next = text != ''
-        if entry.props.input_purpose == Gtk.InputPurpose.PHONE:
-            text = re.sub(r'[^+\d \-()]', '', text)
-            can_click_next = not bool(re.fullmatch(r'\D*', text))
-        elif entry.props.input_purpose == Gtk.InputPurpose.DIGITS:
-            text = re.sub(r'\D', '', text)
-            can_click_next = bool(
-                re.fullmatch('\\d{%s}' % entry.get_max_length(), text)
-            )
-        if text != entry.get_text():
-            entry.error_bell()
-            entry.set_text(text)
+        try:
+            entry_input_purpose = entry.props.input_purpose
+        except AttributeError:
+            pass
+        else:
+            if entry_input_purpose == Gtk.InputPurpose.PHONE:
+                text = re.sub(r'[^+\d \-()]', '', text)
+                can_click_next = not bool(re.fullmatch(r'\D*', text))
+            elif entry_input_purpose == Gtk.InputPurpose.DIGITS:
+                text = re.sub(r'\D', '', text)
+                can_click_next = bool(
+                    re.fullmatch('\\d{%s}' % entry.get_max_length(), text)
+                )
+            if text != entry.get_text():
+                entry.error_bell()
+                entry.set_text(text)
         self.next_button.set_sensitive(can_click_next)
 
     @Gtk.Template.Callback()
