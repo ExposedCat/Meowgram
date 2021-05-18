@@ -277,7 +277,7 @@
     <property name="vexpand">True</property>
     <property name="icon-name">chat-icon-symbolic</property>
     <property name="title" translatable="yes">No chat selected</property>
-    <property name="description" translatable="yes">Select a chat to start messaging</property>
+    <property name="description" translatable="yes">Select a chat to start messaging.</property>
     <style>
       <class name="message-view"/>
     </style>
