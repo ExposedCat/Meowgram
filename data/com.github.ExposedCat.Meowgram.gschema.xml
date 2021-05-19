@@ -9,8 +9,5 @@
     <key type="ai" name="window-size">
       <default>[1000, 650]</default>
     </key>
-    <key type="b" name="is-maximized">
-      <default>false</default>
-    </key>
   </schema>
 </schemalist>
