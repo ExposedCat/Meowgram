@@ -165,10 +165,10 @@ class MessageRow(Gtk.Box):
 
         if is_out:
             self.set_halign(Gtk.Align.END)
-            self.message_bubble.get_style_context().add_class('message-out')
+            self.message_bubble.add_css_class('message-out')
         else:
             self.set_halign(Gtk.Align.START)
-            self.message_bubble.get_style_context().add_class('message-in')
+            self.message_bubble.add_css_class('message-in')
 
     def set_action(self, is_action):
         """Styles the message if it shows an action
@@ -180,7 +180,7 @@ class MessageRow(Gtk.Box):
         self.time_label.set_visible(not is_action)
         self.set_halign(Gtk.Align.CENTER)
         self.message_label.set_justify(Gtk.Justification.CENTER)
-        self.message_bubble.get_style_context().add_class('message-action')
+        self.message_bubble.add_css_class('message-action')
 
     def set_grouping(self, is_first, is_last):
         """Styles the message if it is first or last in a group. This needs to be setup
@@ -197,6 +197,6 @@ class MessageRow(Gtk.Box):
         if not is_last:
             self.set_margin_start(38)
         if is_first:
-            self.message_bubble.get_style_context().add_class('first')
+            self.message_bubble.add_css_class('first')
         elif is_last:
-            self.message_bubble.get_style_context().add_class('last')
+            self.message_bubble.add_css_class('last')

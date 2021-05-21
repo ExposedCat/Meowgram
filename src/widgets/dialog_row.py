@@ -152,11 +152,10 @@ class DialogRow(Gtk.Box):
         muted_until (datetime.datetime): The date when the dialog will be unmuted
         """
 
-        unread_label_style_context = self.unread_label.get_style_context()
         if muted_until:
-            unread_label_style_context.add_class('muted-badge')
+            self.unread_label.add_css_class('muted-badge')
         else:
-            unread_label_style_context.remove_class('muted-badge')
+            self.unread_label.remove_css_class('muted-badge')
         self.mute_status.set_visible(muted_until)
 
     def set_online_status(self, is_online):
