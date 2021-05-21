@@ -147,12 +147,10 @@
     <property name="icon-name">security-high-symbolic</property>
     <property name="title" translatable="yes">Enter the password</property>
     <child>
-      <object class="GtkEntry" id="password">
+      <object class="GtkPasswordEntry" id="password">
         <property name="halign">center</property>
+        <property name="show-peek-icon">True</property>
         <property name="placeholder-text">Password</property>
-        <property name="primary-icon-name">dialog-password-symbolic</property>
-        <property name="input-purpose">password</property>
-        <property name="visibility">False</property>
         <signal name="changed" handler="on_text_changed" swapped="no"/>
         <signal name="activate" handler="on_next_clicked" swapped="no"/>
       </object>
