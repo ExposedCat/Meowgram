@@ -81,7 +81,7 @@ class MessageRow(Gtk.Box):
         """
 
         try:
-            user_fullname = (f"{user.first_name} {user.last_name or ''}")
+            user_fullname = f"{user.first_name} {user.last_name or ''}"
         except AttributeError:
             user_fullname = user.title
         return user_fullname
