@@ -92,6 +92,8 @@ class LoginWindow(Adw.Window):
 
     @Gtk.Template.Callback()
     def on_next_clicked(self, w):
+        if not self.next_button.get_sensitive():
+            return
         current_page = self.page_carousel.get_position()
         if current_page == PHONE_NUMBER:
             login_manager.login(self, self.phone_number.get_text())
