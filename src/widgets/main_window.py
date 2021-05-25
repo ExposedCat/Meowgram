@@ -60,7 +60,6 @@ class MainWindow(Adw.ApplicationWindow):
     menu_button = Gtk.Template.Child()
     account_info = Gtk.Template.Child()
 
-    contact_name_mem = None
     dialogs_list = {}
 
     def __init__(self, **kwargs):
@@ -118,15 +117,16 @@ class MainWindow(Adw.ApplicationWindow):
         # current_messages = self.messages_listbox.get_children()
         # for message in current_messages:
         #     self.messages_listbox.remove(message)
+        from meowgram.utils.tools import previous_and_next
 
-        for message, next_message in zip(messages, messages[1:]):
-            contact_name = message.sender.username
-            message_row = MessageRow(message)
+        for previous_msg, current_msg, next_msg in previous_and_next(messages):
+            previous_msg_sender = previous_msg.sender.username if previous_msg else None
+            next_msg_sender = next_msg.sender.username if next_msg else None
+            message_row = MessageRow(current_msg)
             message_row.set_grouping(
-                not contact_name == next_message.sender.username,
-                not self.contact_name_mem == contact_name
+                not current_msg.sender.username == next_msg_sender,
+                not previous_msg_sender == current_msg.sender.username
             )
-            self.contact_name_mem = contact_name
             self.messages_listbox.prepend(message_row)
 
     def save_window_size(self):
