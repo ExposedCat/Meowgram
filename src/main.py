@@ -122,7 +122,7 @@ class Application(Gtk.Application):
         about.set_translator_credits(_("translator-credits"))
         about.set_website_label(_("GitHub"))
         about.set_website("https://github.com/ExposedCat/Meowgram")
-        about.show()
+        about.present()
 
     def on_quit(self, action, param):
         print("exit")
