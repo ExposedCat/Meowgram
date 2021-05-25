@@ -1,5 +1,6 @@
 from itertools import tee, islice, chain
 
+
 def previous_and_next(some_iterable):
     '''CC BY-SA 3.0 https://stackoverflow.com/a/1012089'''
 
