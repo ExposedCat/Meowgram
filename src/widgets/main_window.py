@@ -121,11 +121,12 @@ class MainWindow(Adw.ApplicationWindow):
 
         for previous_msg, current_msg, next_msg in previous_and_next(messages):
             previous_msg_sender = previous_msg.sender.username if previous_msg else None
+            current_msg_sender = current_msg.sender.username
             next_msg_sender = next_msg.sender.username if next_msg else None
             message_row = MessageRow(current_msg)
             message_row.set_grouping(
-                not current_msg.sender.username == next_msg_sender,
-                not previous_msg_sender == current_msg.sender.username
+                not current_msg_sender == next_msg_sender,
+                not previous_msg_sender == current_msg_sender
             )
             self.messages_listbox.prepend(message_row)
 
