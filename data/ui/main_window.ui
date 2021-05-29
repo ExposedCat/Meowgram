@@ -156,7 +156,7 @@
             <property name="valign">fill</property>
             <property name="vexpand">True</property>
             <property name="vadjustment">
-              <object class="GtkAdjustment">
+              <object class="GtkAdjustment" id="messages_adjustment">
                 <signal name="value-changed" handler="on_messages_adjustment_changed" swapped="no"/>
               </object>
             </property>
