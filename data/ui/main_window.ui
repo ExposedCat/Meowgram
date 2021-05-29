@@ -155,7 +155,11 @@
           <object class="GtkScrolledWindow">
             <property name="valign">fill</property>
             <property name="vexpand">True</property>
-            <property name="vadjustment">messages_adjustment</property>
+            <property name="vadjustment">
+              <object class="GtkAdjustment">
+                <signal name="value-changed" handler="on_messages_adjustment_changed" swapped="no"/>
+              </object>
+            </property>
             <property name="child">
               <object class="GtkViewport">
                 <style>
@@ -418,7 +422,4 @@
       </item>
     </section>
   </menu>
-  <object class="GtkAdjustment" id="messages_adjustment">
-    <signal name="value-changed" handler="on_messages_adjustment_changed" swapped="no"/>
-  </object>
 </interface>
