@@ -56,4 +56,5 @@ jobs:
       with:
         bundle: "Meowgram-dev.flatpak"
         manifest-path: "com.github.ExposedCat.Meowgram.json"
+        cache-key: flatpak-builder-${{ github.sha }}
         run-tests: "true"
