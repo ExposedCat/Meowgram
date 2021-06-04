@@ -45,7 +45,6 @@ class MessageRow(Gtk.Box):
     def __init__(self, message):
         super().__init__()
 
-        self.sender_label.bind_property('label', self.avatar, 'text')
         self.update(message)
 
     def update(self, message):
@@ -82,7 +81,7 @@ class MessageRow(Gtk.Box):
         """
 
         try:
-            user_fullname = (f"{user.first_name} {user.last_name or ''}")
+            user_fullname = f"{user.first_name} {user.last_name or ''}"
         except AttributeError:
             user_fullname = user.title
         return user_fullname
@@ -109,7 +108,7 @@ class MessageRow(Gtk.Box):
         """Sets the sender of the message
 
         Parameter:
-        sender (str): The user who sent the message
+        sender (tl.types.User): The user who sent the message
         """
 
         stringified_sender = self._convert_user_to_str(sender)
@@ -132,7 +131,7 @@ class MessageRow(Gtk.Box):
         is_read (bool): If your message is already read by other
         """
 
-        self.read_status.set_visible(True)
+        self.read_status.set_visible(self.is_out)
         icon_name = 'read' if is_read else 'unread'
         self.read_status.set_from_icon_name(f'message-out-{icon_name}-symbolic')
 
@@ -164,14 +163,12 @@ class MessageRow(Gtk.Box):
         is_out (bool): Whether the message is from you
         """
 
-        self.sender_label.set_visible(not is_out)
-        self.avatar.set_visible(not is_out)
         if is_out:
             self.set_halign(Gtk.Align.END)
-            self.message_bubble.get_style_context().add_class('message-out')
+            self.message_bubble.add_css_class('message-out')
         else:
             self.set_halign(Gtk.Align.START)
-            self.message_bubble.get_style_context().add_class('message-in')
+            self.message_bubble.add_css_class('message-in')
 
     def set_action(self, is_action):
         """Styles the message if it shows an action
@@ -180,21 +177,26 @@ class MessageRow(Gtk.Box):
         is_action (bool): If the message is an action
         """
 
-        self.sender_label.set_visible(not is_action)
-        self.avatar.set_visible(not is_action)
         self.time_label.set_visible(not is_action)
         self.set_halign(Gtk.Align.CENTER)
         self.message_label.set_justify(Gtk.Justification.CENTER)
-        self.message_bubble.get_style_context().add_class('message-action')
+        self.message_bubble.add_css_class('message-action')
 
-    def set_as_group(self, is_group):
-        """Styles the message if it has the same sender as before
+    def set_grouping(self, is_first, is_last):
+        """Styles the message if it is first or last in a group. This needs to be setup
+        after set_grouping as it needs action and is_out property.
 
         Parameter:
-        is_group (bool): If the message is suppose to be shown as a group
+        is_first (bool): If the message is first in a group
+        is_last (bool): If the message is last in a group
         """
 
-        if is_group:
-            self.sender_label.set_visible(False)
-            self.avatar.set_visible(False)
+        neither_out_nor_action = not (self.is_out or self.action)
+        self.sender_label.set_visible(is_first and neither_out_nor_action)
+        self.avatar.set_visible(is_last and neither_out_nor_action)
+        if not is_last:
             self.set_margin_start(38)
+        if is_first:
+            self.message_bubble.add_css_class('first')
+        elif is_last:
+            self.message_bubble.add_css_class('last')

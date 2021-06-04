@@ -15,9 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import logging
-
-from gi.repository import Gtk, Adw, GObject, GLib, Gio
+from gi.repository import Gtk, Adw, GLib, Gio
 
 from meowgram.widgets.dialog_row import DialogRow
 from meowgram.widgets.message_row import MessageRow
@@ -27,7 +25,7 @@ from meowgram.constants import Constants
 
 # TODO Use sourceview instead of GtkEntry
 # TODO Seperate other widgets to separate files (scrolledwindow)
-# TODO fix this workaround to not select any on start
+# TODO fix it so that there is no selected row on startup
 # TODO animate scrolldown
 # TODO only show scrolldown button when scrolling down
 # TODO include in headerbar also the number of onlined members
@@ -39,22 +37,13 @@ from meowgram.constants import Constants
 class MainWindow(Adw.ApplicationWindow):
     __gtype_name__ = 'MainWindow'
 
-    dialogs_headerbar = Gtk.Template.Child()
-    messages_headerbar = Gtk.Template.Child()
-    title_label = Gtk.Template.Child()
-    subtitle_label = Gtk.Template.Child()
-
     main_leaflet = Gtk.Template.Child()
-    dialogs_pane = Gtk.Template.Child()
-    messages_pane = Gtk.Template.Child()
+    window_title = Gtk.Template.Child()
 
     dialogs_listbox = Gtk.Template.Child()
     messages_listbox = Gtk.Template.Child()
 
-    back_button = Gtk.Template.Child()
-    search_button = Gtk.Template.Child()
-    search_revealer = Gtk.Template.Child()
-    sidebar_button = Gtk.Template.Child()
+    channel_pane_button = Gtk.Template.Child()
     channel_flap = Gtk.Template.Child()
 
     send_message_revealer = Gtk.Template.Child()
@@ -71,22 +60,15 @@ class MainWindow(Adw.ApplicationWindow):
     menu_button = Gtk.Template.Child()
     account_info = Gtk.Template.Child()
 
-    contact_name_mem = None
+    dialogs_list = {}
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
         self.menu_button.get_popover().add_child(self.account_info, "account-info")
-        self.main_leaflet.bind_property('folded', self.back_button, 'visible')
-        self.search_button.bind_property('active', self.search_revealer, 'reveal-child')
-        self.main_leaflet.bind_property('folded', self.dialogs_headerbar,
-                                        'show-end-title-buttons')
-        self.sidebar_button.bind_property('active', self.channel_flap, 'reveal-flap',
-                                          GObject.BindingFlags.BIDIRECTIONAL)
 
         self.load_window_size()
         dialogs_manager.show_dialogs(self)
-        self.update_view()
 
     def scroll_to_bottom_messages(self):
         GLib.timeout_add(
@@ -98,10 +80,10 @@ class MainWindow(Adw.ApplicationWindow):
     def update_view(self):
         if self.dialogs_listbox.get_selected_row():
             self.channel_flap.set_content(self.messages_view)
-            self.sidebar_button.set_visible(True)
+            self.channel_pane_button.set_visible(True)
         else:
             self.channel_flap.set_content(self.empty_view)
-            self.sidebar_button.set_visible(False)
+            self.channel_pane_button.set_visible(False)
 
     def update_headerbar(self, dialog):
         try:
@@ -119,24 +101,34 @@ class MainWindow(Adw.ApplicationWindow):
         except AttributeError:
             pass
 
-        self.title_label.set_text(dialog_name)
-        self.subtitle_label.set_text(subtitle)
+        self.window_title.set_title(dialog_name)
+        self.window_title.set_subtitle(subtitle)
 
     def update_dialogs_listbox(self, dialogs):
         for dialog in dialogs:
-            self.dialogs_listbox.insert(DialogRow(dialog), -1)
+            row = DialogRow(dialog)
+            self.dialogs_list[row.get_int_id()] = row
+            self.dialogs_listbox.append(row)
+
+    def get_dialogs_listbox_row(self, chat_id):
+        return self.dialogs_list[chat_id]
 
     def update_messages_listbox(self, messages):
         # current_messages = self.messages_listbox.get_children()
         # for message in current_messages:
         #     self.messages_listbox.remove(message)
+        from meowgram.utils.tools import previous_and_next
 
-        for message in reversed(messages):
-            contact_name = message.sender.username
-            message_row = MessageRow(message)
-            message_row.set_as_group(self.contact_name_mem == contact_name)
-            self.contact_name_mem = contact_name
-            self.messages_listbox.insert(message_row, -1)
+        for previous_msg, current_msg, next_msg in previous_and_next(messages):
+            previous_msg_sender = previous_msg.sender.username if previous_msg else None
+            current_msg_sender = current_msg.sender.username
+            next_msg_sender = next_msg.sender.username if next_msg else None
+            message_row = MessageRow(current_msg)
+            message_row.set_grouping(
+                not current_msg_sender == next_msg_sender,
+                not previous_msg_sender == current_msg_sender
+            )
+            self.messages_listbox.prepend(message_row)
 
     def save_window_size(self):
         settings = Gio.Settings(Constants.APPID)
@@ -167,17 +159,16 @@ class MainWindow(Adw.ApplicationWindow):
 
     @Gtk.Template.Callback()
     def on_dialog_selected(self, listbox, row):
-        self.main_leaflet.set_visible_child(self.messages_pane)
+        self.main_leaflet.set_visible_child_name("messages")
 
         try:
             dialog = row.get_child()
-            self.update_headerbar(dialog)
-            messages_manager.show_messages(self, dialog.chat_id)
-            self.scroll_to_bottom_messages()
-        except AttributeError as error:
+        except AttributeError:
             self.update_headerbar(None)
-            logging.debug(error)
-            # This means that there is no selected row, so don't show messages
+        else:
+            self.update_headerbar(dialog)
+            messages_manager.show_messages(self, dialog.get_int_id())
+            self.scroll_to_bottom_messages()
 
         self.update_view()
 
@@ -187,9 +178,9 @@ class MainWindow(Adw.ApplicationWindow):
             self.dialogs_listbox.unselect_row(selected_row)
 
         self.dialogs_listbox.unselect_all()
-        self.main_leaflet.set_visible_child(self.dialogs_pane)
+        self.main_leaflet.set_visible_child_name("dialogs")
         self.update_headerbar(None)
-        self.sidebar_button.set_active(False)
+        self.channel_pane_button.set_active(False)
 
     @Gtk.Template.Callback()
     def on_message_entry_changed(self, entry):

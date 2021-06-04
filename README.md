@@ -1,3 +1,5 @@
+# NOTE: Meowgram is still under heavy development. It is still NOT recommended to use under production. But will soon do :D
+
 <h1 align="center">
   <img src="data/logo/com.github.ExposedCat.Meowgram.svg" alt="Meowgram" width="192" height="192"/><br>
   Meowgram
@@ -16,7 +18,7 @@
   <img src="screenshots/Meowgram-preview.png" alt="Preview"/>
 </p>
 
-## 🐱 Why Meogram?
+## 🐱 Why Meowgram?
 Meowgram = Meow + Gram :D  
 **Meow** - Talking cats sound. It's a symbol of unique and user friendly UI of client, just like a cute kitten.  
 **Gram** - Part of platform name: Telegram. It says about which messanger is client made for.  
