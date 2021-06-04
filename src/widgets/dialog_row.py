@@ -24,7 +24,7 @@ from meowgram.constants import Constants
 # TODO show dialog picture
 # TODO add indicator if a message was read
 # TODO In get last active, fix unknown time
-# TODO Don't just show "Photo" if it is actually a file
+# TODO Don't just show "Photo" if it is actually a time
 
 
 @Gtk.Template(resource_path=f'{Constants.PATHID}/ui/dialog_row.ui')
@@ -49,13 +49,14 @@ class DialogRow(Gtk.Box):
     def __init__(self, dialog):
         super().__init__()
 
+        self.dialog_name_label.bind_property('label', self.avatar, 'text')
         self.update(dialog)
 
     def update(self, dialog):
         self.dialog = dialog
         self.chat_id = self.dialog.message.peer_id
 
-        self.dialog_name = self.dialog.name
+        self.dialog_name = getattr(self.dialog, 'title', self.dialog.name)
         self.last_message = self.dialog.message
         self.last_message_date = self.dialog.message.date
         self.muted_until = self.dialog.dialog.notify_settings.mute_until
@@ -98,7 +99,7 @@ class DialogRow(Gtk.Box):
             sender_name = ""
         else:
             sender_name = getattr(
-                last_message.sender, 'first_name', getattr(last_message.sender, 'post_author', "")
+                last_message.sender, 'post_author', getattr(last_message.sender, 'first_name', "")
             )
 
         if last_message.message:
@@ -132,7 +133,7 @@ class DialogRow(Gtk.Box):
         """
 
         self.mention_status.set_visible(unread_mentions_count)
-        self.unread_label.set_visible(unread_count > 1 if unread_mentions_count else unread_count)
+        self.unread_label.set_visible(unread_count > 1)
         self.unread_label.set_label(str(unread_count))
         self.pin_status.set_visible(is_pinned and not(unread_mentions_count or unread_count))
 
@@ -152,10 +153,11 @@ class DialogRow(Gtk.Box):
         muted_until (datetime.datetime): The date when the dialog will be unmuted
         """
 
+        unread_label_style_context = self.unread_label.get_style_context()
         if muted_until:
-            self.unread_label.add_css_class('muted-badge')
+            unread_label_style_context.add_class('muted-badge')
         else:
-            self.unread_label.remove_css_class('muted-badge')
+            unread_label_style_context.remove_class('muted-badge')
         self.mute_status.set_visible(muted_until)
 
     def set_online_status(self, is_online):
@@ -194,13 +196,9 @@ class DialogRow(Gtk.Box):
         """
 
         try:
-            parti_count = self.dialog.entity.participants_count
+            return f"{self.dialog.entity.participants_count} members"
         except AttributeError:
             return ""
-        else:
-            parti_type = "member" if self.dialog.is_group else "subscriber"
-            parti_type = f"{parti_type}{'s'[:parti_count^1]}"
-            return f"{parti_count} {parti_type}"
 
     def get_is_bot(self):
         """Returns if the dialog is a bot
@@ -225,8 +223,3 @@ class DialogRow(Gtk.Box):
             return isinstance(self.dialog.entity.status, UserStatusOnline)
         except AttributeError:
             return False
-
-    def get_int_id(self):
-        chat_id_dict = self.chat_id.__dict__.values()
-        chat_id = tuple(chat_id_dict)[0]
-        return chat_id

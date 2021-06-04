@@ -2,9 +2,9 @@ name: Unit Testing
 
 on:
   push:
-    branches: [main]
+    branches: [master]
   pull_request:
-    branches: [main]
+    branches: [master]
 
 jobs:
   flake8:
@@ -56,5 +56,4 @@ jobs:
       with:
         bundle: "Meowgram-dev.flatpak"
         manifest-path: "com.github.ExposedCat.Meowgram.json"
-        cache-key: flatpak-builder-${{ github.sha }}
         run-tests: "true"

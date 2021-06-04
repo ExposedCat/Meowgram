@@ -9,7 +9,6 @@
       <object class="GtkOverlay">
         <child>
           <object class="AdwAvatar" id="avatar">
-            <property name="text" bind-source="dialog_name_label" bind-property="label" bind-flags="sync-create"/>
             <property name="show-initials">True</property>
             <property name="size">42</property>
           </object>
@@ -32,8 +31,7 @@
     <child>
       <object class="GtkBox">
         <property name="orientation">vertical</property>
-        <property name="valign">center</property>
-        <property name="spacing">2</property>
+        <property name="homogeneous">True</property>
         <child>
           <object class="GtkBox">
             <property name="spacing">6</property>
@@ -67,7 +65,7 @@
                     <property name="pixel-size">12</property>
                     <property name="icon-name">object-select-symbolic</property>
                     <style>
-                      <class name="blue"/>
+                      <class name="read-status"/>
                     </style>
                   </object>
                 </child>
@@ -75,7 +73,7 @@
                   <object class="GtkLabel" id="time_label">
                     <style>
                       <class name="dim-label"/>
-                      <class name="caption"/>
+                      <class name="time-label"/>
                     </style>
                   </object>
                 </child>
@@ -88,9 +86,6 @@
             <child>
               <object class="GtkLabel" id="message_sender_label">
                 <property name="xalign">0</property>
-                <style>
-                  <class name="caption"/>
-                </style>
               </object>
             </child>
             <child>
@@ -98,7 +93,6 @@
                 <property name="ellipsize">end</property>
                 <property name="xalign">0</property>
                 <style>
-                  <class name="caption"/>
                   <class name="dim-label"/>
                 </style>
               </object>

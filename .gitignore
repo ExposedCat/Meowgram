@@ -1,6 +1,5 @@
 ### Flatpak ###
 .flatpak-builder
-.flatpak
 build
 build-dir
 builddir

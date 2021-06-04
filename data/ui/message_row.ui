@@ -5,8 +5,7 @@
     <property name="spacing">6</property>
     <child>
       <object class="AdwAvatar" id="avatar">
-        <property name="text" bind-source="sender_label" bind-property="label" bind-flags="sync-create"/>
-        <property name="valign">end</property>
+        <property name="valign">start</property>
         <property name="show-initials">True</property>
         <property name="size">32</property>
       </object>
@@ -24,7 +23,7 @@
             <property name="halign">start</property>
             <style>
               <class name="bold-label"/>
-              <class name="caption"/>
+              <class name="time-label"/>
             </style>
           </object>
         </child>
@@ -57,7 +56,7 @@
               <object class="GtkLabel" id="time_label">
                 <style>
                   <class name="dim-label"/>
-                  <class name="caption"/>
+                  <class name="time-label"/>
                 </style>
               </object>
             </child>
@@ -66,7 +65,7 @@
                 <property name="visible">False</property>
                 <property name="pixel-size">12</property>
                 <style>
-                  <class name="blue"/>
+                  <class name="read-status"/>
                 </style>
               </object>
             </child>
