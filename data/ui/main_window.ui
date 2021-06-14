@@ -49,17 +49,12 @@
                   </object>
                 </child>
                 <child>
-                  <object class="GtkRevealer">
-                    <property name="reveal_child" bind-source="search_button" bind-property="active" bind-flags="sync-create"/>
+                  <object class="GtkSearchBar">
+                    <property name="search-mode-enabled" bind-source="search_button" bind-property="active"/>
                     <property name="child">
-                      <object class="GtkSearchBar">
-                        <property name="search-mode-enabled">True</property>
-                        <property name="child">
-                          <object class="GtkSearchEntry">
-                            <property name="max-width-chars">30</property>
-                            <property name="placeholder-text" translatable="yes">Search</property>
-                          </object>
-                        </property>
+                      <object class="GtkSearchEntry">
+                        <property name="max-width-chars">30</property>
+                        <property name="placeholder-text" translatable="yes">Search</property>
                       </object>
                     </property>
                   </object>
