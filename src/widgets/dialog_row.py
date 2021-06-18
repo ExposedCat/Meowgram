@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from gi.repository import Gtk
+from gi.repository import Gtk, GObject
 from telethon.tl.types import UserStatusOffline, UserStatusRecently, UserStatusOnline
 
 from meowgram.utils.fuzzify import Fuzzify
@@ -46,10 +46,15 @@ class DialogRow(Gtk.Box):
     unread_label = Gtk.Template.Child()
     pin_status = Gtk.Template.Child()
 
-    def __init__(self, dialog):
+    title = GObject.Property(type=str, default='')
+    last_message = GObject.Property(type=str, default='')
+
+    def __init__(self):
         super().__init__()
 
-        self.update(dialog)
+        self.bind_property('title', self.dialog_name_label, 'label', GObject.BindingFlags.SYNC_CREATE)
+
+        # self.update(dialog)
 
     def update(self, dialog):
         self.dialog = dialog

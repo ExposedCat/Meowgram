@@ -40,7 +40,7 @@ class MainWindow(Adw.ApplicationWindow):
     main_leaflet = Gtk.Template.Child()
     window_title = Gtk.Template.Child()
 
-    dialogs_listbox = Gtk.Template.Child()
+    # dialogs_listbox = Gtk.Template.Child()
     messages_listbox = Gtk.Template.Child()
 
     channel_pane_button = Gtk.Template.Child()
@@ -60,10 +60,14 @@ class MainWindow(Adw.ApplicationWindow):
     menu_button = Gtk.Template.Child()
     account_info = Gtk.Template.Child()
 
+    selection = Gtk.Template.Child()
+
     dialogs_list = {}
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+
+        self.selection.set_model(dialogs_manager.dialog_model)
 
         self.menu_button.get_popover().add_child(self.account_info, "account-info")
 

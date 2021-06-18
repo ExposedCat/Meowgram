@@ -63,16 +63,34 @@
                   <object class="GtkScrolledWindow">
                     <property name="vexpand">True</property>
                     <property name="child">
-                      <object class="GtkViewport">
-                        <property name="child">
-                          <object class="GtkListBox" id="dialogs_listbox">
-                            <signal name="row-selected" handler="on_dialog_selected" swapped="no"/>
-                            <style>
-                              <class name="dialogs-view"/>
-                              <class name="navigation-sidebar"/>
-                            </style>
+                      <object class="GtkListView">
+                        <signal name="activate" handler="on_dialog_selected"/>
+                        <property name="model">
+                          <object class="GtkSingleSelection" id="selection"/>
+                        </property>
+                        <property name="factory">
+                          <object class="GtkBuilderListItemFactory">
+                            <property name="bytes"><![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="GtkListItem">
+    <property name="child">
+      <object class="DialogRow">
+        <binding name="title">
+          <lookup type="Dialog" name="name">
+            <lookup name="item">GtkListItem</lookup>
+          </lookup>
+        </binding>
+      </object>
+    </property>
+  </template>
+</interface>
+                          ]]></property>
                           </object>
                         </property>
+                        <style>
+                          <class name="navigation-sidebar"/>
+                        </style>
                       </object>
                     </property>
                   </object>
