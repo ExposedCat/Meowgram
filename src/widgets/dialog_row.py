@@ -202,10 +202,10 @@ class DialogRow(Gtk.Box):
             parti_count = self.dialog.entity.participants_count
         except AttributeError:
             return ""
-        else:
-            parti_type = "member" if self.dialog.is_group else "subscriber"
-            parti_type = f"{parti_type}{'s'[:parti_count^1]}"
-            return f"{parti_count} {parti_type}"
+
+        parti_type = "member" if self.dialog.is_group else "subscriber"
+        parti_type = f"{parti_type}{'s'[:parti_count^1]}"
+        return f"{parti_count} {parti_type}"
 
     def get_is_bot(self):
         """Returns if the dialog is a bot
