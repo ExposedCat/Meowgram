@@ -76,8 +76,28 @@
   <template class="GtkListItem">
     <property name="child">
       <object class="DialogRow">
-        <binding name="title">
+        <binding name="name">
           <lookup type="Dialog" name="name">
+            <lookup name="item">GtkListItem</lookup>
+          </lookup>
+        </binding>
+        <binding name="subtitle">
+          <lookup type="Dialog" name="last_message">
+            <lookup name="item">GtkListItem</lookup>
+          </lookup>
+        </binding>
+        <binding name="date">
+          <lookup type="Dialog" name="last_message_date">
+            <lookup name="item">GtkListItem</lookup>
+          </lookup>
+        </binding>
+        <binding name="muted_until">
+          <lookup type="Dialog" name="muted_until">
+            <lookup name="item">GtkListItem</lookup>
+          </lookup>
+        </binding>
+        <binding name="is_user">
+          <lookup type="Dialog" name="is_user">
             <lookup name="item">GtkListItem</lookup>
           </lookup>
         </binding>
