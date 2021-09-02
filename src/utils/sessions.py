@@ -1,6 +1,6 @@
 import gi
 gi.require_version('Secret', '1')
-from gi.repository import Secret
+from gi.repository import GLib, Secret
 
 SESSION_SCHEMA = Secret.Schema.new(
     "org.mock.type.Store",
@@ -13,11 +13,17 @@ SESSION_SCHEMA = Secret.Schema.new(
 
 class SessionManager:
     def get_sessions(self):
-        sessions = Secret.password_lookup_sync(
-            SESSION_SCHEMA, {'name': 'session'}, None
-        )
+        try:
+            sessions = Secret.password_lookup_sync(
+                SESSION_SCHEMA, {'name': 'session'}, None
+            )
+        except GLib.Error as e:
+            print(e)
+            sessions = None
+
         if not sessions:
             return None
+
         return sessions.split('][')
 
     def add_session(self, session):
@@ -26,11 +32,17 @@ class SessionManager:
             sessions = session
         else:
             sessions += f'][{session}'
-        Secret.password_store_sync(
-            SESSION_SCHEMA, {'name': 'session'}, Secret.COLLECTION_DEFAULT,
-            'session', sessions,
-            None
-        )
+
+        try:
+            Secret.password_store_sync(
+                SESSION_SCHEMA, {'name': 'session'}, Secret.COLLECTION_DEFAULT,
+                'session', sessions,
+                None
+            )
+        except GLib.Error as e:
+            print(e)
+            return
+
         print(self.get_sessions())
 
 
