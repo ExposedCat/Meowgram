@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from gi.repository import Gtk
+from gi.repository import Gtk, GObject
 from telethon.tl.types import UserStatusOffline, UserStatusRecently, UserStatusOnline
 
 from meowgram.utils.fuzzify import Fuzzify
@@ -46,55 +46,36 @@ class DialogRow(Gtk.Box):
     unread_label = Gtk.Template.Child()
     pin_status = Gtk.Template.Child()
 
-    def __init__(self, dialog):
+    _name = None
+    _subtitle = None
+    _date = None
+    _muted_until = None
+
+    is_user = GObject.Property(type=bool, default=False)
+
+    def __init__(self):
         super().__init__()
 
-        self.update(dialog)
+    @GObject.Property(type=str)
+    def name(self):
+        return self._name
 
-    def update(self, dialog):
-        self.dialog = dialog
-        self.chat_id = self.dialog.message.peer_id
+    @name.setter  # type: ignore
+    def name(self, name):
+        self._name = name
+        self.dialog_name_label.set_text(name)
 
-        self.dialog_name = self.dialog.name
-        self.last_message = self.dialog.message
-        self.last_message_date = self.dialog.message.date
-        self.muted_until = self.dialog.dialog.notify_settings.mute_until
-        self.unread_mentions_count = self.dialog.unread_mentions_count
-        self.unread_count = self.dialog.unread_count
-        self.is_pinned = self.dialog.pinned
-        self.is_from_self = self.dialog.message.out
-        self.is_user = self.dialog.is_user
-        self.is_online = self.get_is_online()
+    @GObject.Property(type=object)
+    def subtitle(self):
+        return self._subtitle
 
-        self.set_dialog_name(self.dialog_name)
-        self.set_last_message(self.last_message, self.is_user)
-        self.set_last_message_date(self.last_message_date)
-
-        self.set_message_status(self.is_from_self)
-        self.set_dialog_status(self.unread_mentions_count, self.unread_count, self.is_pinned)
-        self.set_mute_status(self.muted_until)
-        self.set_online_status(self.is_online)
-
-    def set_dialog_name(self, dialog_name):
-        """Sets the dialog name of the dialog
-
-        Parameter:
-        dialog_name (str): The title of the dialog
-        """
-
-        self.dialog_name_label.set_text(dialog_name)
-
-    def set_last_message(self, last_message, is_user):
-        """Sets the last message of the dialog
-
-        Parameters:
-        last_message (tl.patched.Message): The last message from the dialog
-        is_user (bool): If the dialog is a user
-        """
+    @subtitle.setter  # type: ignore
+    def subtitle(self, last_message):
+        self._subtitle = last_message
 
         if last_message.out:
             sender_name = "You"
-        elif is_user:
+        elif self.is_user:
             sender_name = ""
         else:
             sender_name = getattr(
@@ -112,15 +93,49 @@ class DialogRow(Gtk.Box):
         self.last_message_label.set_text(message_text)
         self.message_sender_label.set_text(f"{sender_name}{': ' if sender_name else ''}")
 
-    def set_last_message_date(self, time):
-        """Sets the time sent of the last message
+    @GObject.Property(type=object, default=_date)
+    def date(self):
+        return self._date
 
-        Parameter:
-        time (datetime.datetime): The last message from the dialog
-        """
+    @date.setter  # type: ignore
+    def date(self, date):
+        self._date = date
+        fuzzified_date = Fuzzify.dialog_last_message(date)
+        self.time_label.set_label(fuzzified_date)
 
-        fuzzified_time = Fuzzify.dialog_last_message(time)
-        self.time_label.set_text(fuzzified_time)
+    @GObject.Property(type=object)
+    def muted_until(self):
+        return self._muted_until
+
+    @muted_until.setter  # type: ignore
+    def muted_until(self, muted_until):
+        self._muted_until = muted_until
+
+        if muted_until:
+            self.unread_label.add_css_class('muted-badge')
+        else:
+            self.unread_label.remove_css_class('muted-badge')
+        self.mute_status.set_visible(muted_until)
+
+    def update(self, dialog):
+        self.dialog = dialog
+        self.chat_id = self.dialog.message.peer_id
+
+        self.unread_mentions_count = self.dialog.unread_mentions_count
+        self.unread_count = self.dialog.unread_count
+        self.is_pinned = self.dialog.pinned
+        self.is_from_self = self.dialog.message.out
+        self.is_user = self.dialog.is_user
+        self.is_online = self.get_is_online()
+
+        self.set_dialog_name(self.dialog_name)
+        self.set_last_message(self.last_message, self.is_user)
+        self.set_last_message_date(self.last_message_date)
+
+        self.set_message_status(self.is_from_self)
+        self.set_dialog_status(self.unread_mentions_count, self.unread_count, self.is_pinned)
+        self.set_mute_status(self.muted_until)
+        self.set_online_status(self.is_online)
 
     def set_dialog_status(self, unread_mentions_count, unread_count, is_pinned):
         """Sets the status of the dialog
@@ -144,19 +159,6 @@ class DialogRow(Gtk.Box):
         """
 
         self.read_status.set_visible(is_from_self)
-
-    def set_mute_status(self, muted_until):
-        """Sets the mute status of the dialog
-
-        Parameter:
-        muted_until (datetime.datetime): The date when the dialog will be unmuted
-        """
-
-        if muted_until:
-            self.unread_label.add_css_class('muted-badge')
-        else:
-            self.unread_label.remove_css_class('muted-badge')
-        self.mute_status.set_visible(muted_until)
 
     def set_online_status(self, is_online):
         """Sets the online status of the dialog
@@ -197,10 +199,10 @@ class DialogRow(Gtk.Box):
             parti_count = self.dialog.entity.participants_count
         except AttributeError:
             return ""
-        else:
-            parti_type = "member" if self.dialog.is_group else "subscriber"
-            parti_type = f"{parti_type}{'s'[:parti_count^1]}"
-            return f"{parti_count} {parti_type}"
+
+        parti_type = "member" if self.dialog.is_group else "subscriber"
+        parti_type = f"{parti_type}{'s'[:parti_count^1]}"
+        return f"{parti_count} {parti_type}"
 
     def get_is_bot(self):
         """Returns if the dialog is a bot
